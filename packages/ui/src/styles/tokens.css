@@ -1,0 +1,166 @@
+/* =================================================================
+   Z Design System — Tokens v2 (Serene System)
+   Source of truth: brand/system/v2/brand-direction-v2.md
+   Light-mode-first. Dark mode is a product surface, not the brand.
+   ================================================================= */
+
+:root {
+  /* -------- Grounds (the canvas) -------- */
+  --zds-bg:           #F6F5F1;  /* warm cream, default page field */
+  --zds-paper:        #FFFFFF;  /* true white, floating modules only */
+  --zds-cream:        #F9F7F1;  /* slightly lifted cream, nested plates */
+  --zds-mist:         #F4F2ED;  /* cooler cream, sidebars + rest states */
+
+  /* Sky band (parallax + section-break gradients) */
+  --zds-sky-1:        #CFE0EA;  /* soft blue zenith */
+  --zds-sky-2:        #DCE7EC;
+  --zds-sky-3:        #ECE6DE;
+  --zds-sky-4:        #F3DFCD;  /* warm peach horizon */
+  --zds-sky-5:        #F7EEE3;  /* cloud-wash bottom */
+
+  /* -------- Ink (text + structure on light) -------- */
+  --zds-ink-950:      #0B0B0D;
+  --zds-ink-900:      #1A1A1D;
+  --zds-ink-800:      #2A2A2E;
+  --zds-ink-700:      #44444A;
+  --zds-ink-500:      #7A7A80;
+  --zds-ink-400:      #9B9BA0;
+  --zds-ink-300:      #C4C4C8;
+  --zds-ink-200:      #DFDFE1;
+  --zds-ink-100:      #ECECEE;
+
+  /* Text on light ground */
+  --zds-text:               #0B0B0D;
+  --zds-text-secondary:     rgba(11, 11, 13, 0.64);
+  --zds-text-tertiary:      rgba(11, 11, 13, 0.44);
+
+  /* Text on dark surfaces (product mode + photo overlays) */
+  --zds-ondark-primary:     rgba(255, 255, 255, 0.95);
+  --zds-ondark-secondary:   rgba(255, 255, 255, 0.66);
+  --zds-ondark-tertiary:    rgba(255, 255, 255, 0.44);
+
+  /* -------- Accents (one at a time per surface) -------- */
+  --zds-mint-300:     #7FD6B4;  /* hover halos, pill fills */
+  --zds-mint-500:     #3FB58A;  /* the brand UI accent */
+  --zds-zcash-500:    #F4B731;  /* the CTA color, one per screen */
+  --zds-moss-400:     #6FA389;  /* editorial green, marginalia */
+  --zds-stone-600:    #6B6860;  /* warm earth neutral, photo blends */
+
+  /* Status — calm, single-source */
+  --zds-positive:     #3FB58A;  /* mint 500 */
+  --zds-positive-wash:rgba(63, 181, 138, 0.10);
+  --zds-negative:     #D77A6E;  /* desaturated terracotta, single source */
+  --zds-negative-wash:rgba(215, 122, 110, 0.10);
+  --zds-pending:      #6B6860;  /* stone 600 */
+
+  /* -------- Lines & dividers -------- */
+  --zds-line:         rgba(11, 11, 13, 0.08);
+  --zds-line-soft:    rgba(11, 11, 13, 0.05);
+  --zds-line-strong:  rgba(11, 11, 13, 0.16);
+  --zds-line-focus:   rgba(63, 181, 138, 0.32);   /* mint focus ring */
+
+  /* -------- Surface elevations -------- */
+  --zds-shadow-plate:
+    0 1px 0 rgba(255,255,255,0.6) inset,
+    0 4px 12px rgba(11,11,13,0.04);
+  --zds-shadow-plate-hover:
+    0 1px 0 rgba(255,255,255,0.7) inset,
+    0 10px 24px rgba(11,11,13,0.08);
+  --zds-shadow-glass:
+    0 1px 0 rgba(255,255,255,0.5) inset,
+    0 4px 14px rgba(11,11,13,0.06);
+  --zds-shadow-pop:
+    0 18px 40px rgba(11,11,13,0.10);
+
+  /* -------- Aurora wash (peach to cream radial, atmospheric blob) -------- */
+  --zds-aurora-warm: radial-gradient(60% 50% at 60% 45%,
+    rgba(243, 204, 180, 0.55) 0%,
+    rgba(243, 204, 180, 0.18) 40%,
+    transparent 75%);
+  --zds-aurora-cool: radial-gradient(55% 50% at 50% 40%,
+    rgba(178, 206, 219, 0.45) 0%,
+    rgba(178, 206, 219, 0.14) 45%,
+    transparent 78%);
+
+  /* -------- Radius -------- */
+  --zds-radius-sm:    8px;
+  --zds-radius-md:    14px;
+  --zds-radius-lg:    20px;
+  --zds-radius-xl:    28px;
+  --zds-radius-pill:  9999px;
+
+  /* -------- Spacing & rhythm -------- */
+  --zds-container:    1280px;
+  --zds-container-wide: 1440px;
+  --zds-gutter:       clamp(20px, 4vw, 56px);
+
+  --zds-space-1:      4px;
+  --zds-space-2:      8px;
+  --zds-space-3:      12px;
+  --zds-space-4:      16px;
+  --zds-space-5:      24px;
+  --zds-space-6:      32px;
+  --zds-space-7:      48px;
+  --zds-space-8:      64px;
+  --zds-space-9:      96px;
+
+  /* -------- Type -------- */
+  --zds-font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --zds-font-body:    'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+  --zds-font-serif:   'Instrument Serif', ui-serif, Georgia, serif;
+  --zds-font-mono:    'JetBrains Mono', ui-monospace, Menlo, monospace;
+
+  --zds-display-xl:   clamp(56px, 8.6vw, 136px);
+  --zds-display-l:    clamp(44px, 6vw,    96px);
+  --zds-display-m:    clamp(32px, 4vw,    60px);
+  --zds-display-s:    clamp(24px, 2.4vw,  38px);
+  --zds-body-l:       20px;
+  --zds-body-m:       16px;
+  --zds-body-s:       14px;
+  --zds-caption:      12px;
+
+  /* -------- Motion -------- */
+  --zds-ease-out:     cubic-bezier(0.20, 0.80, 0.20, 1.00);
+  --zds-ease-settle:  cubic-bezier(0.16, 1.00, 0.30, 1.00);
+  --zds-dur-fast:     180ms;
+  --zds-dur-med:      420ms;
+  --zds-dur-slow:     720ms;
+
+  /* -------- Dotted micro-grid (data plate texture) -------- */
+  --zds-dotted-grid:
+    radial-gradient(circle, rgba(11, 11, 13, 0.06) 1px, transparent 1px) 0 0 / 12px 12px;
+
+  /* -------- v1 → v2 compatibility aliases (transitional) --------
+     Legacy code reads --zds-gold / --zds-mint / --zds-muted / --zds-warning.
+     These map to v2 equivalents so untouched surfaces keep working.
+     Remove the aliases once `grep -r "zds-gold\|zds-mint\b\|zds-muted\|zds-warning"` is empty. */
+  --zds-gold:    var(--zds-zcash-500);
+  --zds-mint:    var(--zds-mint-500);
+  --zds-muted:   var(--zds-text-secondary);
+  --zds-warning: var(--zds-negative);
+}
+
+/* =================================================================
+   Dark surface (product-only, not the marketing brand)
+   ================================================================= */
+[data-theme="dark"] {
+  --zds-bg:                 #0B0B0D;
+  --zds-paper:              #16161A;
+  --zds-cream:              #1A1A1D;
+  --zds-mist:               #1F1F22;
+
+  --zds-text:               rgba(255, 255, 255, 0.95);
+  --zds-text-secondary:     rgba(255, 255, 255, 0.66);
+  --zds-text-tertiary:      rgba(255, 255, 255, 0.44);
+
+  --zds-line:               rgba(255, 255, 255, 0.10);
+  --zds-line-soft:          rgba(255, 255, 255, 0.06);
+  --zds-line-strong:        rgba(255, 255, 255, 0.18);
+
+  --zds-shadow-plate:
+    0 1px 0 rgba(255,255,255,0.06) inset,
+    0 6px 18px rgba(0,0,0,0.45);
+  --zds-shadow-plate-hover:
+    0 1px 0 rgba(255,255,255,0.10) inset,
+    0 12px 28px rgba(0,0,0,0.55);
+}

@@ -1,0 +1,12 @@
+# Don't ship build infrastructure to npm consumers.
+node_modules
+*.log
+*.tsbuildinfo
+.DS_Store
+
+# Source TSX is what we ship — keep it.
+# Tests / stories would go here if we add them later.
+*.test.*
+*.spec.*
+__tests__
+__snapshots__

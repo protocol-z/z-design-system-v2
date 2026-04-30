@@ -1,0 +1,1571 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Z Design System — Scanner v2 Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../packages/ui/src/styles/tokens.css" />
+<style>
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--zds-bg);
+    color: var(--zds-text);
+    font-family: var(--zds-font-body);
+    font-size: var(--zds-body-m);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  img, svg { display: block; max-width: 100%; }
+
+  .page { max-width: 1280px; margin: 0 auto; padding: 64px 56px 160px; }
+  .caption {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--zds-text-tertiary);
+  }
+  .mono { font-family: var(--zds-font-mono); font-feature-settings: 'ss01','cv02'; }
+  .serif { font-family: var(--zds-font-serif); font-style: italic; }
+
+  /* Section heads */
+  section { padding: 80px 0; }
+  .section-head { display: flex; justify-content: space-between; align-items: end; gap: 56px; margin-bottom: 48px; padding-bottom: 28px; border-bottom: 1px solid var(--zds-line); }
+  .section-head h2 {
+    font-family: var(--zds-font-display);
+    font-size: clamp(32px, 4vw, 56px);
+    line-height: 0.94; letter-spacing: -0.04em;
+    font-weight: 500; margin: 8px 0 0; max-width: 22ch;
+  }
+  .section-head p { max-width: 48ch; color: var(--zds-text-secondary); margin: 0; line-height: 1.55; }
+
+  .group { margin-bottom: 64px; }
+  .group__title { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px; }
+  .group__title h3 { font-family: var(--zds-font-display); font-weight: 500; font-size: 18px; margin: 0; letter-spacing: -0.01em; }
+  .group__title code { font-family: var(--zds-font-mono); font-size: 12px; color: var(--zds-text-tertiary); }
+  .group__lead { color: var(--zds-text-secondary); font-size: 14px; margin: 0 0 24px; max-width: 64ch; line-height: 1.55; }
+
+  .row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+
+  /* ---------- TypeBadge ---------- */
+  .tb {
+    display: inline-flex; align-items: center; gap: 6px;
+    border-radius: var(--zds-radius-pill);
+    font-weight: 500; text-transform: uppercase; line-height: 1; white-space: nowrap;
+  }
+  .tb--sm {
+    background: var(--zds-paper);
+    border: 1px solid var(--zds-line);
+    color: var(--zds-ink-900);
+    padding: 2px 10px 2px 8px;
+    font-size: 11px; height: 20px; letter-spacing: 0.04em;
+  }
+  .tb--md {
+    padding: 4px 12px 4px 10px;
+    font-size: 12px; height: 26px; letter-spacing: 0.05em;
+  }
+  .tb__dot { width: 6px; height: 6px; border-radius: 999px; flex: 0 0 auto; }
+  .tb--md.t-private  { background: var(--zds-positive-wash); border: 1px solid rgba(63,181,138,0.30); color: var(--zds-mint-500); }
+  .tb--md.t-unshield { background: rgba(111,163,137,0.16); border: 1px solid rgba(111,163,137,0.30); color: var(--zds-moss-400); }
+  .tb--md.t-infra    { background: rgba(107,104,96,0.14); border: 1px solid rgba(107,104,96,0.30); color: var(--zds-stone-600); }
+  .tb--md.t-payment  { background: rgba(244,183,49,0.16); border: 1px solid rgba(244,183,49,0.32); color: var(--zds-zcash-500); }
+  .tb--md.t-standard { background: var(--zds-mist); border: 1px solid var(--zds-line); color: var(--zds-ink-700); }
+  .dot-private  { background: var(--zds-mint-500); }
+  .dot-unshield { background: var(--zds-moss-400); }
+  .dot-infra    { background: var(--zds-stone-600); }
+  .dot-payment  { background: var(--zds-zcash-500); }
+  .dot-agent    { background: var(--zds-stone-600); }
+  .dot-standard { background: var(--zds-ink-700); }
+
+  /* ---------- HashChip / AddressLabel ---------- */
+  .hash {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 2px 8px; background: var(--zds-mist);
+    border: 1px solid var(--zds-line-soft);
+    border-radius: var(--zds-radius-pill);
+    font-family: var(--zds-font-mono); font-size: 12px;
+    color: var(--zds-ink-900); letter-spacing: 0.02em;
+  }
+  .copy-btn {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 4px; background: transparent; border: none;
+    border-radius: var(--zds-radius-sm); cursor: pointer;
+    color: var(--zds-text-tertiary);
+  }
+  .addr {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px; border-radius: var(--zds-radius-pill);
+    font-size: 13px; font-weight: 500;
+  }
+  .addr .tail { font-family: var(--zds-font-mono); font-size: 11px; color: var(--zds-text-tertiary); letter-spacing: 0.02em; }
+  .addr--privacy   { background: var(--zds-positive-wash); border: 1px solid rgba(63,181,138,0.30); color: var(--zds-ink-900); }
+  .addr--contract  { background: var(--zds-mist); border: 1px solid var(--zds-line); color: var(--zds-ink-900); }
+  .addr--validator { background: rgba(107,104,96,0.10); border: 1px solid rgba(107,104,96,0.30); color: var(--zds-ink-900); }
+  .addr--merchant  { background: rgba(244,183,49,0.14); border: 1px solid rgba(244,183,49,0.30); color: var(--zds-ink-900); }
+  .addr-dot { width: 6px; height: 6px; border-radius: 999px; flex: 0 0 auto; }
+
+  /* ---------- InlineNotice ---------- */
+  .notice {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 12px 16px; border-radius: var(--zds-radius-md);
+    color: var(--zds-ink-800); font-size: 14px; line-height: 1.5;
+  }
+  .notice--private  { background: var(--zds-positive-wash); border: 1px solid rgba(63,181,138,0.22); }
+  .notice--info     { background: var(--zds-mist); border: 1px solid var(--zds-line); }
+  .notice--warning  { background: rgba(244,183,49,0.12); border: 1px solid rgba(244,183,49,0.28); }
+  .notice--negative { background: var(--zds-negative-wash); border: 1px solid rgba(215,122,110,0.28); }
+  .notice__icon { flex: 0 0 auto; padding-top: 1px; display: inline-flex; }
+  .notice--private  .notice__icon { color: var(--zds-mint-500); }
+  .notice--info     .notice__icon { color: var(--zds-ink-700); }
+  .notice--warning  .notice__icon { color: var(--zds-zcash-500); }
+  .notice--negative .notice__icon { color: var(--zds-negative); }
+  .notice__title { font-weight: 500; color: var(--zds-ink-950); display: block; }
+
+  /* ---------- SectionLabel ---------- */
+  .section-label {
+    display: flex; align-items: baseline; gap: 12px;
+    padding: 12px 16px; background: var(--zds-mist);
+    border-top: 1px solid var(--zds-line);
+    border-bottom: 1px solid var(--zds-line);
+  }
+  .section-label__dot { width: 6px; height: 6px; border-radius: 999px; align-self: center; flex: 0 0 auto; }
+  .section-label__label {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.10em;
+    text-transform: uppercase; color: var(--zds-ink-900);
+    font-family: var(--zds-font-mono); white-space: nowrap;
+  }
+  .section-label__desc {
+    font-size: 13px; color: var(--zds-text-secondary);
+    line-height: 1.4;
+  }
+
+  /* ---------- ActionBanner ---------- */
+  .action-banner {
+    position: relative;
+    padding: 20px 24px 22px;
+    background: var(--zds-paper);
+    border: 1px solid var(--zds-line);
+    border-radius: var(--zds-radius-lg);
+    box-shadow: var(--zds-shadow-plate);
+    overflow: hidden;
+  }
+  .action-banner__strip {
+    position: absolute; left: 0; top: 16px; bottom: 16px; width: 3px;
+    border-radius: 0 var(--zds-radius-pill) var(--zds-radius-pill) 0;
+  }
+  .action-banner__strip--private  { background: var(--zds-mint-500); }
+  .action-banner__strip--unshield { background: var(--zds-moss-400); }
+  .action-banner__strip--infra    { background: var(--zds-stone-600); }
+  .action-banner__strip--payment  { background: var(--zds-zcash-500); }
+  .action-banner__inner { display: flex; align-items: baseline; gap: 12px; margin-left: 8px; }
+  .action-banner__eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.10em;
+    text-transform: uppercase; color: var(--zds-text-tertiary);
+    font-family: var(--zds-font-mono); flex: 0 0 auto; padding-top: 4px;
+  }
+  .action-banner__copy {
+    margin: 0; color: var(--zds-ink-950);
+    font-family: var(--zds-font-display);
+    font-size: clamp(20px, 2.4vw, 28px);
+    line-height: 1.18; letter-spacing: -0.025em; font-weight: 500;
+  }
+  .action-banner__copy em { font-family: var(--zds-font-serif); font-style: italic; font-weight: 400; }
+
+  /* ---------- KeyValueGrid ---------- */
+  .kv {
+    display: grid;
+    grid-template-columns: minmax(140px, 200px) 1fr;
+    background: var(--zds-paper);
+    border: 1px solid var(--zds-line);
+    border-radius: var(--zds-radius-lg);
+    box-shadow: var(--zds-shadow-plate);
+    overflow: hidden;
+  }
+  .kv__dt {
+    padding: 14px 16px;
+    color: var(--zds-text-secondary);
+    font-size: 13px; font-weight: 500;
+    align-self: start; line-height: 1.5;
+  }
+  .kv__dd {
+    padding: 14px 16px;
+    margin: 0;
+    color: var(--zds-ink-950); font-size: 14px; line-height: 1.5;
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  .kv__row + .kv__row > .kv__dt,
+  .kv__row + .kv__row > .kv__dd { border-top: 1px solid var(--zds-line-soft); }
+  .kv__helper { flex-basis: 100%; color: var(--zds-text-tertiary); font-size: 12px; margin-top: 2px; }
+
+  /* ---------- DataTable ---------- */
+  .dt-wrap {
+    background: var(--zds-paper);
+    border: 1px solid var(--zds-line);
+    border-radius: var(--zds-radius-lg);
+    box-shadow: var(--zds-shadow-plate);
+    overflow: hidden;
+  }
+  .dt {
+    width: 100%; border-collapse: separate; border-spacing: 0;
+    font-family: var(--zds-font-body);
+  }
+  .dt th {
+    padding: 10px 12px; text-align: start;
+    background: var(--zds-mist); color: var(--zds-text-secondary);
+    font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; border-bottom: 1px solid var(--zds-line);
+    white-space: nowrap; user-select: none;
+  }
+  .dt th .sort-arrow { opacity: 0.35; margin-left: 6px; }
+  .dt th.is-sorted .sort-arrow { opacity: 1; }
+  .dt td {
+    padding: 10px 12px; color: var(--zds-ink-950);
+    font-size: 13px; line-height: 1.4; border-top: 1px solid var(--zds-line-soft);
+    white-space: nowrap; vertical-align: middle;
+  }
+  .dt tr:first-child td { border-top: none; }
+  .dt tbody tr:hover { background: var(--zds-mist); cursor: pointer; }
+
+  /* ---------- Pagination ---------- */
+  .pagination {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 16px; padding: 16px 4px 4px; flex-wrap: wrap;
+  }
+  .pagination__info {
+    display: inline-flex; align-items: center; gap: 10px;
+    color: var(--zds-text-secondary); font-size: 13px;
+  }
+  .pagination__info .mono { font-family: var(--zds-font-mono); letterspacing: 0.04em; }
+  .pagination__nav { display: inline-flex; gap: 6px; }
+  .pagination__btn {
+    width: 32px; height: 32px; display: inline-flex;
+    align-items: center; justify-content: center;
+    background: var(--zds-paper); border: 1px solid var(--zds-line);
+    border-radius: var(--zds-radius-pill); color: var(--zds-ink-900);
+    cursor: pointer;
+  }
+  .pagination__btn:disabled { opacity: 0.45; cursor: default; color: var(--zds-text-tertiary); }
+
+  /* ---------- ExpandableRow ---------- */
+  .expandable {
+    background: var(--zds-paper); border: 1px solid var(--zds-line);
+    border-radius: var(--zds-radius-md); overflow: hidden;
+  }
+  .expandable summary {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; cursor: pointer; list-style: none;
+    color: var(--zds-ink-950); font-size: 14px;
+  }
+  .expandable summary::-webkit-details-marker { display: none; }
+  .expandable summary::before {
+    content: '›'; display: inline-flex; width: 14px; height: 14px;
+    align-items: center; justify-content: center;
+    color: var(--zds-text-tertiary);
+    transition: transform var(--zds-dur-fast) var(--zds-ease-out);
+  }
+  .expandable[open] summary::before { transform: rotate(90deg); }
+  .expandable__body {
+    padding: 12px 16px 16px 42px;
+    border-top: 1px solid var(--zds-line-soft);
+    background: var(--zds-cream);
+    color: var(--zds-ink-900); font-size: 13px; line-height: 1.55;
+  }
+
+  /* ---------- Tabs (extended) ---------- */
+  .tabs {
+    display: inline-flex; padding: 4px; gap: 2px;
+    background: var(--zds-mist); border: 1px solid var(--zds-line);
+    border-radius: var(--zds-radius-pill);
+  }
+  .tabs--scrollable { display: flex; overflow-x: auto; max-width: 100%; }
+  .tabs__btn {
+    height: 32px; padding: 0 16px; border-radius: var(--zds-radius-pill);
+    border: none; background: transparent; color: var(--zds-text-secondary);
+    font-size: 13px; font-weight: 500; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px;
+    flex: 0 0 auto; white-space: nowrap;
+  }
+  .tabs__btn.is-active { background: var(--zds-ink-950); color: #fff; }
+  .tabs__count {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 20px; height: 18px; padding: 0 6px;
+    border-radius: var(--zds-radius-pill);
+    font-size: 11px; font-family: var(--zds-font-mono); line-height: 1;
+    background: var(--zds-paper); border: 1px solid var(--zds-line);
+    color: var(--zds-text-tertiary);
+  }
+  .tabs__btn.is-active .tabs__count {
+    background: rgba(255,255,255,0.18); border: none; color: #fff;
+  }
+
+  /* Layout helpers for demo */
+  .stack > * + * { margin-top: 16px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .zchart { padding: 16px 12px 12px; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Header / hero -->
+  <header style="padding-bottom: 56px; border-bottom: 1px solid var(--zds-line); margin-bottom: 24px;">
+    <div style="display:flex; gap: 16px; align-items: center;">
+      <svg width="32" height="44" viewBox="0 0 665 929" fill="currentColor" aria-label="Z" style="color: var(--zds-ink-950);">
+        <path d="M625 0C647.091 0 665 17.9086 665 40V258.352C665 268.961 660.786 279.135 653.284 286.637L211.716 728.206C204.214 735.708 200 745.882 200 756.49V889C200 911.091 182.091 929 160 929H40C17.9086 929 0 911.091 0 889V673.648C0 663.039 4.21426 652.865 11.7157 645.363L453.284 203.794C460.786 196.292 465 186.118 465 175.51V40C465 17.9086 482.909 0 505 0H625Z"/>
+        <rect width="300" height="200" rx="40"/>
+        <rect x="365" y="729" width="300" height="200" rx="40"/>
+      </svg>
+      <p class="caption" style="margin:0;">Scanner v2 · Tier 1 components</p>
+    </div>
+    <h1 style="font-family: var(--zds-font-display); font-size: clamp(48px, 6vw, 88px); line-height: 0.94; letter-spacing: -0.045em; font-weight: 500; margin: 32px 0 16px; max-width: 22ch;">
+      The calmest block <em class="serif" style="color: var(--zds-stone-600);">explorer</em> on the internet.
+    </h1>
+    <p style="color: var(--zds-text-secondary); font-size: 18px; line-height: 1.5; max-width: 64ch; margin: 0;">
+      14 new primitives + a Tabs extension, all on v2 tokens. This page is the visual reference
+      design and engineering should sign against before the Z Scan restyle starts.
+    </p>
+  </header>
+
+  <!-- ============================================================ -->
+  <!-- 01 · TYPE BADGE                                              -->
+  <!-- ============================================================ -->
+  <section>
+    <div class="section-head">
+      <div>
+        <p class="caption">01 · TypeBadge</p>
+        <h2>Six tones, two sizes, one rule.</h2>
+      </div>
+      <p>Dense tables get the <em class="serif">small</em> badge — dot on a paper pill. Detail-page headers get the <em class="serif">medium</em> badge — full color fill. Same data, different voice depending on the surface.</p>
+    </div>
+
+    <div class="group">
+      <div class="group__title"><h3>Small (table-row size)</h3><code>.tb--sm</code></div>
+      <p class="group__lead">Dot + label on neutral pill. Used in the latest-transactions feed and any tx list. Reads as a quiet category marker, not a status alert.</p>
+      <div class="row">
+        <span class="tb tb--sm"><span class="tb__dot dot-private"></span>Private</span>
+        <span class="tb tb--sm"><span class="tb__dot dot-private"></span>Shield</span>
+        <span class="tb tb--sm"><span class="tb__dot dot-unshield"></span>Unshield</span>
+        <span class="tb tb--sm"><span class="tb__dot dot-infra"></span>EIP-7702</span>
+        <span class="tb tb--sm"><span class="tb__dot dot-infra"></span>ERC-4337</span>
+        <span class="tb tb--sm"><span class="tb__dot dot-payment"></span>x402 Payment</span>
+        <span class="tb tb--sm"><span class="tb__dot dot-agent"></span>Agent</span>
+        <span class="tb tb--sm"><span class="tb__dot dot-standard"></span>Standard</span>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group__title"><h3>Medium (detail-page header)</h3><code>.tb--md</code></div>
+      <p class="group__lead">Color-fill background. One per page near the Status field. Reads as the primary classification of the transaction.</p>
+      <div class="row">
+        <span class="tb tb--md t-private"><span class="tb__dot dot-private"></span>Private</span>
+        <span class="tb tb--md t-unshield"><span class="tb__dot dot-unshield"></span>Unshield</span>
+        <span class="tb tb--md t-infra"><span class="tb__dot dot-infra"></span>EIP-7702</span>
+        <span class="tb tb--md t-payment"><span class="tb__dot dot-payment"></span>x402 Payment</span>
+        <span class="tb tb--md t-standard"><span class="tb__dot dot-standard"></span>Standard</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 02 · ADDRESS LABEL + HASH CHIP                                -->
+  <!-- ============================================================ -->
+  <section>
+    <div class="section-head">
+      <div>
+        <p class="caption">02 · AddressLabel · HashChip</p>
+        <h2>Named addresses read first, hex stays close.</h2>
+      </div>
+      <p>The MASP Pool address shouldn't look like a random contract. AddressLabel gives any known address a tone, a label, and the hex tail for verification.</p>
+    </div>
+
+    <div class="group">
+      <div class="group__title"><h3>AddressLabel — categories</h3><code>.addr</code></div>
+      <p class="group__lead">Hover any chip to see the full address (Tooltip primitive). Inline copy button on the right.</p>
+      <div class="row">
+        <span class="addr addr--privacy">
+          <span class="addr-dot dot-private"></span>
+          MASP Pool
+          <span class="tail">·ea70</span>
+        </span>
+        <span class="addr addr--contract">
+          <span class="addr-dot dot-standard"></span>
+          Z Test Token (ZTT)
+          <span class="tail">·124B</span>
+        </span>
+        <span class="addr addr--validator">
+          <span class="addr-dot dot-infra"></span>
+          Validator: Stakefish
+          <span class="tail">·c600</span>
+        </span>
+        <span class="addr addr--merchant">
+          <span class="addr-dot dot-payment"></span>
+          x402 Merchant: api.example.com
+          <span class="tail">·91f4</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group__title"><h3>HashChip — small + medium</h3><code>.hash</code></div>
+      <p class="group__lead">For unlabeled hashes (block / tx / log). Truncates with an ellipsis, copy on click, full hex on hover.</p>
+      <div class="row">
+        <span class="hash">0xd1867…3f8f</span>
+        <span class="hash" style="font-size: 13px; padding: 4px 10px;">0xd1867cff…a13f8f</span>
+        <span class="hash">19,648</span>
+        <span class="hash">0x6e14f1…302a</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 03 · INLINE NOTICE                                            -->
+  <!-- ============================================================ -->
+  <section>
+    <div class="section-head">
+      <div>
+        <p class="caption">03 · InlineNotice</p>
+        <h2>Empty by design, never apologetic.</h2>
+      </div>
+      <p>The "Amounts hidden" notice gets its own component because privacy explanations carry product weight. Mint wash, calm copy, never a warning banner.</p>
+    </div>
+
+    <div class="stack">
+      <div class="notice notice--private">
+        <span class="notice__icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 1 1 8 0v4"/>
+          </svg>
+        </span>
+        <div>
+          <strong class="notice__title">Transfer details are private.</strong>
+          Amounts and recipients are encrypted within the MASP pool.
+        </div>
+      </div>
+      <div class="notice notice--info">
+        <span class="notice__icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/><path d="M12 8v.01M12 11v5"/>
+          </svg>
+        </span>
+        <div>
+          <strong class="notice__title">Shielded transfers are not listed here.</strong>
+          No token transfer event is emitted for within-pool transfers.
+        </div>
+      </div>
+      <div class="notice notice--warning">
+        <span class="notice__icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3l9.5 17H2.5L12 3z"/><path d="M12 10v4M12 17v.01"/>
+          </svg>
+        </span>
+        <div>
+          <strong class="notice__title">Stale quote.</strong>
+          Refresh to get the current swap path before you confirm.
+        </div>
+      </div>
+      <div class="notice notice--negative">
+        <span class="notice__icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16v.01"/>
+          </svg>
+        </span>
+        <div>
+          <strong class="notice__title">Transaction reverted.</strong>
+          The on-chain call ran out of gas at step 3. No funds left your wallet.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 04 · SECTION LABEL                                            -->
+  <!-- ============================================================ -->
+  <section>
+    <div class="section-head">
+      <div>
+        <p class="caption">04 · SectionLabel</p>
+        <h2>Translate cryptography into trust.</h2>
+      </div>
+      <p>The header strip that gives a MASP log entry plain-English context. Caption typography, optional accent dot, a soft mist track. Sits above DataTable rows or KeyValueGrid blocks.</p>
+    </div>
+
+    <div class="stack">
+      <div class="section-label">
+        <span class="section-label__dot dot-private"></span>
+        <span class="section-label__label">MASP commitment insertion</span>
+        <span class="section-label__desc">A new note was added to the shielded pool.</span>
+      </div>
+      <div class="section-label">
+        <span class="section-label__dot dot-private"></span>
+        <span class="section-label__label">MASP note transfer</span>
+        <span class="section-label__desc">A note was spent and a new note created — neither side is observable.</span>
+      </div>
+      <div class="section-label">
+        <span class="section-label__dot dot-unshield"></span>
+        <span class="section-label__label">MASP nullifier spend</span>
+        <span class="section-label__desc">A note exited to a transparent address.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 05 · ACTION BANNER                                            -->
+  <!-- ============================================================ -->
+  <section>
+    <div class="section-head">
+      <div>
+        <p class="caption">05 · ActionBanner</p>
+        <h2>What happened, in plain English.</h2>
+      </div>
+      <p>The C2 ask from the change brief: a plain-language summary that sits above every transaction detail. Display-s typography, serif italic for variable phrases — share-able, scannable, marketing-ready.</p>
+    </div>
+
+    <div class="stack">
+      <div class="action-banner">
+        <span class="action-banner__strip action-banner__strip--payment"></span>
+        <div class="action-banner__inner">
+          <span class="action-banner__eyebrow">Action</span>
+          <p class="action-banner__copy">Pay <em>12.50 USDZ</em> via x402 to <em>api.example.com</em></p>
+        </div>
+      </div>
+      <div class="action-banner">
+        <span class="action-banner__strip action-banner__strip--private"></span>
+        <div class="action-banner__inner">
+          <span class="action-banner__eyebrow">Action</span>
+          <p class="action-banner__copy">Shield <em>86.5 ZEC</em> into the <em>MASP pool</em></p>
+        </div>
+      </div>
+      <div class="action-banner">
+        <span class="action-banner__strip action-banner__strip--infra"></span>
+        <div class="action-banner__inner">
+          <span class="action-banner__eyebrow">Action</span>
+          <p class="action-banner__copy">Execute <em>3 user operations</em> via Bundler</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 06 · KEY VALUE GRID                                           -->
+  <!-- ============================================================ -->
+  <section>
+    <div class="section-head">
+      <div>
+        <p class="caption">06 · KeyValueGrid</p>
+        <h2>Transaction overview, calmly.</h2>
+      </div>
+      <p>The default detail-page Overview tab. Composes naturally with HashChip, AddressLabel, TypeBadge and MicroBadge in the value column.</p>
+    </div>
+
+    <dl class="kv">
+      <div class="kv__row" style="display:contents;">
+        <dt class="kv__dt">Transaction Hash</dt>
+        <dd class="kv__dd"><span class="hash">0x6e14f1…302a</span></dd>
+      </div>
+      <div class="kv__row" style="display:contents;">
+        <dt class="kv__dt">Status</dt>
+        <dd class="kv__dd">
+          <span class="tb tb--md t-private"><span class="tb__dot dot-private"></span>Private</span>
+          <span style="color: var(--zds-mint-500); font-weight: 500; font-size: 13px;">✓ Success</span>
+        </dd>
+      </div>
+      <div class="kv__row" style="display:contents;">
+        <dt class="kv__dt">Block</dt>
+        <dd class="kv__dd">
+          <span class="hash">19,648</span>
+          <span style="color: var(--zds-text-tertiary); font-size: 12px;">12 confirmations</span>
+        </dd>
+      </div>
+      <div class="kv__row" style="display:contents;">
+        <dt class="kv__dt">Timestamp</dt>
+        <dd class="kv__dd">
+          27 Apr 2026, 12:14:08 UTC
+          <span class="kv__helper">2 minutes ago · Block sealed in 1.8s</span>
+        </dd>
+      </div>
+      <div class="kv__row" style="display:contents;">
+        <dt class="kv__dt">From</dt>
+        <dd class="kv__dd">
+          <span class="addr addr--contract">
+            <span class="addr-dot dot-standard"></span>0xUserWallet<span class="tail">·a8f1</span>
+          </span>
+        </dd>
+      </div>
+      <div class="kv__row" style="display:contents;">
+        <dt class="kv__dt">To</dt>
+        <dd class="kv__dd">
+          <span class="addr addr--privacy">
+            <span class="addr-dot dot-private"></span>MASP Pool<span class="tail">·ea70</span>
+          </span>
+        </dd>
+      </div>
+    </dl>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 07 · DATA TABLE                                               -->
+  <!-- ============================================================ -->
+  <section>
+    <div class="section-head">
+      <div>
+        <p class="caption">07 · DataTable</p>
+        <h2>The list page, finally calm.</h2>
+      </div>
+      <p>Sortable headers, hairline rows, hover state in mist. Composed with TypeBadge (sm), HashChip, AddressLabel. Pagination sits below — selectable page size on the right.</p>
+    </div>
+
+    <div class="dt-wrap">
+      <table class="dt">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th class="is-sorted">Txn Hash <span class="sort-arrow">▴</span></th>
+            <th>Block</th>
+            <th>Age</th>
+            <th>Token Flow</th>
+            <th style="text-align:end;">Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tb tb--sm"><span class="tb__dot dot-private"></span>Shield</span></td>
+            <td><span class="hash">0x6e14f1…302a</span></td>
+            <td><span class="hash">19,648</span></td>
+            <td>2 min ago</td>
+            <td>
+              <span class="addr addr--contract"><span class="addr-dot dot-standard"></span>0xUser<span class="tail">·a8f1</span></span>
+              <span style="color: var(--zds-text-tertiary); margin: 0 6px;">→</span>
+              <span class="addr addr--privacy"><span class="addr-dot dot-private"></span>MASP Pool<span class="tail">·ea70</span></span>
+            </td>
+            <td style="text-align:end;"><strong>86.5</strong> <span style="color: var(--zds-text-tertiary)">ZEC</span></td>
+          </tr>
+          <tr>
+            <td><span class="tb tb--sm"><span class="tb__dot dot-private"></span>Private</span></td>
+            <td><span class="hash">0xab1234…5678</span></td>
+            <td><span class="hash">19,647</span></td>
+            <td>3 min ago</td>
+            <td><em class="serif" style="color: var(--zds-text-tertiary); font-size: 13px;">— private —</em></td>
+            <td style="text-align:end; color: var(--zds-text-tertiary);">hidden</td>
+          </tr>
+          <tr>
+            <td><span class="tb tb--sm"><span class="tb__dot dot-unshield"></span>Unshield</span></td>
+            <td><span class="hash">0xcafe10…d3a4</span></td>
+            <td><span class="hash">19,645</span></td>
+            <td>5 min ago</td>
+            <td>
+              <span class="addr addr--privacy"><span class="addr-dot dot-private"></span>MASP Pool<span class="tail">·ea70</span></span>
+              <span style="color: var(--zds-text-tertiary); margin: 0 6px;">→</span>
+              <span class="addr addr--contract"><span class="addr-dot dot-standard"></span>0xRecv<span class="tail">·91c2</span></span>
+            </td>
+            <td style="text-align:end;"><strong>1,200</strong> <span style="color: var(--zds-text-tertiary)">USDZ</span></td>
+          </tr>
+          <tr>
+            <td><span class="tb tb--sm"><span class="tb__dot dot-payment"></span>x402</span></td>
+            <td><span class="hash">0xfe9821…a01b</span></td>
+            <td><span class="hash">19,643</span></td>
+            <td>9 min ago</td>
+            <td>
+              <span class="addr addr--contract"><span class="addr-dot dot-agent"></span>Agent: route-svc<span class="tail">·77ea</span></span>
+              <span style="color: var(--zds-text-tertiary); margin: 0 6px;">→</span>
+              <span class="addr addr--merchant"><span class="addr-dot dot-payment"></span>api.example.com<span class="tail">·91f4</span></span>
+            </td>
+            <td style="text-align:end;"><strong>12.50</strong> <span style="color: var(--zds-text-tertiary)">USDZ</span></td>
+          </tr>
+          <tr>
+            <td><span class="tb tb--sm"><span class="tb__dot dot-infra"></span>EIP-7702</span></td>
+            <td><span class="hash">0x4488ee…ba01</span></td>
+            <td><span class="hash">19,640</span></td>
+            <td>14 min ago</td>
+            <td>
+              <span class="addr addr--contract"><span class="addr-dot dot-standard"></span>0xUser<span class="tail">·a8f1</span></span>
+              <span style="color: var(--zds-text-tertiary); margin: 0 6px;">delegates to</span>
+              <span class="addr addr--validator"><span class="addr-dot dot-infra"></span>Smart account<span class="tail">·c100</span></span>
+            </td>
+            <td style="text-align:end; color: var(--zds-text-tertiary);">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination">
+      <div class="pagination__info">
+        <span class="mono">Page 1 of 124</span>
+        <span style="color: var(--zds-text-tertiary); font-size: 12px;">· 3,098 results</span>
+      </div>
+      <div style="display: inline-flex; align-items: center; gap: 16px;">
+        <label style="display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: var(--zds-text-secondary);">
+          <span>Per page</span>
+          <select style="padding: 4px 26px 4px 12px; background: var(--zds-paper); border: 1px solid var(--zds-line); border-radius: var(--zds-radius-pill); font-family: var(--zds-font-body); font-size: 12px; color: var(--zds-ink-900);">
+            <option>10</option><option selected>25</option><option>50</option><option>100</option>
+          </select>
+        </label>
+        <div class="pagination__nav">
+          <button class="pagination__btn" disabled aria-label="Previous">‹</button>
+          <button class="pagination__btn" aria-label="Next">›</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 08 · TABS (extended) + EXPANDABLE ROW                         -->
+  <!-- ============================================================ -->
+  <section>
+    <div class="section-head">
+      <div>
+        <p class="caption">08 · Tabs · ExpandableRow</p>
+        <h2>Tabs with counts. Rows that open in place.</h2>
+      </div>
+      <p>The tx-detail tab bar shows operation counts per tab — a small thing that saves the user a click. ExpandableRow is what surfaces a single UserOp's decoded calldata without leaving the page.</p>
+    </div>
+
+    <div class="group">
+      <div class="group__title"><h3>Tabs — with count + scrollable</h3><code>.tabs</code></div>
+      <div class="row" style="margin-bottom: 16px;">
+        <div class="tabs">
+          <button class="tabs__btn is-active">Overview</button>
+          <button class="tabs__btn">Logs <span class="tabs__count">4</span></button>
+          <button class="tabs__btn">State <span class="tabs__count">12</span></button>
+        </div>
+      </div>
+      <p class="group__lead">Scrollable variant for tx-detail pages with many tabs.</p>
+      <div class="tabs tabs--scrollable">
+        <button class="tabs__btn is-active">Overview</button>
+        <button class="tabs__btn">Logs <span class="tabs__count">4</span></button>
+        <button class="tabs__btn">State <span class="tabs__count">12</span></button>
+        <button class="tabs__btn">User Ops <span class="tabs__count">3</span></button>
+        <button class="tabs__btn">Authorizations <span class="tabs__count">7</span></button>
+        <button class="tabs__btn">Internal Txs <span class="tabs__count">28</span></button>
+        <button class="tabs__btn">Comments</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group__title"><h3>ExpandableRow — User Ops list</h3><code>&lt;details class="expandable"&gt;</code></div>
+      <div class="stack">
+        <details class="expandable" open>
+          <summary>
+            <span class="hash">0xabc123…7890</span>
+            <span style="margin-left: 12px; color: var(--zds-text-secondary); font-size: 13px;">Smart account 0x123a…4f2b</span>
+            <span style="margin-left: auto; color: var(--zds-mint-500); font-weight: 500; font-size: 12px;">✓ Success</span>
+            <span style="margin-left: 12px; color: var(--zds-text-tertiary); font-size: 12px; font-family: var(--zds-font-mono);">45,231 gas</span>
+          </summary>
+          <div class="expandable__body">
+            <p style="margin: 0 0 8px;"><strong>Decoded calldata:</strong></p>
+            <pre style="margin: 0; padding: 12px; background: var(--zds-paper); border: 1px solid var(--zds-line-soft); border-radius: var(--zds-radius-sm); font-family: var(--zds-font-mono); font-size: 12px; line-height: 1.5; color: var(--zds-ink-900); overflow-x: auto;">execute(
+  target: 0xUSDZContract...91f4,
+  value:  0,
+  data:   transfer(0xMerchant...91f4, 12.50 USDZ)
+)</pre>
+            <p style="margin: 12px 0 0; color: var(--zds-text-secondary);"><strong>Paymaster:</strong> Sponsored by Z Sponsor — user paid 0 gas.</p>
+          </div>
+        </details>
+        <details class="expandable">
+          <summary>
+            <span class="hash">0xdef456…1234</span>
+            <span style="margin-left: 12px; color: var(--zds-text-secondary); font-size: 13px;">Smart account 0x789c…1a02</span>
+            <span style="margin-left: auto; color: var(--zds-mint-500); font-weight: 500; font-size: 12px;">✓ Success</span>
+            <span style="margin-left: 12px; color: var(--zds-text-tertiary); font-size: 12px; font-family: var(--zds-font-mono);">38,914 gas</span>
+          </summary>
+          <div class="expandable__body">Calldata expands here.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 09 · COMPOSED EXAMPLE                                         -->
+  <!-- ============================================================ -->
+  <section>
+    <div class="section-head">
+      <div>
+        <p class="caption">09 · Composed</p>
+        <h2>A scanner tx detail page, in v2 voice.</h2>
+      </div>
+      <p>Everything above, assembled. ActionBanner up top, KeyValueGrid below, Tabs for navigation, SectionLabel + DataTable for the Logs tab. This is what a user sees when they open a Shield transaction.</p>
+    </div>
+
+    <div class="stack">
+      <!-- Action banner -->
+      <div class="action-banner">
+        <span class="action-banner__strip action-banner__strip--private"></span>
+        <div class="action-banner__inner">
+          <span class="action-banner__eyebrow">Action</span>
+          <p class="action-banner__copy">Shield <em>86.5 ZEC</em> into the <em>MASP pool</em></p>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tabs__btn is-active">Overview</button>
+        <button class="tabs__btn">Logs <span class="tabs__count">3</span></button>
+        <button class="tabs__btn">State <span class="tabs__count">8</span></button>
+      </div>
+
+      <!-- KeyValueGrid -->
+      <dl class="kv">
+        <div class="kv__row" style="display:contents;">
+          <dt class="kv__dt">Transaction Hash</dt>
+          <dd class="kv__dd"><span class="hash">0x6e14f1…302a</span></dd>
+        </div>
+        <div class="kv__row" style="display:contents;">
+          <dt class="kv__dt">Status</dt>
+          <dd class="kv__dd">
+            <span class="tb tb--md t-private"><span class="tb__dot dot-private"></span>Shield</span>
+            <span style="color: var(--zds-mint-500); font-weight: 500; font-size: 13px;">✓ Success</span>
+          </dd>
+        </div>
+        <div class="kv__row" style="display:contents;">
+          <dt class="kv__dt">Token Flow</dt>
+          <dd class="kv__dd">
+            <span class="addr addr--contract"><span class="addr-dot dot-standard"></span>0xUser<span class="tail">·a8f1</span></span>
+            <span style="color: var(--zds-text-tertiary)">→</span>
+            <span class="addr addr--privacy"><span class="addr-dot dot-private"></span>MASP Pool<span class="tail">·ea70</span></span>
+          </dd>
+        </div>
+        <div class="kv__row" style="display:contents;">
+          <dt class="kv__dt">Value</dt>
+          <dd class="kv__dd">
+            <strong style="font-family: var(--zds-font-display); font-size: 22px; letter-spacing: -0.025em; font-weight: 500;">86.5 ZEC</strong>
+            <span class="kv__helper">≈ $4,238 at current price</span>
+          </dd>
+        </div>
+      </dl>
+
+      <!-- Section label + private notice (logs preview) -->
+      <div style="background: var(--zds-paper); border: 1px solid var(--zds-line); border-radius: var(--zds-radius-lg); box-shadow: var(--zds-shadow-plate); overflow: hidden;">
+        <div class="section-label">
+          <span class="section-label__dot dot-private"></span>
+          <span class="section-label__label">MASP commitment insertion</span>
+          <span class="section-label__desc">A new note was added to the shielded pool.</span>
+        </div>
+        <div style="padding: 16px;">
+          <div class="notice notice--private" style="margin-bottom: 12px;">
+            <span class="notice__icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 1 1 8 0v4"/>
+              </svg>
+            </span>
+            <div>
+              <strong class="notice__title">Transfer details are private.</strong>
+              Amounts and recipients are encrypted within the MASP pool. The commitment hash above is the only public record.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 10 · CHART KIT (Tier 2)                                       -->
+  <!-- ============================================================ -->
+  <section>
+    <div class="section-head">
+      <div>
+        <p class="caption">10 · Chart kit</p>
+        <h2>Privacy metrics, finally legible.</h2>
+      </div>
+      <p>Eight chart primitives on the v2 palette. Capped at four series so the page never reads as a color zoo. Tonal numerals, dotted-grid grounds, paper plates with shadow.</p>
+    </div>
+
+    <!-- 10a — Single LineChart -->
+    <div class="group">
+      <div class="group__title"><h3>LineChart — Daily Shield Volume</h3><code>.zchart-line</code></div>
+      <p class="group__lead">Single-series line with mint area fill on a dotted-grid plate. The default treatment for any time-series where the *number* is the story.</p>
+      <div id="chart-shield-volume" class="zchart"></div>
+    </div>
+
+    <!-- 10b — Stacked AreaChart -->
+    <div class="group">
+      <div class="group__title"><h3>AreaChart — Daily MASP Transactions, by type</h3><code>.zchart-area</code></div>
+      <p class="group__lead">Stacked bottom-up: Shield (mint) + Transfer (moss) + Unshield (stone). One legend pill per series, capped at four total.</p>
+      <div id="chart-masp-stacked" class="zchart"></div>
+      <div id="legend-masp-stacked" style="margin-top: 12px;"></div>
+    </div>
+
+    <!-- 10c — BarChart -->
+    <div class="grid-2">
+      <div class="group" style="margin-bottom: 0;">
+        <div class="group__title"><h3>BarChart — Hourly transactions</h3><code>.zchart-bar</code></div>
+        <p class="group__lead">Single-series vertical bars, slim radius, ink fill. Use for hour/day discrete buckets.</p>
+        <div id="chart-hourly" class="zchart"></div>
+      </div>
+      <div class="group" style="margin-bottom: 0;">
+        <div class="group__title"><h3>BarChart — x402 vs standard, daily</h3><code>.zchart-bar-grouped</code></div>
+        <p class="group__lead">Grouped bars, two series. Yellow for x402 (campaign accent), stone for standard rails.</p>
+        <div id="chart-x402-vs-std" class="zchart"></div>
+        <div id="legend-x402-vs-std" style="margin-top: 12px;"></div>
+      </div>
+    </div>
+
+    <!-- 10d — DonutChart + Sparkline + ChartTooltip -->
+    <div class="grid-3" style="margin-top: 32px;">
+      <div class="group" style="margin-bottom: 0;">
+        <div class="group__title"><h3>DonutChart — Privacy Ratio</h3><code>.zchart-donut</code></div>
+        <p class="group__lead">Two-segment composition with a center metric. The flagship "privacy index" visual for the home page and deck.</p>
+        <div id="chart-privacy-ratio" class="zchart" style="background: var(--zds-paper); border: 1px solid var(--zds-line); border-radius: var(--zds-radius-lg); padding: 32px; box-shadow: var(--zds-shadow-plate); display: flex; align-items: center; justify-content: center;"></div>
+      </div>
+
+      <div class="group" style="margin-bottom: 0;">
+        <div class="group__title"><h3>Sparkline — inline trend</h3><code>.zchart-spark</code></div>
+        <p class="group__lead">Tiny line for stat tiles and table cells. Tones inherit positive / negative / neutral / private.</p>
+        <div style="display: grid; gap: 12px;">
+          <div style="background: var(--zds-paper); border: 1px solid var(--zds-line); border-radius: var(--zds-radius-lg); padding: 16px 20px; box-shadow: var(--zds-shadow-plate); display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+            <div>
+              <p class="caption" style="margin: 0 0 4px;">Shield volume · 30d</p>
+              <strong style="font-family: var(--zds-font-display); font-size: 22px; letter-spacing: -0.025em; font-weight: 500; color: var(--zds-ink-950);">248k <span style="color: var(--zds-ink-300);">ZEC</span></strong>
+            </div>
+            <span id="spark-private"></span>
+          </div>
+          <div style="background: var(--zds-paper); border: 1px solid var(--zds-line); border-radius: var(--zds-radius-lg); padding: 16px 20px; box-shadow: var(--zds-shadow-plate); display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+            <div>
+              <p class="caption" style="margin: 0 0 4px;">Avg block time · 30d</p>
+              <strong style="font-family: var(--zds-font-display); font-size: 22px; letter-spacing: -0.025em; font-weight: 500; color: var(--zds-ink-950);">1.84 <span style="color: var(--zds-ink-300);">s</span></strong>
+            </div>
+            <span id="spark-neutral"></span>
+          </div>
+          <div style="background: var(--zds-paper); border: 1px solid var(--zds-line); border-radius: var(--zds-radius-lg); padding: 16px 20px; box-shadow: var(--zds-shadow-plate); display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+            <div>
+              <p class="caption" style="margin: 0 0 4px;">Unshield queue · 24h</p>
+              <strong style="font-family: var(--zds-font-display); font-size: 22px; letter-spacing: -0.025em; font-weight: 500; color: var(--zds-ink-950);">12</strong>
+            </div>
+            <span id="spark-negative"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="group" style="margin-bottom: 0;">
+        <div class="group__title"><h3>ChartTooltip — hover</h3><code>.zchart-tooltip</code></div>
+        <p class="group__lead">The branded tooltip every chart shares. Tonal numerals, mono values, paper plate with pop shadow.</p>
+        <div style="background: var(--zds-paper); border: 1px solid var(--zds-line); border-radius: var(--zds-radius-lg); padding: 32px; box-shadow: var(--zds-shadow-plate); position: relative; min-height: 200px;">
+          <div role="tooltip" style="background: var(--zds-paper); border: 1px solid var(--zds-line); border-radius: var(--zds-radius-md); padding: 10px 12px; box-shadow: var(--zds-shadow-pop); min-width: 170px; display: inline-block;">
+            <div style="font-family: var(--zds-font-display); font-size: 13px; font-weight: 500; color: var(--zds-ink-950); letter-spacing: -0.015em; margin-bottom: 6px; line-height: 1.2;">Apr 22, 2026</div>
+            <div style="display: grid; gap: 4px;">
+              <div style="display: flex; justify-content: space-between; gap: 12px; font-size: 12px;">
+                <span style="display: inline-flex; align-items: center; gap: 6px; color: var(--zds-text-secondary);">
+                  <span style="width: 8px; height: 8px; border-radius: 999px; background: var(--zds-mint-500);"></span>
+                  Shield
+                </span>
+                <strong style="font-family: var(--zds-font-mono); font-weight: 500; color: var(--zds-ink-950); letter-spacing: 0.02em;">212.4k</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; gap: 12px; font-size: 12px;">
+                <span style="display: inline-flex; align-items: center; gap: 6px; color: var(--zds-text-secondary);">
+                  <span style="width: 8px; height: 8px; border-radius: 999px; background: var(--zds-moss-400);"></span>
+                  Transfer
+                </span>
+                <strong style="font-family: var(--zds-font-mono); font-weight: 500; color: var(--zds-ink-950); letter-spacing: 0.02em;">88.1k</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; gap: 12px; font-size: 12px;">
+                <span style="display: inline-flex; align-items: center; gap: 6px; color: var(--zds-text-secondary);">
+                  <span style="width: 8px; height: 8px; border-radius: 999px; background: var(--zds-stone-600);"></span>
+                  Unshield
+                </span>
+                <strong style="font-family: var(--zds-font-mono); font-weight: 500; color: var(--zds-ink-950); letter-spacing: 0.02em;">42.0k</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 11 · SHELL PARTS (Tier 3)                                     -->
+  <!-- ============================================================ -->
+  <section>
+    <div class="section-head">
+      <div>
+        <p class="caption">11 · Shell parts</p>
+        <h2>The chrome every app shares.</h2>
+      </div>
+      <p>Five components that hold the page together: header, search, chain switcher, theme toggle, footer. Used by the marketing site, every product app, and the scanner — without redefining their own conventions.</p>
+    </div>
+
+    <!-- 11a — AppHeader (scanner variant) -->
+    <div class="group">
+      <div class="group__title"><h3>AppHeader — scanner variant</h3><code>.app-header</code></div>
+      <p class="group__lead">Logo left · search center · chain switcher and theme toggle right. The first surface a user sees on every scanner page.</p>
+      <header class="app-header" style="display: flex; align-items: center; gap: 24px; height: 64px; padding: 0 24px; background: var(--zds-paper); border: 1px solid var(--zds-line); border-radius: var(--zds-radius-lg); box-shadow: var(--zds-shadow-plate); overflow: visible;">
+        <div style="display: inline-flex; align-items: center; gap: 12px; flex: 0 0 auto;">
+          <svg width="22" height="31" viewBox="0 0 665 929" fill="currentColor" aria-label="Z" style="color: var(--zds-ink-950);">
+            <path d="M625 0C647.091 0 665 17.9086 665 40V258.352C665 268.961 660.786 279.135 653.284 286.637L211.716 728.206C204.214 735.708 200 745.882 200 756.49V889C200 911.091 182.091 929 160 929H40C17.9086 929 0 911.091 0 889V673.648C0 663.039 4.21426 652.865 11.7157 645.363L453.284 203.794C460.786 196.292 465 186.118 465 175.51V40C465 17.9086 482.909 0 505 0H625Z"/>
+            <rect width="300" height="200" rx="40"/>
+            <rect x="365" y="729" width="300" height="200" rx="40"/>
+          </svg>
+          <span style="font-family: var(--zds-font-display); font-weight: 500; font-size: 16px; letter-spacing: -0.01em;">Scan</span>
+        </div>
+        <!-- Center search -->
+        <div style="flex: 1; display: flex; justify-content: center; min-width: 0;">
+          <div style="display: inline-flex; align-items: center; gap: 10px; padding: 0 8px 0 16px; height: 40px; border-radius: var(--zds-radius-pill); width: 100%; max-width: 480px; background: var(--zds-mist); border: 1px solid var(--zds-line);">
+            <span style="color: var(--zds-text-tertiary); display: inline-flex; flex: 0 0 auto;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            </span>
+            <input type="search" placeholder="Search by address, hash, or block…" style="flex: 1; height: 100%; background: transparent; border: none; outline: none; color: var(--zds-ink-950); font: inherit; font-size: 13px;" />
+            <span style="display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 20px; padding: 0 6px; background: var(--zds-paper); border: 1px solid var(--zds-line); border-radius: var(--zds-radius-sm); color: var(--zds-text-tertiary); font-family: var(--zds-font-mono); font-size: 11px; line-height: 1;">/</span>
+          </div>
+        </div>
+        <!-- Actions -->
+        <div style="display: inline-flex; align-items: center; gap: 8px; flex: 0 0 auto;">
+          <!-- ChainSwitcher -->
+          <button type="button" style="display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 12px; background: var(--zds-paper); border: 1px solid var(--zds-line); border-radius: var(--zds-radius-pill); box-shadow: var(--zds-shadow-plate); color: var(--zds-ink-900); font: inherit; font-size: 13px; font-weight: 500; cursor: pointer;">
+            <span style="width: 8px; height: 8px; border-radius: 999px; background: var(--zds-mint-500); box-shadow: 0 0 0 3px rgba(63,181,138,0.30); flex: 0 0 auto;"></span>
+            <span>Mainnet</span>
+            <span style="color: var(--zds-text-tertiary);">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
+          </button>
+          <!-- ThemeToggle -->
+          <span style="display: inline-flex; align-items: center; gap: 4px; height: 36px; padding: 4px; background: var(--zds-mist); border: 1px solid var(--zds-line); border-radius: var(--zds-radius-pill);">
+            <span style="display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--zds-paper); color: var(--zds-ink-950); box-shadow: var(--zds-shadow-plate);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            </span>
+            <span style="display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; color: var(--zds-text-tertiary);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
+            </span>
+          </span>
+        </div>
+      </header>
+    </div>
+
+    <!-- 11b — AppHeader (marketing variant) -->
+    <div class="group">
+      <div class="group__title"><h3>AppHeader — marketing variant</h3><code>.app-header.marketing</code></div>
+      <p class="group__lead">Logo + nav links + ghost CTA. Used on protocol-z.xyz lead pages.</p>
+      <header style="display: flex; align-items: center; gap: 24px; height: 64px; padding: 0 24px; background: var(--zds-paper); border: 1px solid var(--zds-line); border-radius: var(--zds-radius-lg); box-shadow: var(--zds-shadow-plate);">
+        <div style="display: inline-flex; align-items: center; gap: 12px; flex: 0 0 auto;">
+          <svg width="22" height="31" viewBox="0 0 665 929" fill="currentColor" aria-label="Z" style="color: var(--zds-ink-950);">
+            <path d="M625 0C647.091 0 665 17.9086 665 40V258.352C665 268.961 660.786 279.135 653.284 286.637L211.716 728.206C204.214 735.708 200 745.882 200 756.49V889C200 911.091 182.091 929 160 929H40C17.9086 929 0 911.091 0 889V673.648C0 663.039 4.21426 652.865 11.7157 645.363L453.284 203.794C460.786 196.292 465 186.118 465 175.51V40C465 17.9086 482.909 0 505 0H625Z"/>
+            <rect width="300" height="200" rx="40"/>
+            <rect x="365" y="729" width="300" height="200" rx="40"/>
+          </svg>
+        </div>
+        <nav style="display: inline-flex; align-items: center; gap: 4px; margin-left: 16px;">
+          <a href="#" style="display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: var(--zds-radius-pill); text-decoration: none; color: var(--zds-ink-950); background: var(--zds-mist); font-size: 14px; font-weight: 500;">Platform</a>
+          <a href="#" style="display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: var(--zds-radius-pill); text-decoration: none; color: var(--zds-text-secondary); font-size: 14px; font-weight: 500;">Products</a>
+          <a href="#" style="display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: var(--zds-radius-pill); text-decoration: none; color: var(--zds-text-secondary); font-size: 14px; font-weight: 500;">Developers</a>
+          <a href="#" style="display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: var(--zds-radius-pill); text-decoration: none; color: var(--zds-text-secondary); font-size: 14px; font-weight: 500;">Manifesto</a>
+        </nav>
+        <div style="flex: 1;"></div>
+        <div style="display: inline-flex; align-items: center; gap: 8px;">
+          <button style="height: 36px; padding: 0 18px; border-radius: var(--zds-radius-pill); background: rgba(255,255,255,0.64); border: 1px solid var(--zds-line); color: var(--zds-ink-900); font: inherit; font-size: 14px; font-weight: 500; cursor: pointer; backdrop-filter: blur(14px);">Read the brief</button>
+          <button style="height: 36px; padding: 0 18px; border-radius: var(--zds-radius-pill); background: var(--zds-zcash-500); border: none; color: var(--zds-ink-950); font: inherit; font-size: 14px; font-weight: 500; cursor: pointer; box-shadow: var(--zds-shadow-plate);">Start building</button>
+        </div>
+      </header>
+    </div>
+
+    <!-- 11c — Pieces in isolation -->
+    <div class="grid-3">
+      <div class="group" style="margin-bottom: 0;">
+        <div class="group__title"><h3>SearchField · default</h3><code>.search</code></div>
+        <p class="group__lead">Pill input, leading icon, slash shortcut. Press <code class="mono" style="font-size:12px;">/</code> on the page to focus.</p>
+        <div style="display: inline-flex; align-items: center; gap: 10px; padding: 0 8px 0 16px; height: 44px; border-radius: var(--zds-radius-pill); width: 100%; background: var(--zds-paper); border: 1px solid var(--zds-line); box-shadow: var(--zds-shadow-plate);">
+          <span style="color: var(--zds-text-tertiary); display: inline-flex; flex: 0 0 auto;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          </span>
+          <input type="search" placeholder="Search…" style="flex: 1; height: 100%; background: transparent; border: none; outline: none; color: var(--zds-ink-950); font: inherit; font-size: 14px;" />
+          <span style="display: inline-flex; align-items: center; justify-content: center; min-width: 24px; height: 22px; padding: 0 6px; background: var(--zds-mist); border: 1px solid var(--zds-line); border-radius: var(--zds-radius-sm); color: var(--zds-text-tertiary); font-family: var(--zds-font-mono); font-size: 11px; line-height: 1;">/</span>
+        </div>
+      </div>
+
+      <div class="group" style="margin-bottom: 0;">
+        <div class="group__title"><h3>ChainSwitcher</h3><code>.chain-switcher</code></div>
+        <p class="group__lead">Mint dot for mainnet, yellow for testnet, stone for devnet. Halo around the dot signals "live."</p>
+        <div style="display: flex; flex-direction: column; gap: 10px; align-items: flex-start;">
+          <button type="button" style="display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 12px; background: var(--zds-paper); border: 1px solid var(--zds-line); border-radius: var(--zds-radius-pill); box-shadow: var(--zds-shadow-plate); color: var(--zds-ink-900); font: inherit; font-size: 13px; font-weight: 500; cursor: pointer;">
+            <span style="width: 8px; height: 8px; border-radius: 999px; background: var(--zds-mint-500); box-shadow: 0 0 0 3px rgba(63,181,138,0.30);"></span>
+            Mainnet
+            <span style="color: var(--zds-text-tertiary);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <button type="button" style="display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 12px; background: var(--zds-paper); border: 1px solid var(--zds-line); border-radius: var(--zds-radius-pill); box-shadow: var(--zds-shadow-plate); color: var(--zds-ink-900); font: inherit; font-size: 13px; font-weight: 500; cursor: pointer;">
+            <span style="width: 8px; height: 8px; border-radius: 999px; background: var(--zds-zcash-500); box-shadow: 0 0 0 3px rgba(244,183,49,0.30);"></span>
+            Testnet
+            <span style="color: var(--zds-text-tertiary);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <button type="button" style="display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 12px; background: var(--zds-paper); border: 1px solid var(--zds-line); border-radius: var(--zds-radius-pill); box-shadow: var(--zds-shadow-plate); color: var(--zds-ink-900); font: inherit; font-size: 13px; font-weight: 500; cursor: pointer;">
+            <span style="width: 8px; height: 8px; border-radius: 999px; background: var(--zds-stone-600); box-shadow: 0 0 0 3px rgba(107,104,96,0.30);"></span>
+            DevNet
+            <span style="color: var(--zds-text-tertiary);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="group" style="margin-bottom: 0;">
+        <div class="group__title"><h3>ThemeToggle</h3><code>.theme-toggle</code></div>
+        <p class="group__lead">Light / dark switch for product surfaces. Marketing always renders light per brand-direction-v2.</p>
+        <div style="display: flex; flex-direction: column; gap: 10px; align-items: flex-start;">
+          <span style="display: inline-flex; align-items: center; gap: 4px; height: 36px; padding: 4px; background: var(--zds-mist); border: 1px solid var(--zds-line); border-radius: var(--zds-radius-pill);">
+            <span style="display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--zds-paper); color: var(--zds-ink-950); box-shadow: var(--zds-shadow-plate);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            </span>
+            <span style="display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; color: var(--zds-text-tertiary);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
+            </span>
+          </span>
+          <span style="display: inline-flex; align-items: center; gap: 4px; height: 36px; padding: 4px; background: var(--zds-mist); border: 1px solid var(--zds-line); border-radius: var(--zds-radius-pill);">
+            <span style="display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; color: var(--zds-text-tertiary);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            </span>
+            <span style="display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--zds-ink-950); color: #fff;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11d — Footer -->
+    <div class="group" style="margin-top: 64px;">
+      <div class="group__title"><h3>Footer</h3><code>.footer</code></div>
+      <p class="group__lead">Multi-column site footer. Replaces the v1 layout. No "Powered by" line — Z Protocol stands on its own per the change-brief C5 / C6.</p>
+      <footer style="background: var(--zds-cream); border: 1px solid var(--zds-line); border-radius: var(--zds-radius-lg); padding: 56px 48px 28px;">
+        <div style="display: grid; grid-template-columns: 240px repeat(4, minmax(0, 1fr)); gap: 40px; margin-bottom: 48px;">
+          <div>
+            <div style="display: inline-flex; align-items: center; gap: 12px;">
+              <svg width="32" height="44" viewBox="0 0 665 929" fill="currentColor" aria-label="Z" style="color: var(--zds-ink-950);">
+                <path d="M625 0C647.091 0 665 17.9086 665 40V258.352C665 268.961 660.786 279.135 653.284 286.637L211.716 728.206C204.214 735.708 200 745.882 200 756.49V889C200 911.091 182.091 929 160 929H40C17.9086 929 0 911.091 0 889V673.648C0 663.039 4.21426 652.865 11.7157 645.363L453.284 203.794C460.786 196.292 465 186.118 465 175.51V40C465 17.9086 482.909 0 505 0H625Z"/>
+                <rect width="300" height="200" rx="40"/>
+                <rect x="365" y="729" width="300" height="200" rx="40"/>
+              </svg>
+            </div>
+            <p style="margin-top: 16px; margin-bottom: 0; max-width: 22ch; color: var(--zds-stone-600); font-family: var(--zds-font-serif); font-style: italic; font-size: 17px; line-height: 1.4;">
+              A clear morning in the mountains.
+            </p>
+          </div>
+          <div>
+            <p style="margin: 0 0 16px; font-size: 11px; font-weight: 500; letter-spacing: 0.10em; text-transform: uppercase; color: var(--zds-text-tertiary); font-family: var(--zds-font-mono);">Z Protocol</p>
+            <ul style="margin: 0; padding: 0; list-style: none; display: grid; gap: 10px;">
+              <li><a href="#" style="color: var(--zds-ink-900); text-decoration: none; font-size: 14px;">Platform</a></li>
+              <li><a href="#" style="color: var(--zds-ink-900); text-decoration: none; font-size: 14px;">Brand assets</a></li>
+              <li><a href="#" style="color: var(--zds-ink-900); text-decoration: none; font-size: 14px;">Manifesto</a></li>
+              <li><a href="#" style="color: var(--zds-ink-900); text-decoration: none; font-size: 14px;">Contact</a></li>
+            </ul>
+          </div>
+          <div>
+            <p style="margin: 0 0 16px; font-size: 11px; font-weight: 500; letter-spacing: 0.10em; text-transform: uppercase; color: var(--zds-text-tertiary); font-family: var(--zds-font-mono);">Apps</p>
+            <ul style="margin: 0; padding: 0; list-style: none; display: grid; gap: 10px;">
+              <li><a href="#" style="color: var(--zds-ink-900); text-decoration: none; font-size: 14px;">Z Trade</a></li>
+              <li><a href="#" style="color: var(--zds-ink-900); text-decoration: none; font-size: 14px;">Z Lend</a></li>
+              <li><a href="#" style="color: var(--zds-ink-900); text-decoration: none; font-size: 14px;">Z Stake</a></li>
+              <li><a href="#" style="color: var(--zds-ink-900); text-decoration: none; font-size: 14px;">Z Scan</a></li>
+            </ul>
+          </div>
+          <div>
+            <p style="margin: 0 0 16px; font-size: 11px; font-weight: 500; letter-spacing: 0.10em; text-transform: uppercase; color: var(--zds-text-tertiary); font-family: var(--zds-font-mono);">Community</p>
+            <ul style="margin: 0; padding: 0; list-style: none; display: grid; gap: 10px;">
+              <li><a href="#" style="color: var(--zds-ink-900); text-decoration: none; font-size: 14px;">Documentation</a></li>
+              <li><a href="#" style="color: var(--zds-ink-900); text-decoration: none; font-size: 14px;">GitHub</a></li>
+              <li><a href="#" style="color: var(--zds-ink-900); text-decoration: none; font-size: 14px;">Forum</a></li>
+              <li><a href="#" style="color: var(--zds-ink-900); text-decoration: none; font-size: 14px;">Forms</a></li>
+            </ul>
+          </div>
+          <div>
+            <p style="margin: 0 0 16px; font-size: 11px; font-weight: 500; letter-spacing: 0.10em; text-transform: uppercase; color: var(--zds-text-tertiary); font-family: var(--zds-font-mono);">Legal</p>
+            <ul style="margin: 0; padding: 0; list-style: none; display: grid; gap: 10px;">
+              <li><a href="#" style="color: var(--zds-ink-900); text-decoration: none; font-size: 14px;">Terms</a></li>
+              <li><a href="#" style="color: var(--zds-ink-900); text-decoration: none; font-size: 14px;">Privacy</a></li>
+              <li><a href="#" style="color: var(--zds-ink-900); text-decoration: none; font-size: 14px;">Disclosures</a></li>
+            </ul>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 24px; padding-top: 20px; border-top: 1px solid var(--zds-line); flex-wrap: wrap;">
+          <div style="display: inline-flex; gap: 8px;">
+            <a href="#" aria-label="GitHub" style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: var(--zds-paper); border: 1px solid var(--zds-line); border-radius: 50%; color: var(--zds-ink-900);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2.9-.3 2-.4 3-.4s2.1.1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.4 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6C20.2 21.4 23.5 17.1 23.5 12 23.5 5.7 18.3.5 12 .5z"/></svg>
+            </a>
+            <a href="#" aria-label="X" style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: var(--zds-paper); border: 1px solid var(--zds-line); border-radius: 50%; color: var(--zds-ink-900);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2H21l-6.563 7.5L22 22h-6.094l-4.78-6.25L5.5 22H2.744l7.024-8.025L2 2h6.25l4.342 5.74L18.244 2zm-1.07 18h1.7L7.075 4H5.27l11.904 16z"/></svg>
+            </a>
+            <a href="#" aria-label="Discord" style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: var(--zds-paper); border: 1px solid var(--zds-line); border-radius: 50%; color: var(--zds-ink-900);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.27 5.33A19.79 19.79 0 0 0 14.65 4l-.27.51a18.4 18.4 0 0 1 4.32 1.43A18.06 18.06 0 0 0 12 5a18 18 0 0 0-6.69 1A18.4 18.4 0 0 1 9.62 4.51L9.34 4a19.79 19.79 0 0 0-4.61 1.33A19.94 19.94 0 0 0 1 19a19.83 19.83 0 0 0 6 3l1.2-1.65a13 13 0 0 1-2.18-1.05c.18-.13.36-.26.54-.4a13.42 13.42 0 0 0 11.41 0c.18.14.36.27.54.4a13 13 0 0 1-2.18 1.05L17 22a19.83 19.83 0 0 0 6-3 19.94 19.94 0 0 0-3.73-13.67zM8.52 15.42a2.34 2.34 0 0 1-2.18-2.46 2.34 2.34 0 0 1 2.18-2.46 2.34 2.34 0 0 1 2.18 2.46 2.34 2.34 0 0 1-2.18 2.46zm6.96 0a2.34 2.34 0 0 1-2.18-2.46 2.34 2.34 0 0 1 2.18-2.46 2.34 2.34 0 0 1 2.18 2.46 2.34 2.34 0 0 1-2.18 2.46z"/></svg>
+            </a>
+          </div>
+          <div style="color: var(--zds-text-tertiary); font-size: 12px; font-family: var(--zds-font-mono); letter-spacing: 0.06em; text-transform: uppercase;">© 2026 Z Protocol</div>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- Vanilla JS chart renderer (mirrors React chart math)          -->
+  <!-- ============================================================ -->
+  <script>
+  (function() {
+    const PALETTE = [
+      'var(--zds-mint-500)',
+      'var(--zds-moss-400)',
+      'var(--zds-stone-600)',
+      'var(--zds-ink-300)'
+    ];
+    const GRID = 'var(--zds-line-soft)';
+    const AXIS = 'var(--zds-line)';
+
+    function niceTicks(min, max, count) {
+      count = count || 5;
+      if (max === min) return [min];
+      const range = max - min;
+      const rough = range / (count - 1);
+      const pow = Math.pow(10, Math.floor(Math.log10(rough)));
+      const norm = rough / pow;
+      const step = norm < 1.5 ? 1 * pow : norm < 3 ? 2 * pow : norm < 7 ? 5 * pow : 10 * pow;
+      const start = Math.floor(min / step) * step;
+      const end = Math.ceil(max / step) * step;
+      const ticks = [];
+      for (let v = start; v <= end + 1e-9; v += step) ticks.push(Number(v.toFixed(10)));
+      return ticks;
+    }
+
+    function fmt(v) {
+      const a = Math.abs(v);
+      if (a >= 1e6) return (v / 1e6).toFixed(1) + 'M';
+      if (a >= 1e3) return (v / 1e3).toFixed(1) + 'k';
+      if (a < 1 && a > 0) return v.toFixed(2);
+      return String(v);
+    }
+
+    function axisLabel(x, y, text, anchor) {
+      anchor = anchor || 'middle';
+      return `<text x="${x}" y="${y}" text-anchor="${anchor}" style="font-family: var(--zds-font-mono); font-size: 11px; fill: var(--zds-text-tertiary); letter-spacing: 0.04em;">${text}</text>`;
+    }
+
+    function chartFrame(width, height, inner) {
+      // returns [open svg, close svg, gridLines fn]
+      return {
+        open: `<svg viewBox="0 0 ${width} ${height}" width="100%" preserveAspectRatio="xMidYMid meet" role="img"><g transform="translate(${inner.left},${inner.top})">`,
+        close: `</g></svg>`
+      };
+    }
+
+    function renderLine(targetId, opts) {
+      const el = document.getElementById(targetId);
+      if (!el) return;
+      const { xLabels, series, height = 320 } = opts;
+      const margin = { top: 24, right: 24, bottom: 44, left: 56 };
+      const width = 800;
+      const innerW = width - margin.left - margin.right;
+      const innerH = height - margin.top - margin.bottom;
+      const allValues = series.flatMap(s => s.values);
+      const ticks = niceTicks(Math.min(...allValues, 0), Math.max(...allValues), 5);
+      const yMin = ticks[0], yMax = ticks[ticks.length - 1];
+      const yRange = yMax - yMin || 1;
+      const xAt = i => xLabels.length > 1 ? (i / (xLabels.length - 1)) * innerW : innerW / 2;
+      const yAt = v => innerH - ((v - yMin) / yRange) * innerH;
+      const showArea = opts.area !== undefined ? opts.area : series.length === 1;
+
+      let svg = `<svg viewBox="0 0 ${width} ${height}" width="100%" preserveAspectRatio="xMidYMid meet" role="img"><g transform="translate(${margin.left},${margin.top})">`;
+      // Grid lines
+      ticks.forEach(t => {
+        const y = yAt(t);
+        svg += `<line x1="0" x2="${innerW}" y1="${y}" y2="${y}" stroke="${GRID}"/>`;
+        svg += axisLabel(-8, y + 4, fmt(t), 'end');
+      });
+      svg += `<line x1="0" x2="${innerW}" y1="${innerH}" y2="${innerH}" stroke="${AXIS}"/>`;
+      // X labels
+      xLabels.forEach((label, i) => {
+        svg += axisLabel(xAt(i), innerH + 18, label, 'middle');
+      });
+      // Series
+      series.forEach((s, idx) => {
+        const tone = s.tone || PALETTE[idx];
+        const points = s.values.map((v, i) => ({ x: xAt(i), y: yAt(v) }));
+        const path = points.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x.toFixed(2)},${p.y.toFixed(2)}`).join(' ');
+        const last = points[points.length - 1];
+        const areaPath = `${path} L${last.x.toFixed(2)},${innerH.toFixed(2)} L0,${innerH.toFixed(2)} Z`;
+        if (showArea) svg += `<path d="${areaPath}" fill="${tone}" fill-opacity="0.16"/>`;
+        svg += `<path d="${path}" fill="none" stroke="${tone}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+        svg += `<circle cx="${last.x}" cy="${last.y}" r="3" fill="${tone}"/>`;
+      });
+      svg += `</g></svg>`;
+
+      el.style.width = '100%';
+      el.style.background = 'var(--zds-paper)';
+      el.style.backgroundImage = 'var(--zds-dotted-grid)';
+      el.style.border = '1px solid var(--zds-line)';
+      el.style.borderRadius = 'var(--zds-radius-lg)';
+      el.style.boxShadow = 'var(--zds-shadow-plate)';
+      el.innerHTML = svg;
+    }
+
+    function renderArea(targetId, opts) {
+      const el = document.getElementById(targetId);
+      if (!el) return;
+      const { xLabels, series, height = 320 } = opts;
+      const margin = { top: 24, right: 24, bottom: 44, left: 56 };
+      const width = 800;
+      const innerW = width - margin.left - margin.right;
+      const innerH = height - margin.top - margin.bottom;
+      const n = xLabels.length;
+
+      // Stack
+      const stacks = series[0].values.map((_, i) => series.map(s => s.values[i] || 0));
+      const totals = stacks.map(cols => cols.reduce((a,b) => a+b, 0));
+      const ticks = niceTicks(0, Math.max(...totals), 5);
+      const yMax = ticks[ticks.length - 1];
+      const xAt = i => n > 1 ? (i / (n - 1)) * innerW : innerW / 2;
+      const yAt = v => innerH - (v / yMax) * innerH;
+      const cumulative = stacks.map(cols => {
+        let sum = 0;
+        return cols.map(v => { sum += v; return sum; });
+      });
+
+      let svg = `<svg viewBox="0 0 ${width} ${height}" width="100%" preserveAspectRatio="xMidYMid meet" role="img"><g transform="translate(${margin.left},${margin.top})">`;
+      ticks.forEach(t => {
+        const y = yAt(t);
+        svg += `<line x1="0" x2="${innerW}" y1="${y}" y2="${y}" stroke="${GRID}"/>`;
+        svg += axisLabel(-8, y + 4, fmt(t), 'end');
+      });
+      svg += `<line x1="0" x2="${innerW}" y1="${innerH}" y2="${innerH}" stroke="${AXIS}"/>`;
+      xLabels.forEach((label, i) => {
+        svg += axisLabel(xAt(i), innerH + 18, label, 'middle');
+      });
+      // Stacked bands
+      series.forEach((s, sIdx) => {
+        const tone = s.tone || PALETTE[sIdx];
+        const top = [], bot = [];
+        for (let i = 0; i < n; i++) {
+          const cumTop = cumulative[i][sIdx];
+          const cumBot = sIdx === 0 ? 0 : cumulative[i][sIdx - 1];
+          top.push({ x: xAt(i), y: yAt(cumTop) });
+          bot.push({ x: xAt(i), y: yAt(cumBot) });
+        }
+        const path = [
+          ...top.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x.toFixed(2)},${p.y.toFixed(2)}`),
+          ...bot.slice().reverse().map(p => `L${p.x.toFixed(2)},${p.y.toFixed(2)}`),
+          'Z'
+        ].join(' ');
+        svg += `<path d="${path}" fill="${tone}" fill-opacity="0.55" stroke="${tone}" stroke-opacity="0.7" stroke-width="1"/>`;
+      });
+      svg += `</g></svg>`;
+
+      el.style.width = '100%';
+      el.style.background = 'var(--zds-paper)';
+      el.style.backgroundImage = 'var(--zds-dotted-grid)';
+      el.style.border = '1px solid var(--zds-line)';
+      el.style.borderRadius = 'var(--zds-radius-lg)';
+      el.style.boxShadow = 'var(--zds-shadow-plate)';
+      el.innerHTML = svg;
+    }
+
+    function renderBars(targetId, opts) {
+      const el = document.getElementById(targetId);
+      if (!el) return;
+      const { xLabels, series, height = 320, groupGap = 0.3, barGap = 0.1 } = opts;
+      const margin = { top: 24, right: 24, bottom: 44, left: 56 };
+      const width = 800;
+      const innerW = width - margin.left - margin.right;
+      const innerH = height - margin.top - margin.bottom;
+      const n = xLabels.length;
+      const allValues = series.flatMap(s => s.values);
+      const ticks = niceTicks(0, Math.max(...allValues), 5);
+      const yMax = ticks[ticks.length - 1];
+      const slot = innerW / n;
+      const groupW = slot * (1 - groupGap);
+      const barW = (groupW * (1 - barGap)) / series.length;
+      const xAt = i => i * slot + (slot - groupW) / 2;
+      const yAt = v => innerH - (v / yMax) * innerH;
+
+      let svg = `<svg viewBox="0 0 ${width} ${height}" width="100%" preserveAspectRatio="xMidYMid meet" role="img"><g transform="translate(${margin.left},${margin.top})">`;
+      ticks.forEach(t => {
+        const y = yAt(t);
+        svg += `<line x1="0" x2="${innerW}" y1="${y}" y2="${y}" stroke="${GRID}"/>`;
+        svg += axisLabel(-8, y + 4, fmt(t), 'end');
+      });
+      svg += `<line x1="0" x2="${innerW}" y1="${innerH}" y2="${innerH}" stroke="${AXIS}"/>`;
+      series.forEach((s, sIdx) => {
+        const tone = s.tone || PALETTE[sIdx];
+        const groupOffset = sIdx * barW + (sIdx * (groupW * barGap)) / Math.max(series.length - 1, 1);
+        s.values.forEach((v, i) => {
+          const x = xAt(i) + groupOffset;
+          const y = yAt(v);
+          const h = innerH - y;
+          svg += `<rect x="${x}" y="${y}" width="${Math.max(barW, 1)}" height="${Math.max(h, 0)}" fill="${tone}" fill-opacity="0.85" rx="${Math.min(4, barW / 4)}"/>`;
+        });
+      });
+      xLabels.forEach((label, i) => {
+        svg += axisLabel(xAt(i) + groupW / 2, innerH + 18, label, 'middle');
+      });
+      svg += `</g></svg>`;
+
+      el.style.width = '100%';
+      el.style.background = 'var(--zds-paper)';
+      el.style.backgroundImage = 'var(--zds-dotted-grid)';
+      el.style.border = '1px solid var(--zds-line)';
+      el.style.borderRadius = 'var(--zds-radius-lg)';
+      el.style.boxShadow = 'var(--zds-shadow-plate)';
+      el.innerHTML = svg;
+    }
+
+    function renderDonut(targetId, opts) {
+      const el = document.getElementById(targetId);
+      if (!el) return;
+      const { segments, size = 200, thickness = 22, centerTitle, centerCaption } = opts;
+      const total = segments.reduce((a, s) => a + Math.max(s.value, 0), 0) || 1;
+      const cx = size / 2, cy = size / 2, r = (size - thickness) / 2;
+
+      function polar(angleDeg) {
+        const a = (angleDeg - 90) * Math.PI / 180;
+        return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
+      }
+      function arcPath(startDeg, endDeg) {
+        const start = polar(startDeg);
+        const end = polar(endDeg);
+        const large = endDeg - startDeg > 180 ? 1 : 0;
+        return `M ${start.x} ${start.y} A ${r} ${r} 0 ${large} 1 ${end.x} ${end.y}`;
+      }
+
+      let cursor = 0;
+      let svg = `<div style="position: relative; display: inline-flex;"><svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" role="img">`;
+      svg += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--zds-line)" stroke-width="${thickness}"/>`;
+      segments.forEach((seg, i) => {
+        const tone = seg.tone || PALETTE[i];
+        const portion = (seg.value / total) * 360;
+        const start = cursor;
+        const end = Math.min(cursor + portion, 360 - 0.0001);
+        cursor += portion;
+        svg += `<path d="${arcPath(start, end)}" fill="none" stroke="${tone}" stroke-width="${thickness}" stroke-linecap="butt"/>`;
+      });
+      svg += `</svg>`;
+      if (centerTitle || centerCaption) {
+        svg += `<div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none;">`;
+        if (centerTitle) svg += `<strong style="font-family: var(--zds-font-display); font-size: ${Math.max(20, size * 0.18)}px; line-height: 1; letter-spacing: -0.035em; color: var(--zds-ink-950); font-weight: 500;">${centerTitle}</strong>`;
+        if (centerCaption) svg += `<span style="margin-top: 4px; font-size: 11px; font-weight: 500; letter-spacing: 0.10em; text-transform: uppercase; color: var(--zds-text-tertiary); font-family: var(--zds-font-mono);">${centerCaption}</span>`;
+        svg += `</div>`;
+      }
+      svg += `</div>`;
+      el.innerHTML = svg;
+    }
+
+    function renderSpark(targetId, opts) {
+      const el = document.getElementById(targetId);
+      if (!el) return;
+      const { values, tone = 'positive', area = true, width = 120, height = 32 } = opts;
+      const stroke = {
+        positive: 'var(--zds-mint-500)',
+        negative: 'var(--zds-negative)',
+        neutral:  'var(--zds-ink-700)',
+        private:  'var(--zds-mint-500)'
+      }[tone];
+      const fill = {
+        positive: 'rgba(63,181,138,0.16)',
+        negative: 'rgba(215,122,110,0.16)',
+        neutral:  'rgba(11,11,13,0.08)',
+        private:  'rgba(63,181,138,0.16)'
+      }[tone];
+
+      const min = Math.min(...values);
+      const max = Math.max(...values);
+      const range = max - min || 1;
+      const pad = 2;
+      const innerW = width - pad * 2;
+      const innerH = height - pad * 2;
+      const points = values.map((v, i) => {
+        const x = pad + (i / (values.length - 1 || 1)) * innerW;
+        const y = pad + innerH - ((v - min) / range) * innerH;
+        return { x, y };
+      });
+      const path = points.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x.toFixed(2)},${p.y.toFixed(2)}`).join(' ');
+      const last = points[points.length - 1];
+      const areaD = `${path} L${last.x.toFixed(2)},${(pad + innerH).toFixed(2)} L${pad.toFixed(2)},${(pad + innerH).toFixed(2)} Z`;
+
+      let svg = `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" style="display: inline-block;" aria-hidden="true">`;
+      if (area) svg += `<path d="${areaD}" fill="${fill}"/>`;
+      svg += `<path d="${path}" fill="none" stroke="${stroke}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+      svg += `<circle cx="${last.x}" cy="${last.y}" r="2.5" fill="${stroke}"/></svg>`;
+      el.innerHTML = svg;
+    }
+
+    function renderLegend(targetId, items) {
+      const el = document.getElementById(targetId);
+      if (!el) return;
+      el.innerHTML = items.map(item => `
+        <button type="button" style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: var(--zds-paper); border: 1px solid var(--zds-line); border-radius: var(--zds-radius-pill); color: var(--zds-ink-900); font: inherit; font-size: 12px; font-weight: 500; cursor: pointer; margin-right: 8px;">
+          <span style="width: 8px; height: 8px; border-radius: 999px; background: ${item.tone};"></span>
+          ${item.label}
+        </button>
+      `).join('');
+    }
+
+    // ----- DATA -----
+    const xWeeks = ['Apr 1', 'Apr 8', 'Apr 15', 'Apr 22', 'Apr 29'];
+    const xDaysShort = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+    const xMonthDays = ['Apr 1','5','9','13','17','21','25','29'];
+
+    // 10a — Daily Shield Volume (single-series, mint)
+    renderLine('chart-shield-volume', {
+      xLabels: xWeeks,
+      series: [{ label: 'Shield volume (k ZEC)', values: [12, 28, 64, 168, 248], tone: 'var(--zds-mint-500)' }],
+      area: true
+    });
+
+    // 10b — Stacked MASP (Shield + Transfer + Unshield)
+    renderArea('chart-masp-stacked', {
+      xLabels: xMonthDays,
+      series: [
+        { label: 'Shield',   values: [44, 68, 92, 110, 138, 164, 192, 212], tone: 'var(--zds-mint-500)' },
+        { label: 'Transfer', values: [22, 28, 38, 52, 62, 70, 82, 88],      tone: 'var(--zds-moss-400)' },
+        { label: 'Unshield', values: [10, 14, 18, 22, 28, 32, 38, 42],      tone: 'var(--zds-stone-600)' }
+      ]
+    });
+    renderLegend('legend-masp-stacked', [
+      { label: 'Shield', tone: 'var(--zds-mint-500)' },
+      { label: 'Transfer', tone: 'var(--zds-moss-400)' },
+      { label: 'Unshield', tone: 'var(--zds-stone-600)' }
+    ]);
+
+    // 10c — Hourly txs (single bar, ink) and grouped x402-vs-std
+    renderBars('chart-hourly', {
+      xLabels: ['00','03','06','09','12','15','18','21'],
+      series: [{ label: 'Hourly txs', values: [180, 220, 145, 248, 312, 286, 262, 198], tone: 'var(--zds-ink-700)' }],
+      height: 300
+    });
+    renderBars('chart-x402-vs-std', {
+      xLabels: xDaysShort,
+      series: [
+        { label: 'x402',     values: [42, 58, 71, 84, 96, 78, 64], tone: 'var(--zds-zcash-500)' },
+        { label: 'Standard', values: [128, 142, 168, 174, 182, 154, 140], tone: 'var(--zds-stone-600)' }
+      ],
+      height: 300
+    });
+    renderLegend('legend-x402-vs-std', [
+      { label: 'x402', tone: 'var(--zds-zcash-500)' },
+      { label: 'Standard', tone: 'var(--zds-stone-600)' }
+    ]);
+
+    // 10d — Privacy ratio donut
+    renderDonut('chart-privacy-ratio', {
+      segments: [
+        { label: 'Shielded',    value: 38, tone: 'var(--zds-mint-500)' },
+        { label: 'Transparent', value: 62, tone: 'var(--zds-stone-600)' }
+      ],
+      size: 200,
+      thickness: 22,
+      centerTitle: '38%',
+      centerCaption: 'Privacy Ratio'
+    });
+
+    // Sparklines
+    renderSpark('spark-private',  { values: [12, 18, 22, 28, 30, 38, 48, 56, 72, 96, 124, 168, 212, 248], tone: 'private', width: 140, height: 40 });
+    renderSpark('spark-neutral',  { values: [1.92, 1.88, 1.86, 1.84, 1.82, 1.84, 1.86, 1.84, 1.82, 1.80, 1.84, 1.86, 1.84, 1.82], tone: 'neutral', width: 140, height: 40 });
+    renderSpark('spark-negative', { values: [38, 32, 26, 22, 18, 14, 12, 18, 24, 22, 18, 14, 12, 12], tone: 'negative', width: 140, height: 40 });
+  })();
+  </script>
+
+  <footer style="margin-top: 96px; padding-top: 32px; border-top: 1px solid var(--zds-line); display: flex; justify-content: space-between; align-items: center;">
+    <div style="display: flex; gap: 16px; align-items: center;">
+      <svg width="28" height="39" viewBox="0 0 665 929" fill="currentColor" aria-label="Z" style="color: var(--zds-ink-950);">
+        <path d="M625 0C647.091 0 665 17.9086 665 40V258.352C665 268.961 660.786 279.135 653.284 286.637L211.716 728.206C204.214 735.708 200 745.882 200 756.49V889C200 911.091 182.091 929 160 929H40C17.9086 929 0 911.091 0 889V673.648C0 663.039 4.21426 652.865 11.7157 645.363L453.284 203.794C460.786 196.292 465 186.118 465 175.51V40C465 17.9086 482.909 0 505 0H625Z"/>
+        <rect width="300" height="200" rx="40"/>
+        <rect x="365" y="729" width="300" height="200" rx="40"/>
+      </svg>
+      <span class="serif" style="color: var(--zds-stone-600); font-size: 22px;">A clear morning in the mountains.</span>
+    </div>
+    <div class="caption">Z Design System · Scanner v2 · Tier 1 · 2026-04-27</div>
+  </footer>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+{
+  "name": "@zds/ui",
+  "version": "0.1.0",
+  "description": "Z Design System — React components and tokens for Z Protocol surfaces (v2 / Serene System).",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/protocol-z/z-design-system.git",
+    "directory": "packages/ui"
+  },
+  "homepage": "https://github.com/protocol-z/z-design-system#readme",
+  "bugs": {
+    "url": "https://github.com/protocol-z/z-design-system/issues"
+  },
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./styles/tokens.css": "./src/styles/tokens.css"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "z-protocol",
+    "design-system",
+    "react",
+    "components",
+    "tokens",
+    "typescript"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  }
+}

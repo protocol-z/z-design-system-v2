@@ -1,0 +1,1530 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Z Scan v2 — Page restyle reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../packages/ui/src/styles/tokens.css" />
+<style>
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--zds-bg);
+    color: var(--zds-text);
+    font-family: var(--zds-font-body);
+    font-size: var(--zds-body-m);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  img, svg { display: block; max-width: 100%; }
+
+  /* ---------- Page wrapper ---------- */
+  .page-frame {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 56px 56px 96px;
+  }
+  .doc-cap {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--zds-text-tertiary);
+  }
+  .mono { font-family: var(--zds-font-mono); font-feature-settings: 'ss01','cv02'; }
+  .serif { font-family: var(--zds-font-serif); font-style: italic; }
+
+  /* Page-section wrapper — each "page" of the scanner is one of these */
+  .page-section { padding: 56px 0 72px; }
+  .page-section + .page-section { border-top: 2px dashed var(--zds-line); }
+  .page-section__head {
+    display: flex; gap: 32px; align-items: flex-start;
+    padding-bottom: 28px; margin-bottom: 32px;
+    border-bottom: 1px solid var(--zds-line);
+  }
+  .page-section__head .num {
+    font-family: var(--zds-font-mono);
+    font-size: 13px; letter-spacing: 0.06em;
+    color: var(--zds-text-tertiary);
+    background: var(--zds-paper);
+    border: 1px solid var(--zds-line);
+    border-radius: var(--zds-radius-pill);
+    padding: 4px 12px;
+    flex: 0 0 auto;
+  }
+  .page-section__head h2 {
+    font-family: var(--zds-font-display);
+    font-size: clamp(28px, 3.6vw, 40px);
+    line-height: 0.96; letter-spacing: -0.035em;
+    font-weight: 500; margin: 0; max-width: 22ch;
+  }
+  .page-section__head p {
+    margin: 8px 0 0; color: var(--zds-text-secondary);
+    font-size: 15px; line-height: 1.5; max-width: 56ch;
+  }
+  .page-section__url {
+    margin-top: 12px;
+    color: var(--zds-text-tertiary);
+    font-family: var(--zds-font-mono);
+    font-size: 12px; letter-spacing: 0.04em;
+  }
+  .page-section__url::before { content: '→ '; opacity: 0.6; }
+
+  /* Each page mockup sits inside an artboard for visual containment */
+  .artboard {
+    background: var(--zds-bg);
+    border: 1px solid var(--zds-line-soft);
+    border-radius: var(--zds-radius-xl);
+    overflow: hidden;
+    box-shadow: 0 18px 40px rgba(11,11,13,0.04);
+  }
+  .artboard__inner {
+    padding: 0;
+  }
+
+  /* ---------- AppHeader (reused across pages) ---------- */
+  .ahdr {
+    display: flex; align-items: center; gap: 24px;
+    height: 64px; padding: 0 24px;
+    background: var(--zds-paper);
+    border-bottom: 1px solid var(--zds-line);
+  }
+  .ahdr__brand { display: inline-flex; align-items: center; gap: 12px; flex: 0 0 auto; }
+  .ahdr__brand .name { font-family: var(--zds-font-display); font-weight: 500; font-size: 16px; letter-spacing: -0.01em; }
+  .ahdr__center { flex: 1; display: flex; justify-content: center; min-width: 0; }
+  .ahdr__actions { display: inline-flex; align-items: center; gap: 8px; flex: 0 0 auto; }
+
+  .search {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 0 8px 0 16px; height: 40px;
+    border-radius: var(--zds-radius-pill);
+    width: 100%; max-width: 520px;
+    background: var(--zds-mist);
+    border: 1px solid var(--zds-line);
+  }
+  .search input {
+    flex: 1; height: 100%; background: transparent; border: none; outline: none;
+    color: var(--zds-ink-950); font: inherit; font-size: 13px;
+  }
+  .search .kbd {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 22px; height: 20px; padding: 0 6px;
+    background: var(--zds-paper); border: 1px solid var(--zds-line);
+    border-radius: var(--zds-radius-sm);
+    color: var(--zds-text-tertiary);
+    font-family: var(--zds-font-mono); font-size: 11px; line-height: 1;
+  }
+
+  .chain-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    height: 36px; padding: 0 12px;
+    background: var(--zds-paper); border: 1px solid var(--zds-line);
+    border-radius: var(--zds-radius-pill);
+    box-shadow: var(--zds-shadow-plate);
+    color: var(--zds-ink-900);
+    font-size: 13px; font-weight: 500;
+    cursor: pointer;
+  }
+  .chain-pill .dot { width: 8px; height: 8px; border-radius: 999px; flex: 0 0 auto; }
+  .dot-mainnet { background: var(--zds-mint-500); box-shadow: 0 0 0 3px rgba(63,181,138,0.30); }
+  .dot-testnet { background: var(--zds-zcash-500); box-shadow: 0 0 0 3px rgba(244,183,49,0.30); }
+  .dot-devnet  { background: var(--zds-stone-600); box-shadow: 0 0 0 3px rgba(107,104,96,0.30); }
+
+  .theme-toggle {
+    display: inline-flex; align-items: center; gap: 4px;
+    height: 36px; padding: 4px;
+    background: var(--zds-mist); border: 1px solid var(--zds-line);
+    border-radius: var(--zds-radius-pill);
+  }
+  .theme-toggle .seg {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px; border-radius: 50%;
+    color: var(--zds-text-tertiary);
+  }
+  .theme-toggle .seg.is-active { background: var(--zds-paper); color: var(--zds-ink-950); box-shadow: var(--zds-shadow-plate); }
+
+  /* ---------- Body chrome inside artboard ---------- */
+  .abody {
+    padding: 32px 32px 48px;
+    background: var(--zds-bg);
+  }
+  .page-title {
+    display: flex; align-items: end; justify-content: space-between;
+    gap: 24px; margin: 0 0 24px;
+  }
+  .page-title h1 {
+    font-family: var(--zds-font-display);
+    font-size: 34px; line-height: 0.96; letter-spacing: -0.03em;
+    font-weight: 500; margin: 0;
+  }
+  .page-title .meta {
+    color: var(--zds-text-secondary); font-size: 13px;
+  }
+
+  /* ---------- TypeBadge / chips / tags ---------- */
+  .tb {
+    display: inline-flex; align-items: center; gap: 6px;
+    border-radius: var(--zds-radius-pill);
+    font-weight: 500; text-transform: uppercase; line-height: 1; white-space: nowrap;
+  }
+  .tb--sm {
+    background: var(--zds-paper);
+    border: 1px solid var(--zds-line);
+    color: var(--zds-ink-900);
+    padding: 2px 10px 2px 8px;
+    font-size: 11px; height: 20px; letter-spacing: 0.04em;
+  }
+  .tb--md {
+    padding: 4px 12px 4px 10px;
+    font-size: 12px; height: 26px; letter-spacing: 0.05em;
+  }
+  .tb__dot { width: 6px; height: 6px; border-radius: 999px; flex: 0 0 auto; }
+  .tb--md.t-private  { background: var(--zds-positive-wash); border: 1px solid rgba(63,181,138,0.30); color: var(--zds-mint-500); }
+  .tb--md.t-unshield { background: rgba(111,163,137,0.16); border: 1px solid rgba(111,163,137,0.30); color: var(--zds-moss-400); }
+  .tb--md.t-infra    { background: rgba(107,104,96,0.14); border: 1px solid rgba(107,104,96,0.30); color: var(--zds-stone-600); }
+  .tb--md.t-payment  { background: rgba(244,183,49,0.16); border: 1px solid rgba(244,183,49,0.32); color: var(--zds-zcash-500); }
+  .tb--md.t-standard { background: var(--zds-mist); border: 1px solid var(--zds-line); color: var(--zds-ink-700); }
+  .dot-private  { background: var(--zds-mint-500); }
+  .dot-unshield { background: var(--zds-moss-400); }
+  .dot-infra    { background: var(--zds-stone-600); }
+  .dot-payment  { background: var(--zds-zcash-500); }
+  .dot-agent    { background: var(--zds-stone-600); }
+  .dot-standard { background: var(--zds-ink-700); }
+
+  .hash {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 2px 8px; background: var(--zds-mist);
+    border: 1px solid var(--zds-line-soft);
+    border-radius: var(--zds-radius-pill);
+    font-family: var(--zds-font-mono); font-size: 12px;
+    color: var(--zds-ink-900); letter-spacing: 0.02em;
+  }
+  .copy {
+    display: inline-flex; padding: 2px;
+    color: var(--zds-text-tertiary); cursor: pointer;
+  }
+
+  .addr {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px; border-radius: var(--zds-radius-pill);
+    font-size: 13px; font-weight: 500;
+  }
+  .addr .tail { font-family: var(--zds-font-mono); font-size: 11px; color: var(--zds-text-tertiary); letter-spacing: 0.02em; }
+  .addr--privacy   { background: var(--zds-positive-wash); border: 1px solid rgba(63,181,138,0.30); color: var(--zds-ink-900); }
+  .addr--contract  { background: var(--zds-mist); border: 1px solid var(--zds-line); color: var(--zds-ink-900); }
+  .addr--validator { background: rgba(107,104,96,0.10); border: 1px solid rgba(107,104,96,0.30); color: var(--zds-ink-900); }
+  .addr--merchant  { background: rgba(244,183,49,0.14); border: 1px solid rgba(244,183,49,0.30); color: var(--zds-ink-900); }
+  .addr-dot { width: 6px; height: 6px; border-radius: 999px; flex: 0 0 auto; }
+
+  /* ---------- Stat tile ---------- */
+  .stat {
+    display: grid; gap: 6px;
+    padding: 18px 22px;
+    border-radius: var(--zds-radius-lg);
+    border: 1px solid var(--zds-line);
+    background: var(--zds-paper);
+    box-shadow: var(--zds-shadow-plate);
+    position: relative;
+    overflow: hidden;
+  }
+  .stat__cap {
+    color: var(--zds-text-tertiary);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.10em; text-transform: uppercase;
+    font-family: var(--zds-font-mono);
+  }
+  .stat__num {
+    color: var(--zds-ink-950);
+    font-family: var(--zds-font-display);
+    font-size: 30px; line-height: 1; letter-spacing: -0.035em;
+    font-weight: 500;
+  }
+  .stat__num .muted { color: var(--zds-ink-300); }
+  .stat__sub { font-size: 12px; color: var(--zds-text-tertiary); }
+  .stat__sub .pos { color: var(--zds-mint-500); }
+  .stat__sub .neg { color: var(--zds-negative); }
+
+  /* ---------- DataTable ---------- */
+  .dt-wrap {
+    background: var(--zds-paper);
+    border: 1px solid var(--zds-line);
+    border-radius: var(--zds-radius-lg);
+    box-shadow: var(--zds-shadow-plate);
+    overflow: hidden;
+  }
+  .dt {
+    width: 100%; border-collapse: separate; border-spacing: 0;
+    font-family: var(--zds-font-body);
+  }
+  .dt th {
+    padding: 10px 14px; text-align: start;
+    background: var(--zds-mist); color: var(--zds-text-secondary);
+    font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; border-bottom: 1px solid var(--zds-line);
+    white-space: nowrap; user-select: none;
+  }
+  .dt td {
+    padding: 12px 14px; color: var(--zds-ink-950);
+    font-size: 13px; line-height: 1.4;
+    border-top: 1px solid var(--zds-line-soft);
+    white-space: nowrap; vertical-align: middle;
+  }
+  .dt tr:first-child td { border-top: none; }
+  .dt tbody tr:hover { background: var(--zds-mist); cursor: pointer; }
+  .dt-title {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--zds-line);
+    background: var(--zds-cream);
+  }
+  .dt-title h3 { margin: 0; font-size: 14px; font-weight: 500; color: var(--zds-ink-950); }
+  .dt-title a { font-size: 12px; color: var(--zds-text-secondary); text-decoration: underline; text-underline-offset: 3px; }
+
+  /* ---------- Tabs ---------- */
+  .tabs {
+    display: inline-flex; padding: 4px; gap: 2px;
+    background: var(--zds-mist); border: 1px solid var(--zds-line);
+    border-radius: var(--zds-radius-pill);
+  }
+  .tabs__btn {
+    height: 32px; padding: 0 16px; border-radius: var(--zds-radius-pill);
+    border: none; background: transparent; color: var(--zds-text-secondary);
+    font-size: 13px; font-weight: 500; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px;
+    flex: 0 0 auto; white-space: nowrap;
+  }
+  .tabs__btn.is-active { background: var(--zds-ink-950); color: #fff; }
+  .tabs__count {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 20px; height: 18px; padding: 0 6px;
+    border-radius: var(--zds-radius-pill);
+    font-size: 11px; font-family: var(--zds-font-mono); line-height: 1;
+    background: var(--zds-paper); border: 1px solid var(--zds-line);
+    color: var(--zds-text-tertiary);
+  }
+  .tabs__btn.is-active .tabs__count {
+    background: rgba(255,255,255,0.18); border: none; color: #fff;
+  }
+
+  /* ---------- Action banner ---------- */
+  .action-banner {
+    position: relative;
+    padding: 22px 28px 24px;
+    background: var(--zds-paper);
+    border: 1px solid var(--zds-line);
+    border-radius: var(--zds-radius-lg);
+    box-shadow: var(--zds-shadow-plate);
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .action-banner__strip { position: absolute; left: 0; top: 16px; bottom: 16px; width: 3px; border-radius: 0 var(--zds-radius-pill) var(--zds-radius-pill) 0; }
+  .action-banner__strip--private  { background: var(--zds-mint-500); }
+  .action-banner__strip--unshield { background: var(--zds-moss-400); }
+  .action-banner__strip--infra    { background: var(--zds-stone-600); }
+  .action-banner__strip--payment  { background: var(--zds-zcash-500); }
+  .action-banner__inner { display: flex; align-items: baseline; gap: 12px; margin-left: 8px; }
+  .action-banner__eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.10em;
+    text-transform: uppercase; color: var(--zds-text-tertiary);
+    font-family: var(--zds-font-mono); flex: 0 0 auto; padding-top: 4px;
+  }
+  .action-banner__copy {
+    margin: 0; color: var(--zds-ink-950);
+    font-family: var(--zds-font-display);
+    font-size: clamp(20px, 2.4vw, 26px);
+    line-height: 1.18; letter-spacing: -0.025em; font-weight: 500;
+  }
+  .action-banner__copy em { font-family: var(--zds-font-serif); font-style: italic; font-weight: 400; }
+
+  /* ---------- KeyValueGrid ---------- */
+  .kv {
+    display: grid;
+    grid-template-columns: minmax(160px, 220px) 1fr;
+    background: var(--zds-paper);
+    border: 1px solid var(--zds-line);
+    border-radius: var(--zds-radius-lg);
+    box-shadow: var(--zds-shadow-plate);
+    overflow: hidden;
+  }
+  .kv__dt {
+    padding: 14px 18px;
+    color: var(--zds-text-secondary);
+    font-size: 13px; font-weight: 500;
+    align-self: start; line-height: 1.5;
+  }
+  .kv__dd {
+    padding: 14px 18px;
+    margin: 0;
+    color: var(--zds-ink-950); font-size: 14px; line-height: 1.5;
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  .kv__row + .kv__row > .kv__dt,
+  .kv__row + .kv__row > .kv__dd { border-top: 1px solid var(--zds-line-soft); }
+  .kv__helper { flex-basis: 100%; color: var(--zds-text-tertiary); font-size: 12px; margin-top: 2px; }
+
+  /* ---------- Section label ---------- */
+  .section-label {
+    display: flex; align-items: baseline; gap: 12px;
+    padding: 12px 16px; background: var(--zds-mist);
+    border-top: 1px solid var(--zds-line);
+    border-bottom: 1px solid var(--zds-line);
+  }
+  .section-label__dot { width: 6px; height: 6px; border-radius: 999px; align-self: center; flex: 0 0 auto; }
+  .section-label__label {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.10em;
+    text-transform: uppercase; color: var(--zds-ink-900);
+    font-family: var(--zds-font-mono); white-space: nowrap;
+  }
+  .section-label__desc { font-size: 13px; color: var(--zds-text-secondary); line-height: 1.4; }
+
+  /* ---------- Inline notice ---------- */
+  .notice {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 12px 16px; border-radius: var(--zds-radius-md);
+    color: var(--zds-ink-800); font-size: 14px; line-height: 1.5;
+  }
+  .notice--private  { background: var(--zds-positive-wash); border: 1px solid rgba(63,181,138,0.22); }
+  .notice--info     { background: var(--zds-mist); border: 1px solid var(--zds-line); }
+  .notice__icon { flex: 0 0 auto; padding-top: 1px; display: inline-flex; }
+  .notice--private  .notice__icon { color: var(--zds-mint-500); }
+  .notice--info     .notice__icon { color: var(--zds-ink-700); }
+  .notice__title { font-weight: 500; color: var(--zds-ink-950); display: block; }
+
+  /* ---------- Pagination ---------- */
+  .pagination {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 16px; padding: 16px 4px 4px; flex-wrap: wrap;
+  }
+  .pagination__btn {
+    width: 32px; height: 32px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--zds-paper); border: 1px solid var(--zds-line);
+    border-radius: var(--zds-radius-pill);
+    color: var(--zds-ink-900); cursor: pointer;
+  }
+  .pagination__btn:disabled { opacity: 0.45; cursor: default; color: var(--zds-text-tertiary); }
+
+  /* ---------- Footer ---------- */
+  .footer {
+    background: var(--zds-cream); border-top: 1px solid var(--zds-line);
+    padding: 48px 32px 24px;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 220px repeat(4, minmax(0,1fr));
+    gap: 36px; margin-bottom: 36px;
+  }
+  .footer-cap {
+    margin: 0 0 14px;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.10em;
+    text-transform: uppercase; color: var(--zds-text-tertiary);
+    font-family: var(--zds-font-mono);
+  }
+  .footer-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+  .footer-list a { color: var(--zds-ink-900); text-decoration: none; font-size: 14px; }
+  .footer-bot {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 24px; padding-top: 18px; border-top: 1px solid var(--zds-line);
+    flex-wrap: wrap;
+  }
+  .footer-soc {
+    display: inline-flex; gap: 8px;
+  }
+  .footer-soc a {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px;
+    background: var(--zds-paper); border: 1px solid var(--zds-line);
+    border-radius: 50%; color: var(--zds-ink-900);
+  }
+
+  /* ---------- Layout helpers ---------- */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .stack > * + * { margin-top: 16px; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+
+  /* ---------- Toolbar (filter row) ---------- */
+  .toolbar {
+    display: flex; gap: 12px; align-items: center;
+    margin-bottom: 16px; flex-wrap: wrap;
+  }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    height: 32px; padding: 0 14px;
+    background: var(--zds-paper); border: 1px solid var(--zds-line);
+    border-radius: var(--zds-radius-pill);
+    color: var(--zds-ink-900); font-size: 13px; font-weight: 500;
+    cursor: pointer;
+  }
+  .chip.is-active { background: var(--zds-ink-950); color: #fff; border-color: var(--zds-ink-950); }
+
+  /* ---------- Charts (vanilla SVG via inline JS) ---------- */
+  .zchart { padding: 16px 14px 14px; background: var(--zds-paper); background-image: var(--zds-dotted-grid); border: 1px solid var(--zds-line); border-radius: var(--zds-radius-lg); box-shadow: var(--zds-shadow-plate); }
+
+  /* Header marker for the doc-frame caption */
+  .doc-frame {
+    border-bottom: 1px solid var(--zds-line);
+    padding-bottom: 32px; margin-bottom: 56px;
+  }
+
+  /* Charts page: side-by-side layout */
+  .charts-grid {
+    display: grid; gap: 24px;
+    grid-template-columns: 1.6fr 1fr;
+  }
+  .charts-section-cap {
+    margin: 32px 0 12px;
+    color: var(--zds-text-tertiary);
+    font-family: var(--zds-font-mono);
+    font-size: 11px; letter-spacing: 0.10em;
+    text-transform: uppercase;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .charts-section-cap::before {
+    content: '';
+    width: 24px; height: 1px; background: var(--zds-line);
+  }
+  .charts-section-cap::after {
+    content: '';
+    flex: 1; height: 1px; background: var(--zds-line);
+  }
+</style>
+</head>
+<body>
+
+<div class="page-frame">
+
+  <!-- Doc header -->
+  <div class="doc-frame">
+    <p class="doc-cap">Z Scan v2 · Page restyle reference</p>
+    <h1 style="font-family: var(--zds-font-display); font-size: clamp(48px, 6vw, 80px); line-height: 0.94; letter-spacing: -0.045em; font-weight: 500; margin: 24px 0 16px; max-width: 22ch;">
+      Six pages of Z Scan, in <em class="serif" style="color: var(--zds-stone-600);">v2</em>.
+    </h1>
+    <p style="color: var(--zds-text-secondary); font-size: 18px; line-height: 1.5; max-width: 64ch; margin: 0;">
+      The pages devs need to rebuild against the v2 component library — Home, Tx list, Tx detail (Shield), Address, Charts, Validators. Every surface composes only from primitives in <code style="font-family: var(--zds-font-mono); font-size: 14px; color: var(--zds-ink-950); background: var(--zds-mist); padding: 1px 6px; border-radius: 6px;">@z-protocol/ui</code>. Treat this as the visual contract for the restyle.
+    </p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 01 · HOME                                                     -->
+  <!-- ============================================================ -->
+  <section class="page-section" id="home">
+    <div class="page-section__head">
+      <span class="num">01</span>
+      <div>
+        <h2>Home — calm overview, fast search, recent activity.</h2>
+        <p>Front door for the explorer. Header with search, four stat tiles, paired Latest Blocks + Latest Transactions panels, footer.</p>
+        <p class="page-section__url">scan.zprotocol.org/</p>
+      </div>
+    </div>
+
+    <div class="artboard">
+      <!-- AppHeader -->
+      <header class="ahdr">
+        <div class="ahdr__brand">
+          <svg width="22" height="31" viewBox="0 0 665 929" fill="currentColor" aria-label="Z" style="color: var(--zds-ink-950);">
+            <path d="M625 0C647.091 0 665 17.9086 665 40V258.352C665 268.961 660.786 279.135 653.284 286.637L211.716 728.206C204.214 735.708 200 745.882 200 756.49V889C200 911.091 182.091 929 160 929H40C17.9086 929 0 911.091 0 889V673.648C0 663.039 4.21426 652.865 11.7157 645.363L453.284 203.794C460.786 196.292 465 186.118 465 175.51V40C465 17.9086 482.909 0 505 0H625Z"/>
+            <rect width="300" height="200" rx="40"/><rect x="365" y="729" width="300" height="200" rx="40"/>
+          </svg>
+          <span class="name">Scan</span>
+        </div>
+        <div class="ahdr__center">
+          <div class="search">
+            <span style="color: var(--zds-text-tertiary); display: inline-flex;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>
+            <input type="search" placeholder="Search by address, hash, block number…" />
+            <span class="kbd">/</span>
+          </div>
+        </div>
+        <div class="ahdr__actions">
+          <button class="chain-pill"><span class="dot dot-mainnet"></span>Mainnet<span style="color: var(--zds-text-tertiary);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+          <span class="theme-toggle">
+            <span class="seg is-active"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></span>
+            <span class="seg"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg></span>
+          </span>
+        </div>
+      </header>
+
+      <!-- Body -->
+      <div class="abody">
+        <!-- Page hero -->
+        <div style="margin-bottom: 32px;">
+          <p class="doc-cap" style="margin: 0 0 8px;">Z Protocol · Mainnet</p>
+          <h1 style="font-family: var(--zds-font-display); font-size: 36px; line-height: 0.96; letter-spacing: -0.035em; font-weight: 500; margin: 0; max-width: 24ch;">
+            Search the chain. <em class="serif" style="color: var(--zds-stone-600);">Privately.</em>
+          </h1>
+        </div>
+
+        <!-- Stat tiles -->
+        <div class="grid-4" style="margin-bottom: 28px;">
+          <div class="stat">
+            <span class="stat__cap">Latest block</span>
+            <strong class="stat__num">19,648</strong>
+            <span class="stat__sub">1.84 s avg</span>
+          </div>
+          <div class="stat">
+            <span class="stat__cap">Daily MASP txs</span>
+            <strong class="stat__num">3,098</strong>
+            <span class="stat__sub"><span class="pos">↑ 12.4%</span> · 30d</span>
+          </div>
+          <div class="stat">
+            <span class="stat__cap">Privacy ratio</span>
+            <strong class="stat__num">38<span class="muted">%</span></strong>
+            <span class="stat__sub"><span class="pos">↑ 2.1%</span> · 30d</span>
+          </div>
+          <div class="stat">
+            <span class="stat__cap">Validators</span>
+            <strong class="stat__num">128 <span class="muted">/ 150</span></strong>
+            <span class="stat__sub">Active set</span>
+          </div>
+        </div>
+
+        <!-- Paired panels -->
+        <div class="grid-2">
+          <!-- Latest blocks -->
+          <div class="dt-wrap">
+            <div class="dt-title">
+              <h3>Latest blocks</h3>
+              <a href="#">View all →</a>
+            </div>
+            <table class="dt">
+              <tbody>
+                <tr>
+                  <td><span class="hash">19,648</span></td>
+                  <td>2 sec ago</td>
+                  <td><span class="addr addr--validator"><span class="addr-dot dot-infra"></span>Stakefish<span class="tail">·c600</span></span></td>
+                  <td style="text-align:end;"><strong>52</strong> <span style="color: var(--zds-text-tertiary)">txs</span></td>
+                </tr>
+                <tr>
+                  <td><span class="hash">19,647</span></td>
+                  <td>4 sec ago</td>
+                  <td><span class="addr addr--validator"><span class="addr-dot dot-infra"></span>Figment<span class="tail">·8a12</span></span></td>
+                  <td style="text-align:end;"><strong>46</strong> <span style="color: var(--zds-text-tertiary)">txs</span></td>
+                </tr>
+                <tr>
+                  <td><span class="hash">19,646</span></td>
+                  <td>6 sec ago</td>
+                  <td><span class="addr addr--validator"><span class="addr-dot dot-infra"></span>Chorus One<span class="tail">·b211</span></span></td>
+                  <td style="text-align:end;"><strong>38</strong> <span style="color: var(--zds-text-tertiary)">txs</span></td>
+                </tr>
+                <tr>
+                  <td><span class="hash">19,645</span></td>
+                  <td>8 sec ago</td>
+                  <td><span class="addr addr--validator"><span class="addr-dot dot-infra"></span>P2P.org<span class="tail">·0e44</span></span></td>
+                  <td style="text-align:end;"><strong>61</strong> <span style="color: var(--zds-text-tertiary)">txs</span></td>
+                </tr>
+                <tr>
+                  <td><span class="hash">19,644</span></td>
+                  <td>10 sec ago</td>
+                  <td><span class="addr addr--validator"><span class="addr-dot dot-infra"></span>Stakefish<span class="tail">·c600</span></span></td>
+                  <td style="text-align:end;"><strong>44</strong> <span style="color: var(--zds-text-tertiary)">txs</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Latest transactions -->
+          <div class="dt-wrap">
+            <div class="dt-title">
+              <h3>Latest transactions</h3>
+              <a href="#">View all →</a>
+            </div>
+            <table class="dt">
+              <tbody>
+                <tr>
+                  <td><span class="tb tb--sm"><span class="tb__dot dot-private"></span>Shield</span></td>
+                  <td><span class="hash">0x6e14f1…302a</span></td>
+                  <td>
+                    <span class="addr addr--contract" style="font-size: 12px; padding: 2px 8px;"><span class="addr-dot dot-standard"></span>0xUser<span class="tail">·a8f1</span></span>
+                    <span style="color: var(--zds-text-tertiary); margin: 0 4px;">→</span>
+                    <span class="addr addr--privacy" style="font-size: 12px; padding: 2px 8px;"><span class="addr-dot dot-private"></span>MASP Pool<span class="tail">·ea70</span></span>
+                  </td>
+                  <td style="text-align:end;"><strong>86.5</strong> <span style="color: var(--zds-text-tertiary)">ZEC</span></td>
+                </tr>
+                <tr>
+                  <td><span class="tb tb--sm"><span class="tb__dot dot-private"></span>Private</span></td>
+                  <td><span class="hash">0xab1234…5678</span></td>
+                  <td><em class="serif" style="color: var(--zds-text-tertiary); font-size: 12px;">— private —</em></td>
+                  <td style="text-align:end; color: var(--zds-text-tertiary);">hidden</td>
+                </tr>
+                <tr>
+                  <td><span class="tb tb--sm"><span class="tb__dot dot-unshield"></span>Unshield</span></td>
+                  <td><span class="hash">0xcafe10…d3a4</span></td>
+                  <td>
+                    <span class="addr addr--privacy" style="font-size: 12px; padding: 2px 8px;"><span class="addr-dot dot-private"></span>MASP Pool<span class="tail">·ea70</span></span>
+                    <span style="color: var(--zds-text-tertiary); margin: 0 4px;">→</span>
+                    <span class="addr addr--contract" style="font-size: 12px; padding: 2px 8px;"><span class="addr-dot dot-standard"></span>0xRecv<span class="tail">·91c2</span></span>
+                  </td>
+                  <td style="text-align:end;"><strong>1,200</strong> <span style="color: var(--zds-text-tertiary)">USDZ</span></td>
+                </tr>
+                <tr>
+                  <td><span class="tb tb--sm"><span class="tb__dot dot-payment"></span>x402</span></td>
+                  <td><span class="hash">0xfe9821…a01b</span></td>
+                  <td>
+                    <span class="addr addr--contract" style="font-size: 12px; padding: 2px 8px;"><span class="addr-dot dot-agent"></span>Agent<span class="tail">·77ea</span></span>
+                    <span style="color: var(--zds-text-tertiary); margin: 0 4px;">→</span>
+                    <span class="addr addr--merchant" style="font-size: 12px; padding: 2px 8px;"><span class="addr-dot dot-payment"></span>api.example.com<span class="tail">·91f4</span></span>
+                  </td>
+                  <td style="text-align:end;"><strong>12.50</strong> <span style="color: var(--zds-text-tertiary)">USDZ</span></td>
+                </tr>
+                <tr>
+                  <td><span class="tb tb--sm"><span class="tb__dot dot-infra"></span>EIP-7702</span></td>
+                  <td><span class="hash">0x4488ee…ba01</span></td>
+                  <td>
+                    <span class="addr addr--contract" style="font-size: 12px; padding: 2px 8px;"><span class="addr-dot dot-standard"></span>0xUser<span class="tail">·a8f1</span></span>
+                    <span style="color: var(--zds-text-tertiary); margin: 0 6px; font-size: 11px;">delegates</span>
+                    <span class="addr addr--validator" style="font-size: 12px; padding: 2px 8px;"><span class="addr-dot dot-infra"></span>Smart account<span class="tail">·c100</span></span>
+                  </td>
+                  <td style="text-align:end; color: var(--zds-text-tertiary);">—</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer (compact, single instance — referenced by all pages) -->
+      <footer class="footer">
+        <div class="footer-grid">
+          <div>
+            <svg width="28" height="39" viewBox="0 0 665 929" fill="currentColor" aria-label="Z" style="color: var(--zds-ink-950);">
+              <path d="M625 0C647.091 0 665 17.9086 665 40V258.352C665 268.961 660.786 279.135 653.284 286.637L211.716 728.206C204.214 735.708 200 745.882 200 756.49V889C200 911.091 182.091 929 160 929H40C17.9086 929 0 911.091 0 889V673.648C0 663.039 4.21426 652.865 11.7157 645.363L453.284 203.794C460.786 196.292 465 186.118 465 175.51V40C465 17.9086 482.909 0 505 0H625Z"/>
+              <rect width="300" height="200" rx="40"/><rect x="365" y="729" width="300" height="200" rx="40"/>
+            </svg>
+            <p style="margin-top: 14px; margin-bottom: 0; max-width: 22ch; color: var(--zds-stone-600); font-family: var(--zds-font-serif); font-style: italic; font-size: 16px; line-height: 1.4;">A clear morning in the mountains.</p>
+          </div>
+          <div>
+            <p class="footer-cap">Z Protocol</p>
+            <ul class="footer-list">
+              <li><a href="#">Platform</a></li><li><a href="#">Brand</a></li><li><a href="#">Manifesto</a></li><li><a href="#">Contact</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="footer-cap">Apps</p>
+            <ul class="footer-list">
+              <li><a href="#">Z Trade</a></li><li><a href="#">Z Lend</a></li><li><a href="#">Z Stake</a></li><li><a href="#">Z Scan</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="footer-cap">Community</p>
+            <ul class="footer-list">
+              <li><a href="#">Documentation</a></li><li><a href="#">GitHub</a></li><li><a href="#">Forum</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="footer-cap">Legal</p>
+            <ul class="footer-list">
+              <li><a href="#">Terms</a></li><li><a href="#">Privacy</a></li><li><a href="#">Disclosures</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bot">
+          <div class="footer-soc">
+            <a href="#" aria-label="GitHub"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2.9-.3 2-.4 3-.4s2.1.1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.4 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6C20.2 21.4 23.5 17.1 23.5 12 23.5 5.7 18.3.5 12 .5z"/></svg></a>
+            <a href="#" aria-label="X"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2H21l-6.563 7.5L22 22h-6.094l-4.78-6.25L5.5 22H2.744l7.024-8.025L2 2h6.25l4.342 5.74L18.244 2zm-1.07 18h1.7L7.075 4H5.27l11.904 16z"/></svg></a>
+          </div>
+          <div style="color: var(--zds-text-tertiary); font-size: 12px; font-family: var(--zds-font-mono); letter-spacing: 0.06em; text-transform: uppercase;">© 2026 Z Protocol</div>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 02 · TRANSACTION LIST                                         -->
+  <!-- ============================================================ -->
+  <section class="page-section" id="txs">
+    <div class="page-section__head">
+      <span class="num">02</span>
+      <div>
+        <h2>Transactions list — Type column, token-flow direction.</h2>
+        <p>The big list page. Type column replaces the raw "Method" column from v1; the From → To column reflects token movement, not the EVM submitter. MASP Pool addresses get the privacy treatment.</p>
+        <p class="page-section__url">scan.zprotocol.org/txs</p>
+      </div>
+    </div>
+
+    <div class="artboard">
+      <header class="ahdr">
+        <div class="ahdr__brand">
+          <svg width="22" height="31" viewBox="0 0 665 929" fill="currentColor" style="color: var(--zds-ink-950);"><path d="M625 0C647.091 0 665 17.9086 665 40V258.352C665 268.961 660.786 279.135 653.284 286.637L211.716 728.206C204.214 735.708 200 745.882 200 756.49V889C200 911.091 182.091 929 160 929H40C17.9086 929 0 911.091 0 889V673.648C0 663.039 4.21426 652.865 11.7157 645.363L453.284 203.794C460.786 196.292 465 186.118 465 175.51V40C465 17.9086 482.909 0 505 0H625Z"/><rect width="300" height="200" rx="40"/><rect x="365" y="729" width="300" height="200" rx="40"/></svg>
+          <span class="name">Scan</span>
+        </div>
+        <div class="ahdr__center">
+          <div class="search">
+            <span style="color: var(--zds-text-tertiary); display: inline-flex;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>
+            <input type="search" placeholder="Search by address, hash, block number…" />
+            <span class="kbd">/</span>
+          </div>
+        </div>
+        <div class="ahdr__actions">
+          <button class="chain-pill"><span class="dot dot-mainnet"></span>Mainnet<span style="color: var(--zds-text-tertiary);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+        </div>
+      </header>
+      <div class="abody">
+        <div class="page-title">
+          <h1>All transactions</h1>
+          <span class="meta">Showing the latest 25 of 1,284,720 transactions on Mainnet.</span>
+        </div>
+
+        <!-- Toolbar / filter chips -->
+        <div class="toolbar">
+          <button class="chip is-active">All</button>
+          <button class="chip"><span class="tb__dot dot-private"></span>Privacy</button>
+          <button class="chip"><span class="tb__dot dot-payment"></span>x402</button>
+          <button class="chip"><span class="tb__dot dot-infra"></span>Account abstraction</button>
+          <button class="chip"><span class="tb__dot dot-standard"></span>Standard</button>
+          <span style="flex:1"></span>
+          <button class="chip">Last 30 days <span style="color: var(--zds-text-tertiary);">▾</span></button>
+        </div>
+
+        <div class="dt-wrap">
+          <table class="dt">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Txn Hash <span style="opacity:0.35;">▴</span></th>
+                <th>Block</th>
+                <th>Age</th>
+                <th>Token flow</th>
+                <th style="text-align:end;">Value</th>
+                <th style="text-align:end;">Fee</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="tb tb--sm"><span class="tb__dot dot-private"></span>Shield</span></td>
+                <td><span class="hash">0x6e14f1…302a</span></td>
+                <td><span class="hash">19,648</span></td>
+                <td>2 min</td>
+                <td>
+                  <span class="addr addr--contract" style="font-size: 12px; padding: 2px 8px;"><span class="addr-dot dot-standard"></span>0xUser<span class="tail">·a8f1</span></span>
+                  <span style="color: var(--zds-text-tertiary); margin: 0 6px;">→</span>
+                  <span class="addr addr--privacy" style="font-size: 12px; padding: 2px 8px;"><span class="addr-dot dot-private"></span>MASP Pool<span class="tail">·ea70</span></span>
+                </td>
+                <td style="text-align:end;"><strong>86.5</strong> <span style="color: var(--zds-text-tertiary)">ZEC</span></td>
+                <td style="text-align:end; color: var(--zds-text-tertiary);">0.0014 ZEC</td>
+              </tr>
+              <tr>
+                <td><span class="tb tb--sm"><span class="tb__dot dot-private"></span>Private</span></td>
+                <td><span class="hash">0xab1234…5678</span></td>
+                <td><span class="hash">19,647</span></td>
+                <td>3 min</td>
+                <td><em class="serif" style="color: var(--zds-text-tertiary); font-size: 13px;">— private —</em></td>
+                <td style="text-align:end; color: var(--zds-text-tertiary);">hidden</td>
+                <td style="text-align:end; color: var(--zds-text-tertiary);">0.0009 ZEC</td>
+              </tr>
+              <tr>
+                <td><span class="tb tb--sm"><span class="tb__dot dot-unshield"></span>Unshield</span></td>
+                <td><span class="hash">0xcafe10…d3a4</span></td>
+                <td><span class="hash">19,645</span></td>
+                <td>5 min</td>
+                <td>
+                  <span class="addr addr--privacy" style="font-size: 12px; padding: 2px 8px;"><span class="addr-dot dot-private"></span>MASP Pool<span class="tail">·ea70</span></span>
+                  <span style="color: var(--zds-text-tertiary); margin: 0 6px;">→</span>
+                  <span class="addr addr--contract" style="font-size: 12px; padding: 2px 8px;"><span class="addr-dot dot-standard"></span>0xRecv<span class="tail">·91c2</span></span>
+                </td>
+                <td style="text-align:end;"><strong>1,200</strong> <span style="color: var(--zds-text-tertiary)">USDZ</span></td>
+                <td style="text-align:end; color: var(--zds-text-tertiary);">0.0011 ZEC</td>
+              </tr>
+              <tr>
+                <td><span class="tb tb--sm"><span class="tb__dot dot-payment"></span>x402</span></td>
+                <td><span class="hash">0xfe9821…a01b</span></td>
+                <td><span class="hash">19,643</span></td>
+                <td>9 min</td>
+                <td>
+                  <span class="addr addr--contract" style="font-size: 12px; padding: 2px 8px;"><span class="addr-dot dot-agent"></span>Agent<span class="tail">·77ea</span></span>
+                  <span style="color: var(--zds-text-tertiary); margin: 0 6px;">→</span>
+                  <span class="addr addr--merchant" style="font-size: 12px; padding: 2px 8px;"><span class="addr-dot dot-payment"></span>api.example.com<span class="tail">·91f4</span></span>
+                </td>
+                <td style="text-align:end;"><strong>12.50</strong> <span style="color: var(--zds-text-tertiary)">USDZ</span></td>
+                <td style="text-align:end; color: var(--zds-text-tertiary);">0.0006 ZEC</td>
+              </tr>
+              <tr>
+                <td><span class="tb tb--sm"><span class="tb__dot dot-infra"></span>EIP-7702</span></td>
+                <td><span class="hash">0x4488ee…ba01</span></td>
+                <td><span class="hash">19,640</span></td>
+                <td>14 min</td>
+                <td>
+                  <span class="addr addr--contract" style="font-size: 12px; padding: 2px 8px;"><span class="addr-dot dot-standard"></span>0xUser<span class="tail">·a8f1</span></span>
+                  <span style="color: var(--zds-text-tertiary); margin: 0 6px; font-size: 11px;">delegates</span>
+                  <span class="addr addr--validator" style="font-size: 12px; padding: 2px 8px;"><span class="addr-dot dot-infra"></span>Smart account<span class="tail">·c100</span></span>
+                </td>
+                <td style="text-align:end; color: var(--zds-text-tertiary);">—</td>
+                <td style="text-align:end; color: var(--zds-text-tertiary);">0.0008 ZEC</td>
+              </tr>
+              <tr>
+                <td><span class="tb tb--sm"><span class="tb__dot dot-infra"></span>ERC-4337</span></td>
+                <td><span class="hash">0x9d2210…cc01</span></td>
+                <td><span class="hash">19,638</span></td>
+                <td>17 min</td>
+                <td>
+                  <span class="addr addr--validator" style="font-size: 12px; padding: 2px 8px;"><span class="addr-dot dot-infra"></span>Bundler<span class="tail">·5311</span></span>
+                  <span style="color: var(--zds-text-tertiary); margin: 0 6px; font-size: 11px;">EntryPoint · 3 ops</span>
+                </td>
+                <td style="text-align:end; color: var(--zds-text-tertiary);">—</td>
+                <td style="text-align:end; color: var(--zds-text-tertiary);">0.0042 ZEC</td>
+              </tr>
+              <tr>
+                <td><span class="tb tb--sm"><span class="tb__dot dot-standard"></span>Standard</span></td>
+                <td><span class="hash">0x011998…aa90</span></td>
+                <td><span class="hash">19,635</span></td>
+                <td>22 min</td>
+                <td>
+                  <span class="addr addr--contract" style="font-size: 12px; padding: 2px 8px;"><span class="addr-dot dot-standard"></span>0xSender<span class="tail">·d701</span></span>
+                  <span style="color: var(--zds-text-tertiary); margin: 0 6px;">→</span>
+                  <span class="addr addr--contract" style="font-size: 12px; padding: 2px 8px;"><span class="addr-dot dot-standard"></span>0xRecv<span class="tail">·8801</span></span>
+                </td>
+                <td style="text-align:end;"><strong>2.0</strong> <span style="color: var(--zds-text-tertiary)">ZEC</span></td>
+                <td style="text-align:end; color: var(--zds-text-tertiary);">0.0007 ZEC</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pagination">
+          <span style="color: var(--zds-text-secondary); font-size: 13px;"><span class="mono">Page 1 of 1,284</span> · 1,284,720 results</span>
+          <div style="display: inline-flex; align-items: center; gap: 16px;">
+            <label style="display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: var(--zds-text-secondary);">
+              <span>Per page</span>
+              <select style="padding: 4px 26px 4px 12px; background: var(--zds-paper); border: 1px solid var(--zds-line); border-radius: var(--zds-radius-pill); font-family: var(--zds-font-body); font-size: 12px; color: var(--zds-ink-900);">
+                <option>10</option><option selected>25</option><option>50</option><option>100</option>
+              </select>
+            </label>
+            <div style="display: inline-flex; gap: 6px;">
+              <button class="pagination__btn" disabled>‹</button>
+              <button class="pagination__btn">›</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 03 · TRANSACTION DETAIL                                       -->
+  <!-- ============================================================ -->
+  <section class="page-section" id="tx">
+    <div class="page-section__head">
+      <span class="num">03</span>
+      <div>
+        <h2>Transaction detail — ActionBanner first, then the facts.</h2>
+        <p>The page that defines Z Scan's tone. Plain-English action banner, status pill, KeyValueGrid for the cryptographic facts, tabs for Logs / State / Internal txs / User Ops. Logs include MASP SectionLabel headers + the "Amounts hidden" InlineNotice.</p>
+        <p class="page-section__url">scan.zprotocol.org/tx/0x6e14f16ae4a54862…39f05302a</p>
+      </div>
+    </div>
+
+    <div class="artboard">
+      <header class="ahdr">
+        <div class="ahdr__brand">
+          <svg width="22" height="31" viewBox="0 0 665 929" fill="currentColor" style="color: var(--zds-ink-950);"><path d="M625 0C647.091 0 665 17.9086 665 40V258.352C665 268.961 660.786 279.135 653.284 286.637L211.716 728.206C204.214 735.708 200 745.882 200 756.49V889C200 911.091 182.091 929 160 929H40C17.9086 929 0 911.091 0 889V673.648C0 663.039 4.21426 652.865 11.7157 645.363L453.284 203.794C460.786 196.292 465 186.118 465 175.51V40C465 17.9086 482.909 0 505 0H625Z"/><rect width="300" height="200" rx="40"/><rect x="365" y="729" width="300" height="200" rx="40"/></svg>
+          <span class="name">Scan</span>
+        </div>
+        <div class="ahdr__center">
+          <div class="search">
+            <span style="color: var(--zds-text-tertiary); display: inline-flex;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>
+            <input type="search" placeholder="Search by address, hash, block number…" />
+            <span class="kbd">/</span>
+          </div>
+        </div>
+        <div class="ahdr__actions">
+          <button class="chain-pill"><span class="dot dot-mainnet"></span>Mainnet<span style="color: var(--zds-text-tertiary);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+        </div>
+      </header>
+      <div class="abody">
+        <div class="page-title">
+          <h1>Transaction detail</h1>
+          <span class="meta"><span class="hash">0x6e14f1…302a</span></span>
+        </div>
+
+        <!-- ActionBanner -->
+        <div class="action-banner">
+          <span class="action-banner__strip action-banner__strip--private"></span>
+          <div class="action-banner__inner">
+            <span class="action-banner__eyebrow">Action</span>
+            <p class="action-banner__copy">Shield <em>86.5 ZEC</em> into the <em>MASP pool</em></p>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div style="margin-bottom: 16px;">
+          <div class="tabs" style="display: flex; overflow-x: auto;">
+            <button class="tabs__btn is-active">Overview</button>
+            <button class="tabs__btn">Logs <span class="tabs__count">3</span></button>
+            <button class="tabs__btn">State <span class="tabs__count">8</span></button>
+            <button class="tabs__btn">Internal txs <span class="tabs__count">2</span></button>
+            <button class="tabs__btn">Authorizations</button>
+            <button class="tabs__btn">User Ops</button>
+            <button class="tabs__btn">Comments</button>
+          </div>
+        </div>
+
+        <!-- KeyValueGrid -->
+        <dl class="kv">
+          <div class="kv__row" style="display:contents;">
+            <dt class="kv__dt">Transaction Hash</dt>
+            <dd class="kv__dd"><span class="hash">0x6e14f1…302a</span></dd>
+          </div>
+          <div class="kv__row" style="display:contents;">
+            <dt class="kv__dt">Status</dt>
+            <dd class="kv__dd">
+              <span class="tb tb--md t-private"><span class="tb__dot dot-private"></span>Shield</span>
+              <span style="color: var(--zds-mint-500); font-weight: 500; font-size: 13px;">✓ Success</span>
+            </dd>
+          </div>
+          <div class="kv__row" style="display:contents;">
+            <dt class="kv__dt">Block</dt>
+            <dd class="kv__dd">
+              <span class="hash">19,648</span>
+              <span style="color: var(--zds-text-tertiary); font-size: 12px;">12 confirmations</span>
+            </dd>
+          </div>
+          <div class="kv__row" style="display:contents;">
+            <dt class="kv__dt">Timestamp</dt>
+            <dd class="kv__dd">
+              27 Apr 2026, 12:14:08 UTC
+              <span class="kv__helper">2 minutes ago · Block sealed in 1.8s</span>
+            </dd>
+          </div>
+          <div class="kv__row" style="display:contents;">
+            <dt class="kv__dt">Token flow</dt>
+            <dd class="kv__dd">
+              <span class="addr addr--contract"><span class="addr-dot dot-standard"></span>0xUserWallet<span class="tail">·a8f1</span></span>
+              <span style="color: var(--zds-text-tertiary)">→</span>
+              <span class="addr addr--privacy"><span class="addr-dot dot-private"></span>MASP Pool<span class="tail">·ea70</span></span>
+            </dd>
+          </div>
+          <div class="kv__row" style="display:contents;">
+            <dt class="kv__dt">Value</dt>
+            <dd class="kv__dd">
+              <strong style="font-family: var(--zds-font-display); font-size: 22px; letter-spacing: -0.025em; font-weight: 500;">86.5 ZEC</strong>
+              <span class="kv__helper">≈ $4,238 at current price</span>
+            </dd>
+          </div>
+          <div class="kv__row" style="display:contents;">
+            <dt class="kv__dt">Transaction fee</dt>
+            <dd class="kv__dd">
+              0.0014 ZEC
+              <span class="kv__helper">≈ $0.07 · Gas used 87,231 / 120,000 · Base fee 16 gwei</span>
+            </dd>
+          </div>
+          <div class="kv__row" style="display:contents;">
+            <dt class="kv__dt">Input data</dt>
+            <dd class="kv__dd">
+              <code style="font-family: var(--zds-font-mono); font-size: 12px; color: var(--zds-ink-900); background: var(--zds-mist); padding: 4px 8px; border-radius: 6px;">0x4a8c25e0…</code>
+              <span class="kv__helper">ZK proof data — cryptographic proof of valid MASP operation</span>
+            </dd>
+          </div>
+        </dl>
+
+        <!-- Logs preview block -->
+        <div style="margin-top: 28px;">
+          <div style="background: var(--zds-paper); border: 1px solid var(--zds-line); border-radius: var(--zds-radius-lg); box-shadow: var(--zds-shadow-plate); overflow: hidden;">
+            <div class="section-label">
+              <span class="section-label__dot dot-private"></span>
+              <span class="section-label__label">MASP commitment insertion</span>
+              <span class="section-label__desc">A new note was added to the shielded pool.</span>
+            </div>
+            <div style="padding: 16px;">
+              <div class="notice notice--private">
+                <span class="notice__icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 1 1 8 0v4"/></svg>
+                </span>
+                <div>
+                  <strong class="notice__title">Transfer details are private.</strong>
+                  Amounts and recipients are encrypted within the MASP pool. The commitment hash above is the only public record.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 04 · ADDRESS PAGE                                             -->
+  <!-- ============================================================ -->
+  <section class="page-section" id="address">
+    <div class="page-section__head">
+      <span class="num">04</span>
+      <div>
+        <h2>Address — validator, contract, agent, merchant.</h2>
+        <p>One page shape, four label tones. The header tells the user what kind of address they're looking at; the tabs let them drill in. Same shape works for transparent EOAs, validators, contracts, x402 merchants, and Agent contracts.</p>
+        <p class="page-section__url">scan.zprotocol.org/address/0xDA37…c600</p>
+      </div>
+    </div>
+
+    <div class="artboard">
+      <header class="ahdr">
+        <div class="ahdr__brand">
+          <svg width="22" height="31" viewBox="0 0 665 929" fill="currentColor" style="color: var(--zds-ink-950);"><path d="M625 0C647.091 0 665 17.9086 665 40V258.352C665 268.961 660.786 279.135 653.284 286.637L211.716 728.206C204.214 735.708 200 745.882 200 756.49V889C200 911.091 182.091 929 160 929H40C17.9086 929 0 911.091 0 889V673.648C0 663.039 4.21426 652.865 11.7157 645.363L453.284 203.794C460.786 196.292 465 186.118 465 175.51V40C465 17.9086 482.909 0 505 0H625Z"/><rect width="300" height="200" rx="40"/><rect x="365" y="729" width="300" height="200" rx="40"/></svg>
+          <span class="name">Scan</span>
+        </div>
+        <div class="ahdr__center">
+          <div class="search">
+            <span style="color: var(--zds-text-tertiary); display: inline-flex;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>
+            <input type="search" placeholder="Search by address, hash, block number…" />
+            <span class="kbd">/</span>
+          </div>
+        </div>
+        <div class="ahdr__actions">
+          <button class="chain-pill"><span class="dot dot-mainnet"></span>Mainnet<span style="color: var(--zds-text-tertiary);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+        </div>
+      </header>
+      <div class="abody">
+        <!-- Address header card -->
+        <div style="background: var(--zds-paper); border: 1px solid var(--zds-line); border-radius: var(--zds-radius-lg); box-shadow: var(--zds-shadow-plate); padding: 28px 32px; margin-bottom: 24px;">
+          <div style="display: flex; gap: 24px; align-items: flex-start; justify-content: space-between; flex-wrap: wrap;">
+            <div style="min-width: 0;">
+              <p class="doc-cap" style="margin: 0 0 8px;">Validator address</p>
+              <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 6px;">
+                <h1 style="font-family: var(--zds-font-display); font-size: 30px; line-height: 1; letter-spacing: -0.03em; font-weight: 500; margin: 0;">Stakefish</h1>
+                <span class="tb tb--md t-infra"><span class="tb__dot dot-infra"></span>Validator</span>
+              </div>
+              <span class="hash" style="font-size: 13px; padding: 4px 10px;">0xDA37ccECBB2D7C83aE27eE2BeBFE8EBCe162c600</span>
+            </div>
+            <div class="grid-3" style="gap: 16px; min-width: 360px;">
+              <div class="stat" style="padding: 12px 14px;">
+                <span class="stat__cap" style="font-size: 10px;">Stake</span>
+                <strong class="stat__num" style="font-size: 22px;">2.4M <span class="muted">ZEC</span></strong>
+              </div>
+              <div class="stat" style="padding: 12px 14px;">
+                <span class="stat__cap" style="font-size: 10px;">Voting power</span>
+                <strong class="stat__num" style="font-size: 22px;">1.85<span class="muted">%</span></strong>
+              </div>
+              <div class="stat" style="padding: 12px 14px;">
+                <span class="stat__cap" style="font-size: 10px;">Uptime · 30d</span>
+                <strong class="stat__num" style="font-size: 22px; color: var(--zds-mint-500);">99.92<span class="muted">%</span></strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div style="margin-bottom: 16px;">
+          <div class="tabs" style="display: flex; overflow-x: auto;">
+            <button class="tabs__btn is-active">Overview</button>
+            <button class="tabs__btn">Transactions <span class="tabs__count">2.4k</span></button>
+            <button class="tabs__btn">Token transfers <span class="tabs__count">88</span></button>
+            <button class="tabs__btn">Blocks signed <span class="tabs__count">12,401</span></button>
+            <button class="tabs__btn">Delegators <span class="tabs__count">1,032</span></button>
+          </div>
+        </div>
+
+        <!-- Recent transactions table -->
+        <div class="dt-wrap">
+          <div class="dt-title">
+            <h3>Recent transactions</h3>
+            <a href="#">View all →</a>
+          </div>
+          <table class="dt">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Txn Hash</th>
+                <th>Block</th>
+                <th>Age</th>
+                <th>Direction</th>
+                <th style="text-align:end;">Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="tb tb--sm"><span class="tb__dot dot-infra"></span>Block reward</span></td>
+                <td><span class="hash">0x88aa12…ee01</span></td>
+                <td><span class="hash">19,648</span></td>
+                <td>2 min</td>
+                <td><span style="color: var(--zds-mint-500); font-weight: 500;">↓ in</span></td>
+                <td style="text-align:end;"><strong>2.0</strong> <span style="color: var(--zds-text-tertiary)">ZEC</span></td>
+              </tr>
+              <tr>
+                <td><span class="tb tb--sm"><span class="tb__dot dot-infra"></span>Block reward</span></td>
+                <td><span class="hash">0xab2300…2238</span></td>
+                <td><span class="hash">19,640</span></td>
+                <td>14 min</td>
+                <td><span style="color: var(--zds-mint-500); font-weight: 500;">↓ in</span></td>
+                <td style="text-align:end;"><strong>2.0</strong> <span style="color: var(--zds-text-tertiary)">ZEC</span></td>
+              </tr>
+              <tr>
+                <td><span class="tb tb--sm"><span class="tb__dot dot-standard"></span>Standard</span></td>
+                <td><span class="hash">0xfeab10…1244</span></td>
+                <td><span class="hash">19,632</span></td>
+                <td>32 min</td>
+                <td><span style="color: var(--zds-stone-600); font-weight: 500;">↑ out</span></td>
+                <td style="text-align:end;"><strong>0.5</strong> <span style="color: var(--zds-text-tertiary)">ZEC</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 05 · CHARTS PAGE                                              -->
+  <!-- ============================================================ -->
+  <section class="page-section" id="charts">
+    <div class="page-section__head">
+      <span class="num">05</span>
+      <div>
+        <h2>Charts &amp; statistics — privacy metrics, finally legible.</h2>
+        <p>The redesigned charts page. Privacy Pool Metrics section + Network Activity section + x402 Metrics. Charts come from the Tier 2 kit; everything composes from <code>@z-protocol/ui/charts</code>.</p>
+        <p class="page-section__url">scan.zprotocol.org/charts</p>
+      </div>
+    </div>
+
+    <div class="artboard">
+      <header class="ahdr">
+        <div class="ahdr__brand">
+          <svg width="22" height="31" viewBox="0 0 665 929" fill="currentColor" style="color: var(--zds-ink-950);"><path d="M625 0C647.091 0 665 17.9086 665 40V258.352C665 268.961 660.786 279.135 653.284 286.637L211.716 728.206C204.214 735.708 200 745.882 200 756.49V889C200 911.091 182.091 929 160 929H40C17.9086 929 0 911.091 0 889V673.648C0 663.039 4.21426 652.865 11.7157 645.363L453.284 203.794C460.786 196.292 465 186.118 465 175.51V40C465 17.9086 482.909 0 505 0H625Z"/><rect width="300" height="200" rx="40"/><rect x="365" y="729" width="300" height="200" rx="40"/></svg>
+          <span class="name">Scan</span>
+        </div>
+        <div class="ahdr__center">
+          <div class="search">
+            <span style="color: var(--zds-text-tertiary); display: inline-flex;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>
+            <input type="search" placeholder="Search by address, hash, block number…" />
+            <span class="kbd">/</span>
+          </div>
+        </div>
+        <div class="ahdr__actions">
+          <button class="chain-pill"><span class="dot dot-mainnet"></span>Mainnet<span style="color: var(--zds-text-tertiary);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+        </div>
+      </header>
+      <div class="abody">
+        <div class="page-title">
+          <h1>Charts &amp; statistics</h1>
+          <span class="meta">All windows · last 30 days unless noted</span>
+        </div>
+
+        <p class="charts-section-cap">Privacy Pool Metrics</p>
+        <div class="charts-grid">
+          <div id="rs-shield-volume" class="zchart"></div>
+          <div id="rs-privacy-ratio" class="zchart" style="display: flex; align-items: center; justify-content: center; padding: 28px;"></div>
+        </div>
+        <div style="margin-top: 24px;">
+          <div id="rs-masp-stacked" class="zchart"></div>
+        </div>
+
+        <p class="charts-section-cap">Network Activity</p>
+        <div class="grid-2">
+          <div id="rs-hourly" class="zchart"></div>
+          <div id="rs-daily-tx" class="zchart"></div>
+        </div>
+
+        <p class="charts-section-cap">x402 Metrics</p>
+        <div id="rs-x402-vs-std" class="zchart"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 06 · VALIDATORS LEADERBOARD                                   -->
+  <!-- ============================================================ -->
+  <section class="page-section" id="validators">
+    <div class="page-section__head">
+      <span class="num">06</span>
+      <div>
+        <h2>Validators — leaderboard with ZEC + Z power, calmly.</h2>
+        <p>Renamed columns ("ZEC Power" replaces "BTC Power", "Z Power" replaces "Coin Power" — per the change brief B6/B7). DataTable with sparklines for active set + uptime, status pills for online/jailed.</p>
+        <p class="page-section__url">scan.zprotocol.org/validators</p>
+      </div>
+    </div>
+
+    <div class="artboard">
+      <header class="ahdr">
+        <div class="ahdr__brand">
+          <svg width="22" height="31" viewBox="0 0 665 929" fill="currentColor" style="color: var(--zds-ink-950);"><path d="M625 0C647.091 0 665 17.9086 665 40V258.352C665 268.961 660.786 279.135 653.284 286.637L211.716 728.206C204.214 735.708 200 745.882 200 756.49V889C200 911.091 182.091 929 160 929H40C17.9086 929 0 911.091 0 889V673.648C0 663.039 4.21426 652.865 11.7157 645.363L453.284 203.794C460.786 196.292 465 186.118 465 175.51V40C465 17.9086 482.909 0 505 0H625Z"/><rect width="300" height="200" rx="40"/><rect x="365" y="729" width="300" height="200" rx="40"/></svg>
+          <span class="name">Scan</span>
+        </div>
+        <div class="ahdr__center">
+          <div class="search">
+            <span style="color: var(--zds-text-tertiary); display: inline-flex;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>
+            <input type="search" placeholder="Search validators…" />
+            <span class="kbd">/</span>
+          </div>
+        </div>
+        <div class="ahdr__actions">
+          <button class="chain-pill"><span class="dot dot-mainnet"></span>Mainnet<span style="color: var(--zds-text-tertiary);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+        </div>
+      </header>
+      <div class="abody">
+        <div class="page-title">
+          <h1>Validators</h1>
+          <span class="meta">128 active · 22 inactive · 1 jailed</span>
+        </div>
+
+        <div class="dt-wrap">
+          <table class="dt">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Validator</th>
+                <th>Status</th>
+                <th style="text-align:end;">ZEC Power</th>
+                <th style="text-align:end;">Z Power</th>
+                <th style="text-align:end;">Uptime · 7d</th>
+                <th style="text-align:end;">Commission</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span style="font-family: var(--zds-font-mono); font-size: 12px; color: var(--zds-text-tertiary);">01</span></td>
+                <td><span class="addr addr--validator"><span class="addr-dot dot-infra"></span>Stakefish<span class="tail">·c600</span></span></td>
+                <td><span class="tb tb--sm"><span class="tb__dot dot-private"></span>Online</span></td>
+                <td style="text-align:end;"><strong>2.4M</strong> <span style="color: var(--zds-text-tertiary)">ZEC</span></td>
+                <td style="text-align:end;"><strong>118k</strong> <span style="color: var(--zds-text-tertiary)">Z</span></td>
+                <td style="text-align:end;"><span style="color: var(--zds-mint-500);">99.92%</span></td>
+                <td style="text-align:end;">5.0%</td>
+              </tr>
+              <tr>
+                <td><span style="font-family: var(--zds-font-mono); font-size: 12px; color: var(--zds-text-tertiary);">02</span></td>
+                <td><span class="addr addr--validator"><span class="addr-dot dot-infra"></span>Figment<span class="tail">·8a12</span></span></td>
+                <td><span class="tb tb--sm"><span class="tb__dot dot-private"></span>Online</span></td>
+                <td style="text-align:end;"><strong>1.9M</strong> <span style="color: var(--zds-text-tertiary)">ZEC</span></td>
+                <td style="text-align:end;"><strong>92k</strong> <span style="color: var(--zds-text-tertiary)">Z</span></td>
+                <td style="text-align:end;"><span style="color: var(--zds-mint-500);">99.88%</span></td>
+                <td style="text-align:end;">4.5%</td>
+              </tr>
+              <tr>
+                <td><span style="font-family: var(--zds-font-mono); font-size: 12px; color: var(--zds-text-tertiary);">03</span></td>
+                <td><span class="addr addr--validator"><span class="addr-dot dot-infra"></span>Chorus One<span class="tail">·b211</span></span></td>
+                <td><span class="tb tb--sm"><span class="tb__dot dot-private"></span>Online</span></td>
+                <td style="text-align:end;"><strong>1.6M</strong> <span style="color: var(--zds-text-tertiary)">ZEC</span></td>
+                <td style="text-align:end;"><strong>74k</strong> <span style="color: var(--zds-text-tertiary)">Z</span></td>
+                <td style="text-align:end;"><span style="color: var(--zds-mint-500);">99.82%</span></td>
+                <td style="text-align:end;">5.0%</td>
+              </tr>
+              <tr>
+                <td><span style="font-family: var(--zds-font-mono); font-size: 12px; color: var(--zds-text-tertiary);">04</span></td>
+                <td><span class="addr addr--validator"><span class="addr-dot dot-infra"></span>P2P.org<span class="tail">·0e44</span></span></td>
+                <td><span class="tb tb--sm" style="background: rgba(244,183,49,0.16); border-color: rgba(244,183,49,0.30);"><span class="tb__dot dot-payment"></span>Catching up</span></td>
+                <td style="text-align:end;"><strong>1.4M</strong> <span style="color: var(--zds-text-tertiary)">ZEC</span></td>
+                <td style="text-align:end;"><strong>68k</strong> <span style="color: var(--zds-text-tertiary)">Z</span></td>
+                <td style="text-align:end;"><span style="color: var(--zds-zcash-500);">94.10%</span></td>
+                <td style="text-align:end;">3.5%</td>
+              </tr>
+              <tr>
+                <td><span style="font-family: var(--zds-font-mono); font-size: 12px; color: var(--zds-text-tertiary);">05</span></td>
+                <td><span class="addr addr--validator"><span class="addr-dot dot-infra"></span>InfStones<span class="tail">·9b21</span></span></td>
+                <td><span class="tb tb--sm" style="background: var(--zds-negative-wash); border-color: rgba(215,122,110,0.30);"><span class="tb__dot" style="background: var(--zds-negative);"></span>Jailed</span></td>
+                <td style="text-align:end;"><strong>1.1M</strong> <span style="color: var(--zds-text-tertiary)">ZEC</span></td>
+                <td style="text-align:end;"><strong>52k</strong> <span style="color: var(--zds-text-tertiary)">Z</span></td>
+                <td style="text-align:end;"><span style="color: var(--zds-negative);">68.20%</span></td>
+                <td style="text-align:end;">5.0%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Closing note -->
+  <div style="margin-top: 64px; padding: 32px; border-radius: var(--zds-radius-lg); background: var(--zds-paper); border: 1px solid var(--zds-line); box-shadow: var(--zds-shadow-plate);">
+    <p class="doc-cap" style="margin: 0 0 12px;">For the dev team</p>
+    <p style="margin: 0; max-width: 70ch; color: var(--zds-text-secondary); font-size: 15px; line-height: 1.55;">
+      Every page above composes only from primitives shipped in <code style="font-family: var(--zds-font-mono); font-size: 13px; color: var(--zds-ink-950); background: var(--zds-mist); padding: 1px 6px; border-radius: 6px;">@z-protocol/ui</code>. No bespoke CSS per page — surfaces, plates, badges, and tables are reused so the look stays consistent. Hash truncation, copy-on-click, address tooltips, theme toggle, and the search "/" shortcut are all wired in the components. The only per-page work is composition: arrange primitives, plug data in, ship.
+    </p>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  const PALETTE = ['var(--zds-mint-500)','var(--zds-moss-400)','var(--zds-stone-600)','var(--zds-ink-300)'];
+  const GRID = 'var(--zds-line-soft)';
+  const AXIS = 'var(--zds-line)';
+
+  function niceTicks(min, max, count) {
+    count = count || 5;
+    if (max === min) return [min];
+    const range = max - min;
+    const rough = range / (count - 1);
+    const pow = Math.pow(10, Math.floor(Math.log10(rough)));
+    const norm = rough / pow;
+    const step = norm < 1.5 ? pow : norm < 3 ? 2 * pow : norm < 7 ? 5 * pow : 10 * pow;
+    const start = Math.floor(min / step) * step;
+    const end = Math.ceil(max / step) * step;
+    const ticks = [];
+    for (let v = start; v <= end + 1e-9; v += step) ticks.push(Number(v.toFixed(10)));
+    return ticks;
+  }
+  function fmt(v) {
+    const a = Math.abs(v);
+    if (a >= 1e6) return (v/1e6).toFixed(1)+'M';
+    if (a >= 1e3) return (v/1e3).toFixed(1)+'k';
+    if (a < 1 && a > 0) return v.toFixed(2);
+    return String(v);
+  }
+  function axisLbl(x, y, t, anchor) {
+    return `<text x="${x}" y="${y}" text-anchor="${anchor||'middle'}" style="font-family: var(--zds-font-mono); font-size: 11px; fill: var(--zds-text-tertiary); letter-spacing: 0.04em;">${t}</text>`;
+  }
+
+  function renderLine(id, opts) {
+    const el = document.getElementById(id); if (!el) return;
+    const { xLabels, series, height = 320 } = opts;
+    const margin = { top: 24, right: 24, bottom: 44, left: 56 };
+    const W = 800, IW = W - margin.left - margin.right, IH = height - margin.top - margin.bottom;
+    const allV = series.flatMap(s => s.values);
+    const ticks = niceTicks(Math.min(...allV, 0), Math.max(...allV), 5);
+    const yMin = ticks[0], yMax = ticks[ticks.length-1], yR = yMax - yMin || 1;
+    const xAt = i => xLabels.length>1 ? (i/(xLabels.length-1))*IW : IW/2;
+    const yAt = v => IH - ((v - yMin)/yR)*IH;
+    const showArea = opts.area !== undefined ? opts.area : series.length === 1;
+    let svg = `<svg viewBox="0 0 ${W} ${height}" width="100%" preserveAspectRatio="xMidYMid meet"><g transform="translate(${margin.left},${margin.top})">`;
+    ticks.forEach(t => { const y = yAt(t); svg += `<line x1="0" x2="${IW}" y1="${y}" y2="${y}" stroke="${GRID}"/>` + axisLbl(-8, y+4, fmt(t), 'end'); });
+    svg += `<line x1="0" x2="${IW}" y1="${IH}" y2="${IH}" stroke="${AXIS}"/>`;
+    xLabels.forEach((l, i) => svg += axisLbl(xAt(i), IH+18, l));
+    series.forEach((s, idx) => {
+      const tone = s.tone || PALETTE[idx];
+      const points = s.values.map((v, i) => ({ x: xAt(i), y: yAt(v) }));
+      const path = points.map((p, i) => `${i===0?'M':'L'}${p.x.toFixed(2)},${p.y.toFixed(2)}`).join(' ');
+      const last = points[points.length-1];
+      const areaP = `${path} L${last.x.toFixed(2)},${IH.toFixed(2)} L0,${IH.toFixed(2)} Z`;
+      if (showArea) svg += `<path d="${areaP}" fill="${tone}" fill-opacity="0.16"/>`;
+      svg += `<path d="${path}" fill="none" stroke="${tone}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>` + `<circle cx="${last.x}" cy="${last.y}" r="3" fill="${tone}"/>`;
+    });
+    svg += `</g></svg>`;
+    el.innerHTML = svg;
+  }
+
+  function renderArea(id, opts) {
+    const el = document.getElementById(id); if (!el) return;
+    const { xLabels, series, height = 320 } = opts;
+    const margin = { top: 24, right: 24, bottom: 44, left: 56 };
+    const W = 800, IW = W-margin.left-margin.right, IH = height-margin.top-margin.bottom;
+    const n = xLabels.length;
+    const stacks = series[0].values.map((_, i) => series.map(s => s.values[i]||0));
+    const totals = stacks.map(c => c.reduce((a,b) => a+b, 0));
+    const ticks = niceTicks(0, Math.max(...totals), 5);
+    const yMax = ticks[ticks.length-1];
+    const xAt = i => n>1 ? (i/(n-1))*IW : IW/2;
+    const yAt = v => IH - (v/yMax)*IH;
+    const cum = stacks.map(c => { let s = 0; return c.map(v => { s += v; return s; }); });
+    let svg = `<svg viewBox="0 0 ${W} ${height}" width="100%" preserveAspectRatio="xMidYMid meet"><g transform="translate(${margin.left},${margin.top})">`;
+    ticks.forEach(t => { const y = yAt(t); svg += `<line x1="0" x2="${IW}" y1="${y}" y2="${y}" stroke="${GRID}"/>` + axisLbl(-8, y+4, fmt(t), 'end'); });
+    svg += `<line x1="0" x2="${IW}" y1="${IH}" y2="${IH}" stroke="${AXIS}"/>`;
+    xLabels.forEach((l, i) => svg += axisLbl(xAt(i), IH+18, l));
+    series.forEach((s, sIdx) => {
+      const tone = s.tone || PALETTE[sIdx];
+      const top = [], bot = [];
+      for (let i = 0; i < n; i++) {
+        top.push({ x: xAt(i), y: yAt(cum[i][sIdx]) });
+        bot.push({ x: xAt(i), y: yAt(sIdx===0 ? 0 : cum[i][sIdx-1]) });
+      }
+      const path = [...top.map((p,i) => `${i===0?'M':'L'}${p.x.toFixed(2)},${p.y.toFixed(2)}`), ...bot.slice().reverse().map(p => `L${p.x.toFixed(2)},${p.y.toFixed(2)}`), 'Z'].join(' ');
+      svg += `<path d="${path}" fill="${tone}" fill-opacity="0.55" stroke="${tone}" stroke-opacity="0.7" stroke-width="1"/>`;
+    });
+    svg += `</g></svg>`;
+    el.innerHTML = svg;
+  }
+
+  function renderBars(id, opts) {
+    const el = document.getElementById(id); if (!el) return;
+    const { xLabels, series, height = 320, groupGap = 0.3, barGap = 0.1 } = opts;
+    const margin = { top: 24, right: 24, bottom: 44, left: 56 };
+    const W = 800, IW = W-margin.left-margin.right, IH = height-margin.top-margin.bottom;
+    const n = xLabels.length;
+    const allV = series.flatMap(s => s.values);
+    const ticks = niceTicks(0, Math.max(...allV), 5);
+    const yMax = ticks[ticks.length-1];
+    const slot = IW/n, groupW = slot*(1-groupGap), barW = (groupW*(1-barGap))/series.length;
+    const xAt = i => i*slot + (slot-groupW)/2;
+    const yAt = v => IH - (v/yMax)*IH;
+    let svg = `<svg viewBox="0 0 ${W} ${height}" width="100%" preserveAspectRatio="xMidYMid meet"><g transform="translate(${margin.left},${margin.top})">`;
+    ticks.forEach(t => { const y = yAt(t); svg += `<line x1="0" x2="${IW}" y1="${y}" y2="${y}" stroke="${GRID}"/>` + axisLbl(-8, y+4, fmt(t), 'end'); });
+    svg += `<line x1="0" x2="${IW}" y1="${IH}" y2="${IH}" stroke="${AXIS}"/>`;
+    series.forEach((s, sIdx) => {
+      const tone = s.tone || PALETTE[sIdx];
+      const off = sIdx*barW + (sIdx*(groupW*barGap))/Math.max(series.length-1, 1);
+      s.values.forEach((v, i) => {
+        const x = xAt(i)+off, y = yAt(v), h = IH-y;
+        svg += `<rect x="${x}" y="${y}" width="${Math.max(barW, 1)}" height="${Math.max(h, 0)}" fill="${tone}" fill-opacity="0.85" rx="${Math.min(4, barW/4)}"/>`;
+      });
+    });
+    xLabels.forEach((l, i) => svg += axisLbl(xAt(i)+groupW/2, IH+18, l));
+    svg += `</g></svg>`;
+    el.innerHTML = svg;
+  }
+
+  function renderDonut(id, opts) {
+    const el = document.getElementById(id); if (!el) return;
+    const { segments, size = 200, thickness = 22, centerTitle, centerCaption } = opts;
+    const total = segments.reduce((a, s) => a + Math.max(s.value, 0), 0) || 1;
+    const cx = size/2, cy = size/2, r = (size-thickness)/2;
+    function polar(a) { const ar = (a-90)*Math.PI/180; return { x: cx+r*Math.cos(ar), y: cy+r*Math.sin(ar) }; }
+    function arc(s, e) { const a = polar(s), b = polar(e), large = e-s>180 ? 1 : 0; return `M ${a.x} ${a.y} A ${r} ${r} 0 ${large} 1 ${b.x} ${b.y}`; }
+    let cur = 0;
+    let html = `<div style="position: relative; display: inline-flex;"><svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"><circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--zds-line)" stroke-width="${thickness}"/>`;
+    segments.forEach((seg, i) => {
+      const tone = seg.tone || PALETTE[i];
+      const portion = (seg.value/total)*360;
+      const start = cur, end = Math.min(cur+portion, 360-0.0001);
+      cur += portion;
+      html += `<path d="${arc(start, end)}" fill="none" stroke="${tone}" stroke-width="${thickness}" stroke-linecap="butt"/>`;
+    });
+    html += `</svg>`;
+    if (centerTitle || centerCaption) {
+      html += `<div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none;">`;
+      if (centerTitle) html += `<strong style="font-family: var(--zds-font-display); font-size: ${Math.max(20, size*0.18)}px; line-height: 1; letter-spacing: -0.035em; color: var(--zds-ink-950); font-weight: 500;">${centerTitle}</strong>`;
+      if (centerCaption) html += `<span style="margin-top: 4px; font-size: 11px; font-weight: 500; letter-spacing: 0.10em; text-transform: uppercase; color: var(--zds-text-tertiary); font-family: var(--zds-font-mono);">${centerCaption}</span>`;
+      html += `</div>`;
+    }
+    html += `</div>`;
+    el.innerHTML = html;
+  }
+
+  // ----- DATA -----
+  const monthDays = ['Apr 1','5','9','13','17','21','25','29'];
+  const weekDays = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const hours = ['00','03','06','09','12','15','18','21'];
+
+  // 05a Privacy Pool — Daily Shield Volume
+  renderLine('rs-shield-volume', {
+    xLabels: monthDays,
+    series: [{ label: 'Shield volume (k ZEC)', values: [22, 38, 64, 92, 124, 168, 212, 248], tone: 'var(--zds-mint-500)' }]
+  });
+  // 05a Privacy Pool — Privacy Ratio donut
+  renderDonut('rs-privacy-ratio', {
+    segments: [
+      { label: 'Shielded', value: 38, tone: 'var(--zds-mint-500)' },
+      { label: 'Transparent', value: 62, tone: 'var(--zds-stone-600)' }
+    ],
+    size: 220,
+    thickness: 24,
+    centerTitle: '38%',
+    centerCaption: 'Privacy Ratio'
+  });
+  // 05b Privacy Pool — MASP stacked
+  renderArea('rs-masp-stacked', {
+    xLabels: monthDays,
+    series: [
+      { label: 'Shield', values: [44,68,92,110,138,164,192,212], tone: 'var(--zds-mint-500)' },
+      { label: 'Transfer', values: [22,28,38,52,62,70,82,88], tone: 'var(--zds-moss-400)' },
+      { label: 'Unshield', values: [10,14,18,22,28,32,38,42], tone: 'var(--zds-stone-600)' }
+    ]
+  });
+  // 05c Network Activity
+  renderBars('rs-hourly', {
+    xLabels: hours,
+    series: [{ label: 'Hourly txs', values: [180, 220, 145, 248, 312, 286, 262, 198], tone: 'var(--zds-ink-700)' }],
+    height: 280
+  });
+  renderLine('rs-daily-tx', {
+    xLabels: monthDays,
+    series: [{ label: 'Daily transactions', values: [1200, 1450, 1680, 1920, 2180, 2440, 2780, 3098], tone: 'var(--zds-ink-700)' }],
+    height: 280
+  });
+  // 05d x402 Metrics
+  renderBars('rs-x402-vs-std', {
+    xLabels: weekDays,
+    series: [
+      { label: 'x402', values: [42, 58, 71, 84, 96, 78, 64], tone: 'var(--zds-zcash-500)' },
+      { label: 'Standard', values: [128, 142, 168, 174, 182, 154, 140], tone: 'var(--zds-stone-600)' }
+    ],
+    height: 280
+  });
+})();
+</script>
+
+</body>
+</html>
