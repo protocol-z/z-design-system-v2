@@ -7,7 +7,7 @@
 #   2. Copies apps/scan/ to a sibling folder ~/Documents/.../Zed/z-scan
 #   3. Initializes z-scan, creates github.com/protocol-z/z-scan (private), pushes
 #   4. Strips apps/scan from the design-system tree (it now lives in z-scan)
-#   5. Initializes z-design-system, creates github.com/protocol-z/z-design-system
+#   5. Initializes z-design-system-v2, creates github.com/protocol-z/z-design-system-v2
 #      (private), pushes
 #
 # Run it from anywhere — paths are absolute.
@@ -16,7 +16,7 @@ set -euo pipefail
 
 # ----- Config ----------------------------------------------------------------
 ORG="protocol-z"
-DS_REPO="z-design-system"
+DS_REPO="z-design-system-v2"
 SCAN_REPO="z-scan"
 ZED_DIR="$HOME/Documents/MH/MHJ-Design/Vibes/Zed"
 DS_DIR="$ZED_DIR/$DS_REPO"
@@ -125,7 +125,7 @@ node -e "
   console.log('  ✓ package.json updated');
 "
 
-# ----- Step 4 — Push z-design-system ----------------------------------------
+# ----- Step 4 — Push z-design-system-v2 ----------------------------------------
 say "Step 4 — Initialising and pushing $ORG/$DS_REPO (private)"
 
 # Clean any build/cache before committing

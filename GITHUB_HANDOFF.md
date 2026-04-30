@@ -3,7 +3,7 @@
 This document is for whoever pushes this codebase to GitHub. We're shipping
 **two repos** so the design system is reusable across multiple apps:
 
-- **`protocol-z/z-design-system`** — `@zds/ui` package + brand docs. The
+- **`protocol-z/z-design-system-v2`** — `@zds/ui` package + brand docs. The
   source of truth other apps depend on.
 - **`protocol-z/z-scan`** — the block explorer app. Imports `@zds/ui` from
   the design-system repo.
@@ -22,7 +22,7 @@ that does the same `npm install @zds/ui` dance.
 ## Step 1 — Push the design system
 
 ```bash
-cd ~/Documents/MH/MHJ-Design/Vibes/Zed/z-design-system
+cd ~/Documents/MH/MHJ-Design/Vibes/Zed/z-design-system-v2
 
 # Remove the scan app temporarily — it gets its own repo (Step 2)
 mv apps/scan /tmp/z-scan-extract
@@ -31,14 +31,14 @@ mv apps/scan /tmp/z-scan-extract
 git init -b main
 git add .
 git commit -m "Z Design System v2 (Serene System) — initial release"
-git remote add origin git@github.com:protocol-z/z-design-system.git
+git remote add origin git@github.com:protocol-z/z-design-system-v2.git
 git push -u origin main
 ```
 
 What ships in this repo:
 
 ```
-z-design-system/
+z-design-system-v2/
 ├── .github/workflows/ci.yml       # Typecheck + scan build
 ├── packages/ui/                   # @zds/ui — the published package
 │   ├── src/                       # TSX source + tokens.css
@@ -90,7 +90,7 @@ z-scan/
 The scan's `package.json` already references `@zds/ui` from GitHub:
 
 ```json
-"@zds/ui": "github:protocol-z/z-design-system"
+"@zds/ui": "github:protocol-z/z-design-system-v2"
 ```
 
 When `@zds/ui` is published to npm, swap to:
@@ -105,7 +105,7 @@ If you want consuming apps to install via `npm install @zds/ui` instead of
 the GitHub URL:
 
 ```bash
-cd ~/Documents/MH/MHJ-Design/Vibes/Zed/z-design-system/packages/ui
+cd ~/Documents/MH/MHJ-Design/Vibes/Zed/z-design-system-v2/packages/ui
 
 # Make sure you're logged in to the @zds org
 npm whoami
@@ -119,7 +119,7 @@ is already in `package.json`.
 
 Both repos ship with `.github/workflows/ci.yml`:
 
-- **`z-design-system`** — runs `npm run typecheck` + `npm run scan:build`
+- **`z-design-system-v2`** — runs `npm run typecheck` + `npm run scan:build`
   on push and PR.
 - **`z-scan`** — runs `npm run typecheck` + `npm run build` on push and PR.
 
@@ -134,7 +134,7 @@ for each repo and set `VERCEL_ORG_ID` / `VERCEL_PROJECT_ID` /
 |---|---|---|
 | `scan.zprotocol.org` | `z-scan` | Production block explorer (Mainnet) |
 | `scan.dev.zprotocol.org` | `z-scan` | DevNet preview (separate Vercel env) |
-| `docs.zprotocol.org/design` | `z-design-system` | Brand spec + component reference (use docs deployment) |
+| `docs.zprotocol.org/design` | `z-design-system-v2` | Brand spec + component reference (use docs deployment) |
 
 ## Local development after the split
 
@@ -143,8 +143,8 @@ Two ways to develop the scan against a local design-system checkout:
 ### Option A — `npm link` (quick, dev only)
 
 ```bash
-# In z-design-system/packages/ui
-cd ~/Documents/.../z-design-system/packages/ui
+# In z-design-system-v2/packages/ui
+cd ~/Documents/.../z-design-system-v2/packages/ui
 npm link
 
 # In z-scan
@@ -153,13 +153,13 @@ npm link @zds/ui
 npm run dev
 ```
 
-When you change a component in `z-design-system/packages/ui/src/`, the
+When you change a component in `z-design-system-v2/packages/ui/src/`, the
 scan dev server picks it up immediately.
 
 ### Option B — `file:` protocol in package.json
 
 ```json
-"@zds/ui": "file:../z-design-system/packages/ui"
+"@zds/ui": "file:../z-design-system-v2/packages/ui"
 ```
 
 Simpler, but you have to `npm install` after every design-system change.
@@ -174,12 +174,12 @@ Simpler, but you have to `npm install` after every design-system change.
 - `docs/COMPONENT-REGISTRY.md` — what's coded, what's coming next
 - `docs/SNIPPETS.md` — copy-paste examples
 
-These all live in `z-design-system/docs/`. The scan repo's README links
+These all live in `z-design-system-v2/docs/`. The scan repo's README links
 back to them as the brand source of truth.
 
 ## Open follow-ups
 
-- [ ] Push `z-design-system` to `github.com/protocol-z/z-design-system`
+- [ ] Push `z-design-system-v2` to `github.com/protocol-z/z-design-system-v2`
 - [ ] Push `z-scan` to `github.com/protocol-z/z-scan` (after `git mv`)
 - [ ] Publish `@zds/ui@0.1.0` to npm (one command)
 - [ ] Set up Vercel projects for both repos with PR previews

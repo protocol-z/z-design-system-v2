@@ -32,12 +32,12 @@ tables, charts, tabs, modals (coming), key-value grids, transaction
 steppers, and the full app shell (header, footer, search, chain switcher,
 theme toggle).
 
-Full inventory: see the [INVENTORY.md](https://github.com/protocol-z/z-design-system/blob/main/INVENTORY.md) in the repo.
+Full inventory: see the [INVENTORY.md](https://github.com/protocol-z/z-design-system-v2/blob/main/INVENTORY.md) in the repo.
 
 ## Brand
 
 This package is part of a larger brand system. Read the
-[brand spec](https://github.com/protocol-z/z-design-system/blob/main/docs/BRAND.md)
+[brand spec](https://github.com/protocol-z/z-design-system-v2/blob/main/docs/BRAND.md)
 for tone, voice, and aesthetic guidance before building new surfaces.
 
 ## License

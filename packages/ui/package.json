@@ -5,12 +5,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/protocol-z/z-design-system.git",
+    "url": "https://github.com/protocol-z/z-design-system-v2.git",
     "directory": "packages/ui"
   },
-  "homepage": "https://github.com/protocol-z/z-design-system#readme",
+  "homepage": "https://github.com/protocol-z/z-design-system-v2#readme",
   "bugs": {
-    "url": "https://github.com/protocol-z/z-design-system/issues"
+    "url": "https://github.com/protocol-z/z-design-system-v2/issues"
   },
   "main": "src/index.ts",
   "types": "src/index.ts",

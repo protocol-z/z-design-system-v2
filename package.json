@@ -1,12 +1,12 @@
 {
-  "name": "z-design-system",
+  "name": "z-design-system-v2",
   "private": true,
   "version": "0.1.0",
   "description": "Design system, tokens, and component library for Z Protocol surfaces (v2 / Serene System).",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/protocol-z/z-design-system.git"
+    "url": "https://github.com/protocol-z/z-design-system-v2.git"
   },
   "workspaces": [
     "packages/*"

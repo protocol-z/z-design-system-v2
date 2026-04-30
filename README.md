@@ -30,7 +30,7 @@
 npm install @zds/ui
 
 # From GitHub (until npm publish)
-npm install github:protocol-z/z-design-system#main
+npm install github:protocol-z/z-design-system-v2#main
 ```
 
 ```tsx
@@ -50,8 +50,8 @@ If your app is built on Next.js App Router, add `"@zds/ui"` to `transpilePackage
 ## Local development
 
 ```bash
-git clone https://github.com/protocol-z/z-design-system.git
-cd z-design-system
+git clone https://github.com/protocol-z/z-design-system-v2.git
+cd z-design-system-v2
 npm install
 
 # View the visual reference at http://localhost:4173
@@ -67,7 +67,7 @@ npm run scan:dev
 ## Repo structure
 
 ```
-z-design-system/
+z-design-system-v2/
 ├── packages/ui/             # The published package — @zds/ui
 │   ├── src/components/      # React components on v2 tokens
 │   ├── src/styles/          # tokens.css (the source of truth)
