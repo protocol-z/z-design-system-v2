@@ -27,10 +27,10 @@ module.exports = {
 
 ## What's exported
 
-37 components covering: buttons, badges, hash chips, address labels, data
-tables, charts, tabs, modals (coming), key-value grids, transaction
-steppers, and the full app shell (header, footer, search, chain switcher,
-theme toggle).
+47 components covering: buttons, badges, hash chips, address labels, data
+tables, charts, tabs, modal/result shells, key-value grids, transaction
+steppers, form controls, action bars, metric cards, and the full app shell
+(header, footer, search, chain switcher, theme toggle).
 
 Full inventory: see the [INVENTORY.md](https://github.com/protocol-z/z-design-system-v2/blob/main/INVENTORY.md) in the repo.
 

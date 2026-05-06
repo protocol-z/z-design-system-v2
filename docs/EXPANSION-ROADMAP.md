@@ -5,6 +5,8 @@ This file suggests which components to build next in the React export library.
 > **Status: v2 — April 2026.** Tier 1 below has been completed. The currently-coded set covers Button, Chip, MicroBadge, TextField, Tabs, IconButton, AssetPill, StatTile, WalletState, SideNav, TokenInput, QuoteCard, TransactionStepper, MarketRow, PositionCard, RiskCallout, LogoMark — all migrated to v2 tokens. The remaining items (Toast, ModalCard, ActivityPopover, AppShellHeader, AppSwitcher, etc.) are still pending — see `INVENTORY.md` for the full status table.
 >
 > When building new components, start from the v2 patterns demonstrated in `apps/preview/v2.html` and the existing components in `packages/ui/src/components/`. Use `--zds-*` v2 tokens; avoid the transitional aliases (`--zds-gold`, `--zds-mint`, `--zds-muted`, `--zds-warning`) in new code.
+>
+> **May 2026 update.** The Inference and Stake pass shipped the route/product primitives that were blocking multi-app implementation: `PageHeader`, `DataCard`, `MetricCard`, `StatusBadge`, `SelectField`, `AmountField`, `PresetButtonGroup`, `PrimaryActionBar`, `ResultCard`, and `ModalCard`.
 
 ## Best Next Components
 
@@ -26,25 +28,26 @@ These start turning the library into a usable DeFi app kit.
 
 - `MarketRow`
 - `PositionCard`
+- `PageHeader` — shipped May 2026
+- `MetricCard` — shipped May 2026
+- `StatusBadge` — shipped May 2026
+- `SelectField` — shipped May 2026
+- `AmountField` — shipped May 2026
+- `PresetButtonGroup` — shipped May 2026
+- `PrimaryActionBar` — shipped May 2026
+- `ResultCard` — shipped May 2026
+- `DataCard` — shipped May 2026
 - `AccountRail`
 - `ProofBadge`
 - `HealthMeter`
 - `ReceiptCard`
 - `DisconnectedState`
-- `PageHeader`
-- `MetricCard`
-- `StatusBadge`
-- `SelectField`
-- `AmountField`
-- `PresetButtonGroup`
-- `PrimaryActionBar`
-- `ResultCard`
 
 ## Tier 3: Overlay and Feedback
 These should come after the main product surfaces are stable.
 
 - `Toast`
-- `ModalCard`
+- `ModalCard` — shipped May 2026
 - `TooltipBubble`
 - `ActivityPopover`
 - `SuccessBanner`

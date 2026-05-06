@@ -33,7 +33,7 @@ This file is the quickest way to understand the current state of the Z Design Sy
 | `Space Grotesk` | Heading and structural emphasis | titles, high-signal values, key labels |
 | `Instrument Sans` | UI and support text | body copy, controls, helper copy |
 
-## Component Status (April 2026, post-v2 migration)
+## Component Status (May 2026, post-Inference/Stake expansion)
 
 Legend:
 - `Designed`: exists in `apps/preview/v2.html`
@@ -147,6 +147,23 @@ All Tier 3 components are coded against v2 tokens, exported from `packages/ui/sr
 | `Footer` | Coded (v2) | Multi-column site footer with brand block, columns, social row, meta. Replaces v1 footer. No "Powered by" line. |
 | `ChainSwitcher` | Coded (v2) | Network pill with status dot + dropdown. Networks `mainnet` (mint), `testnet` (yellow), `devnet` (stone), `custom` (neutral). |
 | `ThemeToggle` | Coded (v2) | Light/dark switch (product surfaces only). Sets `data-theme="dark"` on `documentElement`. |
+
+### Tier 4 — product app primitives (shipped May 2026)
+
+These components were added to support `z-inference` PRD surfaces and the new `z-stake` prototype.
+
+| Component | Status | Notes |
+|---|---|---|
+| `PageHeader` | Coded (v2) | Route-level title, support copy, meta, and actions. Uses display typography and editorial italic slots. |
+| `DataCard` | Coded (v2) | Generic product section wrapper with title, description, actions, footer, and inset variants. |
+| `MetricCard` | Coded (v2) | KPI card with label, large value, detail, delta, tone, and optional icon. |
+| `StatusBadge` | Coded (v2) | Compact state badge for positive, warning, negative, private, info, and neutral states. |
+| `SelectField` | Coded (v2) | Styled select control with label, hint, and option helper API. |
+| `AmountField` | Coded (v2) | Large numeric amount control with asset pill, balance, max action, and hint. |
+| `PresetButtonGroup` | Coded (v2) | Radio-like preset buttons for amount, duration, or mode selection. |
+| `PrimaryActionBar` | Coded (v2) | Full-width CTA summary/action block for transaction surfaces. |
+| `ResultCard` | Coded (v2) | Post-action result card with tone, status label, description, key-value rows, and action. |
+| `ModalCard` | Coded (v2) | Shared overlay shell with backdrop, close button, body, and action footer. |
 
 ### Pending palette decision
 

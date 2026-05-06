@@ -148,6 +148,7 @@ This file maps the current static library into implementation-oriented names.
 
 ### `ModalCard`
 - Static code name: `.modal-card`
+- Purpose: shared modal shell with backdrop, title, close action, body, and footer actions
 
 ## Account
 
@@ -171,7 +172,8 @@ This file maps the current static library into implementation-oriented names.
 These are not fully modeled in the static preview yet, but they are needed based on the current platform surfaces.
 
 ### `PageHeader`
-- Purpose: route title plus subtitle
+- Purpose: route title, support copy, meta, and page-level actions
+- Status: shipped in React May 2026
 
 ### `TopNavLink`
 - Purpose: top-level navigation item with active indicator
@@ -181,33 +183,41 @@ These are not fully modeled in the static preview yet, but they are needed based
 
 ### `MetricCard`
 - Purpose: dashboard metric summary card
+- Status: shipped in React May 2026
 
 ### `StatusBadge`
 - Purpose: active, disconnected, whitelisted, successful, or warning states
+- Status: shipped in React May 2026
 
 ### `KeyValueGrid`
 - Purpose: labeled system or network metadata layout
 
 ### `DataCard`
 - Purpose: generic product card section wrapper
+- Status: shipped in React May 2026
 
 ### `SelectField`
 - Purpose: token or option selection field
+- Status: shipped in React May 2026
 
 ### `PresetButtonGroup`
 - Purpose: quick amount presets
+- Status: shipped in React May 2026
 
 ### `AmountField`
 - Purpose: numeric amount input with token workflow compatibility
+- Status: shipped in React May 2026
 
 ### `PrimaryActionBar`
 - Purpose: full-width route CTA
+- Status: shipped in React May 2026
 
 ### `SuccessBanner`
 - Purpose: immediate success or confirmation feedback
 
 ### `ResultCard`
 - Purpose: post-transaction result summary
+- Status: shipped in React May 2026
 
 ### `SecurityPromptModal`
 - Purpose: required setup or derivation modal

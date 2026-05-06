@@ -6,7 +6,7 @@
 
 [![License](https://img.shields.io/badge/license-MIT-3FB58A.svg)](./LICENSE)
 [![Status](https://img.shields.io/badge/status-v2-3FB58A.svg)](./brand/system/v2/brand-direction-v2.md)
-[![Components](https://img.shields.io/badge/components-37-3FB58A.svg)](./INVENTORY.md)
+[![Components](https://img.shields.io/badge/components-47-3FB58A.svg)](./INVENTORY.md)
 
 ---
 
@@ -15,7 +15,7 @@
 | Surface | Path | What it is |
 |---|---|---|
 | **Tokens** | [`packages/ui/src/styles/tokens.css`](./packages/ui/src/styles/tokens.css) | Source of truth — every color, radius, shadow, type token |
-| **Components** | [`packages/ui/src/components/`](./packages/ui/src/components/) | 37 React components on v2 tokens (`@zds/ui`) |
+| **Components** | [`packages/ui/src/components/`](./packages/ui/src/components/) | 47 React components on v2 tokens (`@zds/ui`) |
 | **Visual reference** | [`apps/preview/v2.html`](./apps/preview/v2.html) | One file demonstrating every primitive — send for design review |
 | **Brand spec** | [`docs/BRAND.md`](./docs/BRAND.md) | What the brand stands for, the five values, anti-patterns |
 | **Voice spec** | [`docs/VOICE.md`](./docs/VOICE.md) | Writing system — tone, cadence, copy patterns |
@@ -99,7 +99,7 @@ The v1 brand language (privacy/obfuscation, dark dominance, pixel masks) has bee
 | Area | State |
 |---|---|
 | Tokens (v2) | **Shipped** |
-| React components | **37 shipped** — see [`INVENTORY.md`](./INVENTORY.md) for the full table |
+| React components | **47 shipped** — see [`INVENTORY.md`](./INVENTORY.md) for the full table |
 | Visual reference | **Shipped** at `apps/preview/v2.html` |
 | Z Scan demo | **In dev** — runs at `apps/scan/` |
 | Type system | TypeScript strict, 0 errors |
