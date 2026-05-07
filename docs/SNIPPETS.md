@@ -1,6 +1,6 @@
 # Copy-Paste Snippets
 
-> **Status: v2 — April 2026.** The classes below are from the static v1 preview (`apps/preview/index.html`, `apps/preview/styles.css`). For the v2 patterns (aurora hero, glass module, plate surface, dotted-grid plate, editorial card, model picker), open `apps/preview/v2.html` and copy from there — markup is intentionally minimal so it can be lifted directly. The React equivalents in `packages/ui/src/components/` are already on v2 tokens; new product code should use those.
+> **Status: v2 — April 2026.** The classes below are from the archived static v1 preview (`apps/preview/archive/v1-dark-product-primitives.html`, `apps/preview/archive/v1-dark-product-primitives.css`). For the v2 patterns (aurora hero, glass module, plate surface, dotted-grid plate, editorial card, model picker), open `apps/preview/v2.html` and copy from there — markup is intentionally minimal so it can be lifted directly. The React equivalents in `packages/ui/src/components/` are already on v2 tokens; new product code should use those.
 
 ## Logo Mark
 

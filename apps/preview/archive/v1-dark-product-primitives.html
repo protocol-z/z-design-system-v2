@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Z Design System — archived dark prototype</title>
+    <link rel="stylesheet" href="./v1-dark-product-primitives.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="hero">
+        <div class="hero__mark">
+          <img src="./assets/logo-v2.svg" alt="Z logo" />
+        </div>
+        <div class="hero__body">
+          <p class="eyebrow">Approval Sandbox</p>
+          <h1>First protocol primitives and components in the new visual language.</h1>
+          <p class="hero__copy">
+            This pass leans into the Figma direction: black canvas, blurred structure, generous spacing, stronger typography, and much less container-on-container framing.
+          </p>
+        </div>
+      </header>
+
+      <nav class="section-nav">
+        <a href="#primitives">Primitives</a>
+        <a href="#navigation">Navigation</a>
+        <a href="#transaction">Transaction</a>
+        <a href="#markets">Markets</a>
+        <a href="#risk">Risk</a>
+        <a href="#overlays">Overlays</a>
+        <a href="#account">Account</a>
+      </nav>
+
+      <main class="content">
+        <section id="primitives" class="section">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Primitives</p>
+              <h2>Buttons, chips, field, tabs</h2>
+            </div>
+            <p>The core controls stay quiet. Typography, spacing, and blur carry the tone more than colored surfaces do.</p>
+          </div>
+          <div class="canvas">
+            <div class="blur blur--mint"></div>
+            <div class="blur blur--gold"></div>
+            <div class="demo-stack">
+              <div class="component-meta">
+                <code class="component-name">.z-button</code>
+              </div>
+              <div class="row">
+                <button class="z-button z-button--primary">Start building</button>
+                <button class="z-button z-button--secondary">Explore docs</button>
+                <button class="z-button z-button--ghost">Learn more</button>
+              </div>
+              <div class="button-states">
+                <div class="state-group">
+                  <span class="state-label">Primary</span>
+                  <div class="row">
+                    <button class="z-button z-button--primary">Default</button>
+                    <button class="z-button z-button--primary is-hover">Hover</button>
+                    <button class="z-button z-button--primary is-pressed">Pressed</button>
+                    <button class="z-button z-button--primary" disabled>Disabled</button>
+                  </div>
+                </div>
+                <div class="state-group">
+                  <span class="state-label">Secondary</span>
+                  <div class="row">
+                    <button class="z-button z-button--secondary">Default</button>
+                    <button class="z-button z-button--secondary is-hover">Hover</button>
+                    <button class="z-button z-button--secondary is-pressed">Pressed</button>
+                    <button class="z-button z-button--secondary" disabled>Disabled</button>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <button class="z-chip is-active">Builder</button>
+                <button class="z-chip">Community</button>
+                <button class="z-chip">Validator</button>
+                <button class="z-chip">Investor</button>
+              </div>
+              <div class="component-meta">
+                <code class="component-name">.micro-badge</code>
+              </div>
+              <div class="row">
+                <span class="micro-badge micro-badge--mint">Proof verified</span>
+                <span class="micro-badge micro-badge--gold">Selective disclosure</span>
+                <span class="micro-badge">Mainnet beta</span>
+              </div>
+              <div class="component-meta">
+                <code class="component-name">.z-field</code>
+              </div>
+              <label class="z-field">
+                <span>Email address</span>
+                <input type="email" value="you@example.com" readonly />
+              </label>
+              <div class="component-meta">
+                <code class="component-name">.z-tabs</code>
+              </div>
+              <div class="z-tabs">
+                <button class="is-active">Supply</button>
+                <button>Borrow</button>
+                <button>History</button>
+              </div>
+              <div class="component-meta">
+                <code class="component-name">.icon-button</code>
+              </div>
+              <div class="mini-toolbar">
+                <button class="icon-button" aria-label="Search">
+                  <span class="icon icon--search"></span>
+                </button>
+                <button class="icon-button" aria-label="Notifications">
+                  <span class="icon icon--bell"></span>
+                </button>
+                <button class="icon-button" aria-label="Settings">
+                  <span class="icon icon--sliders"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="navigation" class="section">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Navigation</p>
+              <h2>Header, app switcher, wallet state</h2>
+            </div>
+            <p>The shell should feel like one protocol account system, not a set of separate microsites.</p>
+          </div>
+          <div class="component-meta">
+            <code class="component-name">.app-shell</code>
+            <code class="component-name">.app-switcher</code>
+            <code class="component-name">.wallet-state</code>
+            <code class="component-name">.side-nav</code>
+          </div>
+          <div class="shell">
+            <div class="shell__header">
+              <div class="shell__brand">
+                <img src="./assets/logo-v2.svg" alt="Z logo" />
+              </div>
+              <div class="app-switcher">
+                <span><i class="icon icon--swap"></i>Trade</span>
+                <span class="muted"><i class="icon icon--columns"></i>Lend</span>
+                <span class="muted"><i class="icon icon--shield"></i>Stake</span>
+              </div>
+              <div class="wallet-state">
+                <div>
+                  <strong>0x7A...91B4</strong>
+                  <span>Mainnet</span>
+                </div>
+                <em>Connected</em>
+              </div>
+            </div>
+            <div class="shell__body">
+              <aside class="side-nav">
+                <a class="is-active">Overview</a>
+                <a>Trade</a>
+                <a>Lend</a>
+                <a>Bridge</a>
+                <a>Explorer</a>
+              </aside>
+              <div class="shell__main">
+                <div class="workspace-preview">
+                  <div class="workspace-preview__header">
+                    <div>
+                      <p class="eyebrow">Overview</p>
+                      <h3>Portfolio operating surface</h3>
+                    </div>
+                    <div class="network-switcher">
+                      <span class="network-dot"></span>
+                      <strong>Z Mainnet</strong>
+                    </div>
+                  </div>
+                  <div class="workspace-preview__stats">
+                    <div class="stat-tile">
+                      <span>Total value</span>
+                      <strong>$128,442</strong>
+                    </div>
+                    <div class="stat-tile">
+                      <span>24h change</span>
+                      <strong class="tone-mint">+4.82%</strong>
+                    </div>
+                    <div class="stat-tile">
+                      <span>Pending actions</span>
+                      <strong>03</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="transaction" class="section">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Transaction</p>
+              <h2>Token input, quote, stepper</h2>
+            </div>
+            <p>Execution should be legible before it is beautiful. These components should explain cost, state, and route without extra chrome.</p>
+          </div>
+          <div class="grid two">
+            <article class="glass">
+              <div class="component-meta">
+                <code class="component-name">.token-input</code>
+              </div>
+              <div class="token-input">
+                <div class="token-input__top">
+                  <span>You pay</span>
+                  <span>Balance 3.49 ETH</span>
+                </div>
+                <div class="token-input__body">
+                  <strong>1.50</strong>
+                  <button class="asset-pill">ETH</button>
+                </div>
+              </div>
+              <div class="token-input">
+                <div class="token-input__top">
+                  <span>You receive</span>
+                  <span>Est. output</span>
+                </div>
+                <div class="token-input__body">
+                  <strong>4,201.20</strong>
+                  <button class="asset-pill">USDC</button>
+                </div>
+              </div>
+              <div class="execution-strip">
+                <span><i class="icon icon--clock"></i>Quote refresh 11s</span>
+                <span><i class="icon icon--privacy"></i>Shielded route available</span>
+              </div>
+            </article>
+
+            <article class="glass">
+              <div class="component-meta">
+                <code class="component-name">.quote-card</code>
+              </div>
+              <div class="quote-card">
+                <div class="quote-row">
+                  <span>Minimum received</span>
+                  <strong>4,176.09 USDC</strong>
+                </div>
+                <div class="quote-row">
+                  <span>Price impact</span>
+                  <strong class="tone-warning">0.42%</strong>
+                </div>
+                <div class="quote-row">
+                  <span>Route</span>
+                  <strong>ETH → zPool → USDC</strong>
+                </div>
+                <div class="quote-row">
+                  <span>Privacy state</span>
+                  <strong class="tone-mint">Bounded reveal</strong>
+                </div>
+              </div>
+              <div class="route-visual">
+                <div class="route-node">ETH</div>
+                <div class="route-link"></div>
+                <div class="route-node route-node--muted">zPool</div>
+                <div class="route-link"></div>
+                <div class="route-node">USDC</div>
+              </div>
+            </article>
+          </div>
+
+          <div class="grid two">
+            <article class="glass">
+              <div class="component-meta">
+                <code class="component-name">.stepper</code>
+              </div>
+              <h3>Transaction Stepper</h3>
+              <div class="stepper">
+                <div class="step is-complete">
+                  <span>01</span>
+                  <div>
+                    <strong>Allowance approved</strong>
+                    <p>Contract access granted within current limits.</p>
+                  </div>
+                </div>
+                <div class="step is-current">
+                  <span>02</span>
+                  <div>
+                    <strong>Swap pending</strong>
+                    <p>Waiting for network confirmation.</p>
+                  </div>
+                </div>
+                <div class="step">
+                  <span>03</span>
+                  <div>
+                    <strong>Receipt</strong>
+                    <p>Output, fees, and route summary.</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="glass">
+              <div class="component-meta">
+                <code class="component-name">.receipt</code>
+              </div>
+              <h3>Receipt</h3>
+              <div class="receipt">
+                <div class="receipt__amount">+4,201.20 USDC</div>
+                <div class="receipt__meta">
+                  <span>Executed privately where possible.</span>
+                  <span>Verified on-chain output.</span>
+                </div>
+                <button class="z-button z-button--primary receipt__button">View position</button>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="markets" class="section">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Markets</p>
+              <h2>Market rows and position card</h2>
+            </div>
+            <p>These should stay airy and data-led. The row is the main component, not the box around it.</p>
+          </div>
+          <div class="grid two">
+            <article class="glass">
+              <div class="component-meta">
+                <code class="component-name">.market-row</code>
+              </div>
+              <div class="market-row">
+                <div>
+                  <strong>ZETH</strong>
+                  <span>Shielded ETH market</span>
+                </div>
+                <div>
+                  <strong>4.82%</strong>
+                  <span>Supply APY</span>
+                </div>
+                <div>
+                  <strong>68%</strong>
+                  <span>Utilization</span>
+                </div>
+                <div class="sparkline">
+                  <span class="spark spark--up"></span>
+                </div>
+                <em class="tone-mint">Healthy</em>
+              </div>
+              <div class="market-row">
+                <div>
+                  <strong>ZUSD</strong>
+                  <span>Private stablecoin</span>
+                </div>
+                <div>
+                  <strong>7.14%</strong>
+                  <span>Borrow APY</span>
+                </div>
+                <div>
+                  <strong>51%</strong>
+                  <span>Utilization</span>
+                </div>
+                <div class="sparkline">
+                  <span class="spark spark--flat"></span>
+                </div>
+                <em class="tone-warning">Watching</em>
+              </div>
+              <div class="market-row">
+                <div>
+                  <strong>ZBTC</strong>
+                  <span>Shielded BTC market</span>
+                </div>
+                <div>
+                  <strong>3.92%</strong>
+                  <span>Supply APY</span>
+                </div>
+                <div>
+                  <strong>72%</strong>
+                  <span>Utilization</span>
+                </div>
+                <div class="sparkline">
+                  <span class="spark spark--up"></span>
+                </div>
+                <em>Stable</em>
+              </div>
+            </article>
+
+            <article class="glass position-card">
+              <div class="component-meta">
+                <code class="component-name">.position-card</code>
+              </div>
+              <div class="position-card__top">
+                <div>
+                  <p class="eyebrow">Open Position</p>
+                  <h3>Supply ZETH, borrow ZUSD</h3>
+                </div>
+                <span class="status-dot"></span>
+              </div>
+              <div class="position-stat-grid">
+                <div>
+                  <strong>$48,240</strong>
+                  <span>Collateral</span>
+                </div>
+                <div>
+                  <strong>$16,100</strong>
+                  <span>Borrowed</span>
+                </div>
+                <div>
+                  <strong>2.43</strong>
+                  <span>Health factor</span>
+                </div>
+                <div>
+                  <strong>Low</strong>
+                  <span>Risk</span>
+                </div>
+              </div>
+              <div class="position-chart">
+                <div class="donut-chart">
+                  <div class="donut-chart__inner">74%</div>
+                </div>
+                <div class="position-chart__legend">
+                  <div><span class="legend-dot legend-dot--mint"></span>Collateral in use</div>
+                  <div><span class="legend-dot legend-dot--soft"></span>Unused headroom</div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="risk" class="section">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Risk</p>
+              <h2>Callout, proof badge, health meter</h2>
+            </div>
+            <p>Warnings need to feel integrated, not bolted on. They should read as part of the flow’s normal structure.</p>
+          </div>
+          <div class="grid three">
+            <article class="glass callout">
+              <div class="component-meta">
+                <code class="component-name">.callout</code>
+              </div>
+              <span class="callout__eyebrow">Liquidation Warning</span>
+              <h3>Your health factor will drop to 1.31 if this borrow executes.</h3>
+              <p>Review collateral settings or reduce borrow size before signing.</p>
+            </article>
+            <article class="glass proof-card">
+              <div class="component-meta">
+                <code class="component-name">.proof-card</code>
+              </div>
+              <span class="proof-badge">Proof verified</span>
+              <p>Execution outcome is verifiable without exposing the full strategy path.</p>
+            </article>
+            <article class="glass health-card">
+              <div class="component-meta">
+                <code class="component-name">.health-card</code>
+              </div>
+              <div class="health-card__top">
+                <strong>Health</strong>
+                <span>2.43</span>
+              </div>
+              <div class="health-meter">
+                <div class="health-meter__fill"></div>
+              </div>
+              <p>Above target range. Position remains comfortably collateralized.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="overlays" class="section">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Overlays</p>
+              <h2>Modal, toast, tooltip, activity pop-up</h2>
+            </div>
+            <p>Overlay patterns should feel light and atmospheric, not like heavy operating system dialogs dropped onto the page.</p>
+          </div>
+          <div class="grid two">
+            <article class="glass overlay-stage">
+              <div class="component-meta">
+                <code class="component-name">.tooltip-bubble</code>
+                <code class="component-name">.toast</code>
+              </div>
+              <div class="mini-card">
+                <div class="mini-card__header">
+                  <strong>Route detail</strong>
+                  <span class="tooltip-trigger">?</span>
+                </div>
+                <p>Hover state should explain slippage, routing, and disclosure in very little space.</p>
+                <div class="tooltip-bubble">
+                  Private segments stay shielded. Final output remains verifiable.
+                </div>
+              </div>
+              <div class="toast toast--success">
+                <span class="icon icon--check"></span>
+                <div>
+                  <strong>Swap confirmed</strong>
+                  <p>Receipt is ready to review.</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="overlay-stack">
+              <div class="component-meta">
+                <code class="component-name">.activity-pop</code>
+                <code class="component-name">.modal-card</code>
+              </div>
+              <div class="activity-pop">
+                <div class="activity-item">
+                  <span class="icon icon--flash"></span>
+                  <div>
+                    <strong>Borrow rate moved +0.32%</strong>
+                    <p>2 minutes ago</p>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <span class="icon icon--check"></span>
+                  <div>
+                    <strong>Proof verified</strong>
+                    <p>Z Trade receipt available</p>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-card">
+                <div class="modal-card__header">
+                  <div>
+                    <p class="eyebrow">Confirm borrow</p>
+                    <h3>Borrow 8,000 ZUSD</h3>
+                  </div>
+                  <button class="icon-button" aria-label="Close">
+                    <span class="icon icon--close"></span>
+                  </button>
+                </div>
+                <div class="quote-card">
+                  <div class="quote-row">
+                    <span>Projected health factor</span>
+                    <strong class="tone-warning">1.31</strong>
+                  </div>
+                  <div class="quote-row">
+                    <span>Variable borrow APY</span>
+                    <strong>7.14%</strong>
+                  </div>
+                  <div class="quote-row">
+                    <span>Proof mode</span>
+                    <strong class="tone-mint">Verified output</strong>
+                  </div>
+                </div>
+                <div class="modal-card__actions">
+                  <button class="z-button z-button--ghost">Cancel</button>
+                  <button class="z-button z-button--primary">Confirm borrow</button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="account" class="section">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Account</p>
+              <h2>Account summary rail</h2>
+            </div>
+            <p>This is the shell-side summary module that every app can inherit without redesigning it.</p>
+          </div>
+          <div class="component-meta">
+            <code class="component-name">.account-rail</code>
+          </div>
+          <aside class="account-rail">
+            <div class="account-block">
+              <span>Total balance</span>
+              <strong>$128,442</strong>
+            </div>
+            <div class="account-block">
+              <span>Open positions</span>
+              <strong>04</strong>
+            </div>
+            <div class="account-block">
+              <span>Pending actions</span>
+              <strong>01</strong>
+            </div>
+            <div class="account-block">
+              <span>Proof state</span>
+              <strong class="tone-mint">Verified</strong>
+            </div>
+          </aside>
+          <div class="grid two">
+            <article class="glass activity-feed">
+              <div class="component-meta">
+                <code class="component-name">.activity-feed</code>
+              </div>
+              <h3>Recent activity</h3>
+              <div class="feed-row">
+                <span class="icon icon--swap"></span>
+                <div>
+                  <strong>Swapped 1.5 ETH for USDC</strong>
+                  <p>Private route, verified output</p>
+                </div>
+                <em>Now</em>
+              </div>
+              <div class="feed-row">
+                <span class="icon icon--columns"></span>
+                <div>
+                  <strong>Borrowed 8,000 ZUSD</strong>
+                  <p>Health factor moved from 2.84 to 2.43</p>
+                </div>
+                <em>12m</em>
+              </div>
+            </article>
+            <article class="glass disconnected-state">
+              <div class="component-meta">
+                <code class="component-name">.disconnected-state</code>
+              </div>
+              <span class="proof-badge">Wallet state</span>
+              <h3>Connect a wallet to view balances, positions, and transaction history.</h3>
+              <p>Access remains bounded by the permissions and networks you approve.</p>
+              <div class="row">
+                <button class="z-button z-button--primary">Connect wallet</button>
+                <button class="z-button z-button--secondary">Learn permissions</button>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
