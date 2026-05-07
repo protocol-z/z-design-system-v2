@@ -5,10 +5,10 @@ import type { HTMLAttributes, ReactNode } from "react";
  *
  * Tones reconcile the scanner change-brief proposal to v2 accent discipline:
  *   private     — Mint 500   — Shield, Shielded Transfer (privacy/active)
- *   unshield    — Moss 400   — Unshield (transparent exit)
- *   infra       — Stone 600  — EIP-7702, ERC-4337 (account abstraction / infrastructure)
+ *   unshield    — Zcash 500  — Unshield (transparent exit)
+ *   infra       — #64748B    — EIP-7702, ERC-4337 (account abstraction / infrastructure)
  *   payment     — Zcash 500  — x402 Payment (one per surface; check for CTA conflict)
- *   agent       — Stone 600  — Agent Inference (placeholder; swap to --zds-iris-500 if it ships)
+ *   agent       — #8B5CF6    — Agent Inference (new actor type)
  *   standard    — Neutral    — Default; usually no badge needed (component returns null at sm size)
  *
  * Sizes:
@@ -40,19 +40,19 @@ const defaultLabels: Record<TypeTone, string> = {
 
 const dotColors: Record<TypeTone, string> = {
   private:  "var(--zds-mint-500)",
-  unshield: "var(--zds-moss-400)",
-  infra:    "var(--zds-stone-600)",
+  unshield: "var(--zds-zcash-500)",
+  infra:    "#64748B",
   payment:  "var(--zds-zcash-500)",
-  agent:    "var(--zds-stone-600)", // TODO: --zds-iris-500 when added
+  agent:    "#8B5CF6",
   standard: "var(--zds-ink-700)"
 };
 
 const fillColors: Record<TypeTone, { bg: string; color: string; border: string }> = {
   private:  { bg: "var(--zds-positive-wash)",     color: "var(--zds-mint-500)",  border: "rgba(63,181,138,0.30)" },
-  unshield: { bg: "rgba(111,163,137,0.16)",       color: "var(--zds-moss-400)",  border: "rgba(111,163,137,0.30)" },
-  infra:    { bg: "rgba(107,104,96,0.14)",        color: "var(--zds-stone-600)", border: "rgba(107,104,96,0.30)" },
+  unshield: { bg: "rgba(244,183,49,0.16)",        color: "var(--zds-zcash-500)", border: "rgba(244,183,49,0.32)" },
+  infra:    { bg: "rgba(100,116,139,0.14)",       color: "#64748B",              border: "rgba(100,116,139,0.30)" },
   payment:  { bg: "rgba(244,183,49,0.16)",        color: "var(--zds-zcash-500)", border: "rgba(244,183,49,0.32)" },
-  agent:    { bg: "rgba(107,104,96,0.14)",        color: "var(--zds-stone-600)", border: "rgba(107,104,96,0.30)" },
+  agent:    { bg: "rgba(139,92,246,0.14)",        color: "#8B5CF6",              border: "rgba(139,92,246,0.32)" },
   standard: { bg: "var(--zds-mist)",              color: "var(--zds-ink-700)",   border: "var(--zds-line)" }
 };
 
