@@ -76,7 +76,7 @@ export function StatusBadge({
         display: "inline-flex",
         alignItems: "center",
         gap: size === "sm" ? 6 : 8,
-        padding: size === "sm" ? "0 9px" : "0 12px",
+        padding: size === "sm" ? "0 13px" : "0 17px",
         borderRadius: "var(--zds-radius-pill)",
         border: `1px solid ${t.border}`,
         background: t.bg,
