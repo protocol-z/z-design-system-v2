@@ -103,7 +103,7 @@ export function ThemeToggle({
           height: 28,
           borderRadius: "50%",
           background: mode === "dark" ? "var(--zds-ink-950)" : "transparent",
-          color: mode === "dark" ? "#fff" : "var(--zds-text-tertiary)",
+          color: mode === "dark" ? "var(--zds-bg)" : "var(--zds-text-tertiary)",
           transition: "background var(--zds-dur-fast) var(--zds-ease-out)"
         }}
       >

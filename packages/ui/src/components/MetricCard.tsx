@@ -85,9 +85,9 @@ export function MetricCard({
         style={{
           color: "var(--zds-ink-950)",
           fontFamily: "var(--zds-font-display)",
-          fontSize: "clamp(28px, 3.4vw, 42px)",
+          fontSize: "clamp(28px, 3vw, 38px)",
           lineHeight: 0.95,
-          letterSpacing: "-0.04em",
+          letterSpacing: 0,
           fontWeight: 500
         }}
       >
