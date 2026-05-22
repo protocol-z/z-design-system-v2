@@ -33,6 +33,10 @@ export { MetricCard } from "./components/MetricCard";
 export type { MetricCardProps } from "./components/MetricCard";
 export { StatusBadge } from "./components/StatusBadge";
 export type { StatusBadgeProps } from "./components/StatusBadge";
+export { CanvasActionBar } from "./components/CanvasActionBar";
+export type { CanvasActionBarProps } from "./components/CanvasActionBar";
+export { FlowNodeCard } from "./components/FlowNodeCard";
+export type { FlowNodeCardProps, FlowNodeTone } from "./components/FlowNodeCard";
 
 // Data
 export { DataTable } from "./components/DataTable";

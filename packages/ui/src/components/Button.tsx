@@ -50,25 +50,25 @@ export function Button({
   const variants: Record<ButtonVariant, React.CSSProperties> = {
     primary: {
       background: "var(--zds-zcash-500)",
-      color: "var(--zds-ink-950)",
+      color: "#0B0B0D",
       boxShadow: "var(--zds-shadow-plate)"
     },
     ghost: {
-      background: "rgba(255,255,255,0.64)",
+      background: "var(--zds-paper)",
       borderColor: "var(--zds-line)",
-      color: "var(--zds-ink-900)",
+      color: "var(--zds-text)",
       backdropFilter: "blur(14px)",
       WebkitBackdropFilter: "blur(14px)"
     },
     dark: {
-      background: "var(--zds-ink-950)",
+      background: "#0B0B0D",
       color: "#fff"
     },
     link: {
       height: "auto",
       padding: "4px 0",
       background: "transparent",
-      color: "var(--zds-ink-900)",
+      color: "var(--zds-text)",
       borderRadius: 0,
       textDecoration: "underline",
       textDecorationThickness: 1,
