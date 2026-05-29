@@ -49,6 +49,7 @@ export function AmountField({
       >
         <input
           {...props}
+          suppressHydrationWarning
           inputMode={props.inputMode ?? "decimal"}
           placeholder={props.placeholder ?? "0.00"}
           style={{
@@ -60,7 +61,7 @@ export function AmountField({
             fontFamily: "var(--zds-font-display)",
             fontSize: 30,
             lineHeight: 1,
-            letterSpacing: "-0.035em",
+            letterSpacing: 0,
             fontWeight: 500,
             ...style
           }}

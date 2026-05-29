@@ -17,6 +17,7 @@ import { useState, type HTMLAttributes, type ReactNode, type Key } from "react";
 export type DataColumn<T> = {
   key: keyof T | string;
   header: ReactNode;
+  mobileLabel?: string;
   width?: string;
   align?: "start" | "center" | "end";
   sortable?: boolean;
@@ -231,6 +232,7 @@ function DataTableRow<T>({
           return (
             <td
               key={String(col.key)}
+              data-label={col.mobileLabel ?? readableHeader(col.header)}
               style={{
                 padding: `${padY}px ${padX}px`,
                 textAlign: col.align ?? "start",
@@ -284,4 +286,9 @@ function DataTableRow<T>({
       )}
     </>
   );
+}
+
+function readableHeader(header: ReactNode): string {
+  if (typeof header === "string" || typeof header === "number") return String(header);
+  return "";
 }
