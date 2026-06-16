@@ -31,9 +31,9 @@ export function Chip({ tone = "default", active = false, children, style, ...pro
       color: "var(--zds-mint-500)"
     },
     dark: {
-      background: "var(--zds-ink-950)",
-      border: "1px solid var(--zds-ink-950)",
-      color: "#fff"
+      background: "var(--zds-fill-strong)",
+      border: "1px solid var(--zds-fill-strong)",
+      color: "var(--zds-on-fill-strong)"
     }
   };
 

@@ -58,6 +58,14 @@
   --zds-line-soft:    rgba(11, 11, 13, 0.05);
   --zds-line-strong:  rgba(11, 11, 13, 0.16);
   --zds-line-focus:   rgba(63, 181, 138, 0.32);   /* mint focus ring */
+  --zds-focus-ring:   0 0 0 2px var(--zds-bg), 0 0 0 4px var(--zds-mint-500); /* keyboard focus halo */
+
+  /* -------- Inverse "strong" fill (high-contrast selected/active surfaces) --------
+     The dark-chip / dark-button / active-nav-item / selected-segment pattern.
+     In light mode this is ink-on-cream; in dark mode it INVERTS to paper-on-ink
+     so selected states stay legible. Always pair the two together. */
+  --zds-fill-strong:    #0B0B0D;  /* fill */
+  --zds-on-fill-strong: #FFFFFF;  /* text/icon on that fill */
 
   /* -------- Surface elevations -------- */
   --zds-shadow-plate:
@@ -152,6 +160,24 @@
   --zds-text:               rgba(255, 255, 255, 0.95);
   --zds-text-secondary:     rgba(255, 255, 255, 0.66);
   --zds-text-tertiary:      rgba(255, 255, 255, 0.44);
+
+  /* Ink scale is used as TEXT in components (headings, labels). On light it runs
+     dark→light; on dark it must invert or every heading renders near-black on
+     near-black. The "fill" uses of ink-950 were migrated to --zds-fill-strong,
+     so remapping the scale here is text-only and safe. */
+  --zds-ink-950:            rgba(255, 255, 255, 0.95);
+  --zds-ink-900:            rgba(255, 255, 255, 0.90);
+  --zds-ink-800:            rgba(255, 255, 255, 0.82);
+  --zds-ink-700:            rgba(255, 255, 255, 0.66);
+  --zds-ink-500:            rgba(255, 255, 255, 0.50);
+  --zds-ink-400:            rgba(255, 255, 255, 0.40);
+  --zds-ink-300:            rgba(255, 255, 255, 0.30);
+  --zds-ink-200:            rgba(255, 255, 255, 0.18);
+  --zds-ink-100:            rgba(255, 255, 255, 0.10);
+
+  /* Inverse strong fill flips: paper-coloured fill, ink text. */
+  --zds-fill-strong:        #F4F2ED;
+  --zds-on-fill-strong:     #0B0B0D;
 
   --zds-line:               rgba(255, 255, 255, 0.10);
   --zds-line-soft:          rgba(255, 255, 255, 0.06);

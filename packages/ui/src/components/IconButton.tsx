@@ -22,9 +22,9 @@ export function IconButton({ tone = "default", size = 40, children, style, ...pr
       boxShadow: "var(--zds-shadow-plate)"
     },
     dark: {
-      background: "var(--zds-ink-950)",
-      border: "1px solid var(--zds-ink-950)",
-      color: "#fff"
+      background: "var(--zds-fill-strong)",
+      border: "1px solid var(--zds-fill-strong)",
+      color: "var(--zds-on-fill-strong)"
     },
     ghost: {
       background: "transparent",
