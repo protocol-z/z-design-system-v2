@@ -20,6 +20,15 @@ This file is the quickest way to understand the current state of the Z Design Sy
 - `--zds-stone-600` `#6B6860` — earth neutral
 - `--zds-negative` `#D77A6E` — single negative-status terracotta (April 2026 sign-off)
 
+### Classifier hues (TypeBadge / ActionBanner actor types — June 2026)
+- `--zds-slate-500` `#64748B` — infra / account-abstraction (lightens to `#94A3B8` in dark)
+- `--zds-iris-500` `#8B5CF6` — agent inference (lightens to `#A78BFA` in dark)
+
+### Surface / state tokens (June 2026)
+- `--zds-fill-strong` / `--zds-on-fill-strong` — high-contrast inverse fill for selected/active surfaces (dark chip, active nav, selected segment). Inverts in dark so selected states stay legible.
+- `--zds-focus-ring` — keyboard focus halo. Form fields carry `.zds-field` / `.zds-field-wrap` for a visible focus ring (see `tokens.css`).
+- **Dark mode fix:** the `--zds-ink-*` text scale is now remapped under `[data-theme="dark"]`; previously headings/labels using `--zds-ink-950/900/800/700` rendered near-black on the dark ground.
+
 ### v1 → v2 transitional aliases (kept in `tokens.css`)
 - `--zds-gold` → `--zds-zcash-500`
 - `--zds-mint` → `--zds-mint-500`
@@ -51,7 +60,7 @@ Legend:
 | `Tabs` | Yes | Yes | Yes | Pill-segmented track on mist |
 | `IconButton` | Yes | Yes | Yes | Tones: default / dark / ghost |
 | `WalletState` | Yes | Yes | Yes | Status pill with dot; tones mint/yellow/negative/neutral |
-| `SideNav` | Yes | Yes | Yes | Mist track, ink-fill active state |
+| `SideNav` | Yes | Yes | Yes | First-class rail (June 2026): brand slot, nav items (active `aria-current`), scrollable middle (recents/lists), pinned account slot. Active uses inverse-fill tokens (inverts in dark). Original `items`/`linkProps` API preserved. |
 | `StatTile` | Yes | Yes | Yes | Compact KPI plate |
 | `TokenInput` | Yes | Yes | Yes | Composable, plate background |
 | `AssetPill` | Yes | Yes | Yes | Pill with shadow, used in TokenInput and headers |
@@ -105,7 +114,7 @@ All Tier 1 components are **coded against v2 tokens** in `packages/ui/src/compon
 
 | Component | Status | Notes |
 |---|---|---|
-| `TypeBadge` | Coded (v2) | Tones: `private` (mint), `unshield` (moss), `infra` (stone — covers EIP-7702/ERC-4337), `payment` (yellow — for x402), `agent` (stone placeholder until iris ships), `standard` (neutral). Sizes `sm` (dot on paper) / `md` (color fill). |
+| `TypeBadge` | Coded (v2) | Tones: `private` (mint), `unshield` (moss), `infra` (slate `--zds-slate-500`, covers EIP-7702/ERC-4337), `payment` (yellow — for x402), `agent` (iris `--zds-iris-500`, now distinct from infra), `standard` (neutral). Sizes `sm` (dot on paper) / `md` (color fill). |
 | `AddressLabel` | Coded (v2) | Named-address chip with tooltip on hover. Categories: privacy / contract / validator / merchant / agent. |
 | `InlineNotice` | Coded (v2) | Tones: `private` / `info` / `warning` / `negative`. Built-in icons per tone. |
 | `SectionLabel` | Coded (v2) | Editorial header strip; tones default / private / unshield / infra / payment. |
@@ -165,11 +174,23 @@ These components were added to support `z-inference` PRD surfaces and the new `z
 | `ResultCard` | Coded (v2) | Post-action result card with tone, status label, description, key-value rows, and action. |
 | `ModalCard` | Coded (v2) | Shared overlay shell with backdrop, close button, body, and action footer. |
 
-### Pending palette decision
+### Tier 5 — feedback & guidance (shipped June 2026)
 
-| Token | Proposed | Used for |
+Reusable, app-data-decoupled. Coded against v2 tokens, light + dark, exported from `packages/ui/src/index.ts`, demonstrated in `apps/preview/v2.html` (Components + Flows sections).
+
+| Component | Status | Notes |
 |---|---|---|
-| `--zds-iris-500` | `#8B7CB6` (muted lavender) | Agent Inference badge — only added if Agent Inference ships in scanner v1 |
+| `UsageMeter` | Coded (v2) | Labeled allowance bar: `used`/`total`, optional `banked` segment + `resetLabel`, tones `ok`/`warn`/`over` (auto-derived from ratio, override via `tone`). `role="meter"`. |
+| `ProcessSteps` | Coded (v2) | Live run-list `done`/`active`/`todo` with spinner on active step + optional inline `action` ("AI is thinking…"). Respects `prefers-reduced-motion`. Distinct from `TransactionStepper`. |
+| `RecoveryNotice` | Coded (v2) | Actionable error/warning card: title, message, `primaryAction`, `secondaryLink`, collapsible `detail` (native `<details>`). `role="alert"`/`"status"` by tone. |
+| `Coachmark` | Coded (v2) | Anchored tour bubble: badge, title, body, `step`/`total` counter, back/next/close. Positions beside `anchorRect`; no full-screen overlay. `role="dialog"`. |
+
+### Palette decision — resolved
+
+| Token | Shipped | Used for |
+|---|---|---|
+| `--zds-iris-500` | `#8B5CF6` (dark: `#A78BFA`) | Agent Inference badge (`TypeBadge`/`ActionBanner` `agent` tone) — now distinct from `infra` |
+| `--zds-slate-500` | `#64748B` (dark: `#94A3B8`) | Infra / account-abstraction badge (`infra` tone) |
 
 ## Additional Components Observed In The Dev App
 
