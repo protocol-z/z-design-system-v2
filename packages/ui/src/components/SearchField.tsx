@@ -75,6 +75,7 @@ export function SearchField({
 
   return (
     <div
+      className="zds-field-wrap"
       style={{
         display: "inline-flex",
         alignItems: "center",

@@ -46,6 +46,11 @@
   --zds-moss-400:     #6FA389;  /* editorial green, marginalia */
   --zds-stone-600:    #6B6860;  /* warm earth neutral, photo blends */
 
+  /* Extended classifier hues (TypeBadge / ActionBanner actor types).
+     Not brand accents — reserved for type/actor tagging only. */
+  --zds-slate-500:    #64748B;  /* infra: account-abstraction / infrastructure */
+  --zds-iris-500:     #8B5CF6;  /* agent: agent-inference actor type */
+
   /* Status — calm, single-source */
   --zds-positive:     #3FB58A;  /* mint 500 */
   --zds-positive-wash:rgba(63, 181, 138, 0.10);
@@ -179,6 +184,10 @@
   --zds-fill-strong:        #F4F2ED;
   --zds-on-fill-strong:     #0B0B0D;
 
+  /* Classifier hues nudge lighter for contrast on dark surfaces. */
+  --zds-slate-500:          #94A3B8;
+  --zds-iris-500:           #A78BFA;
+
   --zds-line:               rgba(255, 255, 255, 0.10);
   --zds-line-soft:          rgba(255, 255, 255, 0.06);
   --zds-line-strong:        rgba(255, 255, 255, 0.18);
@@ -189,4 +198,26 @@
   --zds-shadow-plate-hover:
     0 1px 0 rgba(255,255,255,0.10) inset,
     0 12px 28px rgba(0,0,0,0.55);
+}
+
+/* =================================================================
+   Global focus visibility
+   Form controls set inline `outline: none` with inline base styles, so a
+   keyboard focus indicator must use !important to beat the inline values.
+   Tag fields with class "zds-field"; this is the only thing the rule touches.
+   ================================================================= */
+.zds-field:focus-visible {
+  outline: none !important;
+  border-color: var(--zds-mint-500) !important;
+  box-shadow: 0 0 0 3px var(--zds-line-focus) !important;
+}
+/* Fallback for browsers without :focus-visible support */
+.zds-field:focus:not(:focus-visible) {
+  border-color: var(--zds-mint-500) !important;
+  box-shadow: 0 0 0 3px var(--zds-line-focus) !important;
+}
+/* For composite controls where the border lives on a wrapper (search, amount). */
+.zds-field-wrap:focus-within {
+  border-color: var(--zds-mint-500) !important;
+  box-shadow: 0 0 0 3px var(--zds-line-focus) !important;
 }
