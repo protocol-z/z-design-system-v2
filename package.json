@@ -12,7 +12,7 @@
     "packages/*"
   ],
   "scripts": {
-    "preview": "python3 -m http.server 4173 -d apps/preview",
+    "preview": "python3 -m http.server 4173",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "devDependencies": {

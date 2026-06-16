@@ -264,7 +264,7 @@
     -webkit-backdrop-filter: blur(14px);
   }
   .btn-ghost:hover { background: #fff; transform: translateY(-1px); }
-  .btn-dark { background: var(--zds-ink-950); color: #fff; }
+  .btn-dark { background: var(--zds-fill-strong); color: var(--zds-on-fill-strong); }
   .btn-dark:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(11,11,13,0.18); }
   .btn-link {
     display: inline-flex;
@@ -304,7 +304,7 @@
     font-weight: 500;
     line-height: 1;
   }
-  .pill-dark { background: var(--zds-ink-950); color: #fff; }
+  .pill-dark { background: var(--zds-fill-strong); color: var(--zds-on-fill-strong); }
   .pill-ghost {
     background: rgba(255,255,255,0.7);
     border: 1px solid var(--zds-line);
@@ -694,7 +694,7 @@
     display: flex; flex-direction: column; align-items: center; gap: 12px;
     background: var(--zds-paper);
   }
-  .z-tile--dark { background: var(--zds-ink-950); color: #fff; }
+  .z-tile--dark { background: #0B0B0D; color: #fff; }  /* always-dark logo demo */
   .z-tile--dark .z-mark { color: #fff; }
   .z-tile--mint .z-mark { color: var(--zds-mint-500); }
   .z-tile--yellow .z-mark { color: var(--zds-zcash-500); }
@@ -752,9 +752,58 @@
     .icon-grid { grid-template-columns: repeat(4, 1fr); }
     .section-head { flex-direction: column; align-items: flex-start; }
   }
+
+  /* ===========================================================
+     Theme toggle (added for light/dark gallery review)
+     =========================================================== */
+  .theme-toggle {
+    position: fixed; top: 20px; right: 20px; z-index: 100;
+    display: inline-flex; align-items: center; gap: 8px;
+    height: 40px; padding: 0 16px;
+    border-radius: var(--zds-radius-pill);
+    border: 1px solid var(--zds-line);
+    background: var(--zds-paper);
+    box-shadow: var(--zds-shadow-plate);
+    color: var(--zds-text);
+    font-family: var(--zds-font-mono);
+    font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase;
+    cursor: pointer;
+  }
+  .theme-toggle:focus-visible { outline: none; box-shadow: var(--zds-focus-ring); }
+  .theme-toggle__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--zds-mint-500); }
+
+  /* component / flow demo frames */
+  .demo {
+    padding: 28px;
+    background: var(--zds-paper);
+    border: 1px solid var(--zds-line);
+    border-radius: var(--zds-radius-lg);
+    box-shadow: var(--zds-shadow-plate);
+  }
+  .demo--mist { background: var(--zds-mist); box-shadow: none; }
+  .demo__cap {
+    font-family: var(--zds-font-mono); font-size: 11px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--zds-text-tertiary); margin: 0 0 14px;
+  }
+  /* generic DS button mirrors for use inside flow mockups */
+  .ds-btn {
+    height: 36px; padding: 0 16px; border-radius: var(--zds-radius-pill);
+    font: inherit; font-size: 14px; font-weight: 500; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px; border: 1px solid transparent;
+  }
+  .ds-btn--primary { background: var(--zds-zcash-500); color: #0B0B0D; }
+  .ds-btn--ghost { background: var(--zds-paper); border-color: var(--zds-line); color: var(--zds-text); }
+  .ds-btn--dark { background: var(--zds-fill-strong); color: var(--zds-on-fill-strong); }
+  .ds-btn--link { background: transparent; text-decoration: underline; text-underline-offset: 4px; color: var(--zds-text); padding: 0; height: auto; }
+  @keyframes zds-spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .zds-spin { animation: none !important; } }
 </style>
 </head>
 <body>
+
+<button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Toggle dark mode">
+  <span class="theme-toggle__dot"></span><span id="themeToggleLabel">Light</span>
+</button>
 
 <div class="page">
 
@@ -1162,6 +1211,342 @@
   </section>
 
   <!-- ============================================================ -->
+  <!-- 8b · FEEDBACK & GUIDANCE COMPONENTS (v2.1)                     -->
+  <!-- ============================================================ -->
+  <section id="feedback">
+    <div class="section-head">
+      <div>
+        <p class="caption">08b · Feedback &amp; guidance</p>
+        <h2>UsageMeter · ProcessSteps · RecoveryNotice · Coachmark</h2>
+      </div>
+      <p>Reusable, app-data-decoupled components for budgets, live work, recoverable errors, and product tours. All theme via tokens — toggle dark (top-right) to verify.</p>
+    </div>
+
+    <!-- UsageMeter -->
+    <div class="group">
+      <div class="group__title"><h3>UsageMeter</h3><code>used/total · banked · reset · ok/warn/over</code></div>
+      <div class="grid g-3">
+        <div class="demo">
+          <p class="demo__cap">tone: ok</p>
+          <div style="display:grid; gap:8px;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+              <span style="font-size:14px; font-weight:500; color:var(--zds-ink-900);">Inference credits</span>
+              <span style="font-size:13px; font-family:var(--zds-font-mono); color:var(--zds-text-secondary);"><span style="color:var(--zds-ink-900); font-weight:500;">420</span> / 1,000 credits</span>
+            </div>
+            <div style="position:relative; height:8px; border-radius:var(--zds-radius-pill); background:var(--zds-mist); border:1px solid var(--zds-line); overflow:hidden;">
+              <span style="position:absolute; inset-block:0; left:0; width:42%; background:var(--zds-mint-500);"></span>
+            </div>
+            <span style="font-size:12px; color:var(--zds-text-tertiary);">Resets in 12 days</span>
+          </div>
+        </div>
+        <div class="demo">
+          <p class="demo__cap">tone: warn</p>
+          <div style="display:grid; gap:8px;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+              <span style="font-size:14px; font-weight:500; color:var(--zds-ink-900);">Inference credits</span>
+              <span style="font-size:13px; font-family:var(--zds-font-mono); color:var(--zds-text-secondary);"><span style="color:var(--zds-ink-900); font-weight:500;">880</span> / 1,000 credits</span>
+            </div>
+            <div style="position:relative; height:8px; border-radius:var(--zds-radius-pill); background:var(--zds-mist); border:1px solid var(--zds-line); overflow:hidden;">
+              <span style="position:absolute; inset-block:0; left:0; width:88%; background:var(--zds-zcash-500);"></span>
+            </div>
+            <span style="font-size:12px; color:var(--zds-text-tertiary);">Resets in 3 days</span>
+          </div>
+        </div>
+        <div class="demo">
+          <p class="demo__cap">tone: over · banked</p>
+          <div style="display:grid; gap:8px;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+              <span style="font-size:14px; font-weight:500; color:var(--zds-ink-900);">Inference credits</span>
+              <span style="font-size:13px; font-family:var(--zds-font-mono); color:var(--zds-text-secondary);"><span style="color:var(--zds-negative); font-weight:500;">1,120</span> / 1,000 credits</span>
+            </div>
+            <div style="position:relative; height:8px; border-radius:var(--zds-radius-pill); background:var(--zds-mist); border:1px solid var(--zds-line); overflow:hidden;">
+              <span style="position:absolute; inset-block:0; left:87%; width:13%; background:color-mix(in srgb, var(--zds-mint-500) 14%, transparent);"></span>
+              <span style="position:absolute; inset-block:0; left:0; width:87%; background:var(--zds-negative);"></span>
+              <span style="position:absolute; inset-block:0; left:87%; width:10%; background:color-mix(in srgb, var(--zds-mint-500) 55%, var(--zds-mint-300));"></span>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+              <span style="font-size:12px; color:var(--zds-text-tertiary);">Resets in 3 days</span>
+              <span style="font-size:12px; color:var(--zds-text-tertiary); font-family:var(--zds-font-mono);">+150 banked</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ProcessSteps -->
+    <div class="group">
+      <div class="group__title"><h3>ProcessSteps</h3><code>done · active (spinner + inline action) · todo</code></div>
+      <div class="demo" style="max-width:520px;">
+        <div style="display:grid; gap:0;">
+          <!-- done -->
+          <div style="display:grid; grid-template-columns:22px 1fr; gap:12px;">
+            <div style="display:grid; grid-template-rows:22px 1fr; justify-items:center;">
+              <span style="width:22px; height:22px; border-radius:50%; display:grid; place-items:center; background:var(--zds-mint-500); color:#fff;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              <span style="width:2px; flex:1; min-height:16px; margin:2px 0; background:var(--zds-mint-500);"></span>
+            </div>
+            <div style="padding-bottom:16px;"><span style="font-size:14px; font-weight:500; color:var(--zds-ink-900);">Read your prompt</span></div>
+          </div>
+          <!-- active -->
+          <div style="display:grid; grid-template-columns:22px 1fr; gap:12px;">
+            <div style="display:grid; grid-template-rows:22px 1fr; justify-items:center;">
+              <span style="width:22px; height:22px; display:grid; place-items:center;">
+                <span class="zds-spin" style="width:16px; height:16px; border-radius:50%; border:2px solid color-mix(in srgb, var(--zds-mint-500) 28%, transparent); border-top-color:var(--zds-mint-500); animation:zds-spin 0.8s linear infinite;"></span>
+              </span>
+              <span style="width:2px; flex:1; min-height:16px; margin:2px 0; background:var(--zds-line);"></span>
+            </div>
+            <div style="padding-bottom:16px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+              <span style="font-size:14px; font-weight:500; color:var(--zds-ink-900);">Searching docs</span>
+              <span style="font-size:13px; color:var(--zds-text-secondary); font-family:var(--zds-font-serif); font-style:italic;">AI is thinking…</span>
+            </div>
+          </div>
+          <!-- todo -->
+          <div style="display:grid; grid-template-columns:22px 1fr; gap:12px;">
+            <div style="display:grid; grid-template-rows:22px 1fr; justify-items:center;">
+              <span style="width:22px; height:22px; border-radius:50%; border:1.5px solid var(--zds-line-strong); background:var(--zds-paper);"></span>
+            </div>
+            <div><span style="font-size:14px; font-weight:500; color:var(--zds-text-tertiary);">Draft answer</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RecoveryNotice -->
+    <div class="group">
+      <div class="group__title"><h3>RecoveryNotice</h3><code>error / warning · primary + secondary · collapsible detail</code></div>
+      <div class="grid g-2">
+        <div class="demo" style="display:grid; grid-template-columns:auto 1fr; gap:14px; border-color:rgba(215,122,110,0.30);">
+          <span style="width:38px; height:38px; border-radius:50%; display:grid; place-items:center; background:var(--zds-negative-wash); color:var(--zds-negative);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16v.01"/></svg>
+          </span>
+          <div style="display:grid; gap:10px;">
+            <div style="display:grid; gap:4px;">
+              <strong style="font-size:15px; font-weight:600; color:var(--zds-ink-950);">Payment failed</strong>
+              <p style="margin:0; font-size:14px; line-height:1.5; color:var(--zds-text-secondary);">Your card was declined. Update your payment method to keep sending.</p>
+            </div>
+            <details style="font-size:13px;">
+              <summary style="cursor:pointer; color:var(--zds-text-secondary); font-weight:500; width:fit-content;">Show details</summary>
+              <div style="margin-top:8px; padding:10px 12px; border-radius:var(--zds-radius-sm); background:var(--zds-mist); border:1px solid var(--zds-line); color:var(--zds-text-secondary); font-family:var(--zds-font-mono); font-size:12px;">gateway: card_declined (insufficient_funds)</div>
+            </details>
+            <div style="display:flex; gap:14px; align-items:center; flex-wrap:wrap;">
+              <button class="ds-btn ds-btn--primary">Update card</button>
+              <a class="ds-btn ds-btn--link">Contact support</a>
+            </div>
+          </div>
+        </div>
+        <div class="demo" style="display:grid; grid-template-columns:auto 1fr; gap:14px; border-color:rgba(244,183,49,0.30);">
+          <span style="width:38px; height:38px; border-radius:50%; display:grid; place-items:center; background:rgba(244,183,49,0.12); color:var(--zds-zcash-500);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9.5 17H2.5L12 3z"/><path d="M12 10v4M12 17v.01"/></svg>
+          </span>
+          <div style="display:grid; gap:10px;">
+            <div style="display:grid; gap:4px;">
+              <strong style="font-size:15px; font-weight:600; color:var(--zds-ink-950);">Approaching your limit</strong>
+              <p style="margin:0; font-size:14px; line-height:1.5; color:var(--zds-text-secondary);">You've used 88% of this month's credits. Add a top-up to avoid interruptions.</p>
+            </div>
+            <div style="display:flex; gap:14px; align-items:center; flex-wrap:wrap;">
+              <button class="ds-btn ds-btn--dark">Add top-up</button>
+              <a class="ds-btn ds-btn--link">See usage</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Coachmark + SideNav -->
+    <div class="group">
+      <div class="group__title"><h3>Coachmark · SideNav (first-class)</h3><code>tour bubble · brand/nav/recents/account rail</code></div>
+      <div class="grid g-2">
+        <div class="demo demo--mist">
+          <p class="demo__cap">Coachmark (rendered in-flow)</p>
+          <div style="position:relative; width:300px; max-width:100%; background:var(--zds-paper); border:1px solid var(--zds-line); border-radius:var(--zds-radius-lg); box-shadow:var(--zds-shadow-pop); padding:18px; display:grid; gap:12px;">
+            <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:10px;">
+              <div style="display:grid; gap:8px;">
+                <span style="width:fit-content; padding:3px 10px; border-radius:var(--zds-radius-pill); background:var(--zds-positive-wash); color:var(--zds-mint-500); font-size:11px; font-weight:500; letter-spacing:0.04em; text-transform:uppercase;">New</span>
+                <strong style="font-family:var(--zds-font-display); font-size:18px; font-weight:500; letter-spacing:-0.02em; color:var(--zds-ink-950);">Pick a model</strong>
+              </div>
+              <button class="btn-icon" aria-label="Close" style="width:28px; height:28px; background:transparent; border:1px solid transparent; box-shadow:none;">✕</button>
+            </div>
+            <p style="margin:0; font-size:14px; line-height:1.5; color:var(--zds-text-secondary);">Choose the engine that fits your budget. You can switch any time.</p>
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+              <span style="font-size:12px; font-family:var(--zds-font-mono); color:var(--zds-text-tertiary);">2 of 4</span>
+              <div style="display:flex; gap:8px;">
+                <button class="ds-btn ds-btn--ghost">Back</button>
+                <button class="ds-btn ds-btn--primary">Next</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="demo" style="padding:0; overflow:hidden;">
+          <nav aria-label="Primary" style="display:grid; grid-template-rows:auto auto minmax(0,1fr) auto; gap:4px; width:100%; height:340px; padding:16px; background:var(--zds-mist); box-sizing:border-box;">
+            <div style="padding:4px 6px 12px; display:flex; align-items:center; gap:10px;">
+              <svg class="z-mark" style="width:18px; height:25px; color:var(--zds-ink-950);" viewBox="0 0 665 929" fill="currentColor" aria-label="Z"><path d="M625 0C647.091 0 665 17.9086 665 40V258.352C665 268.961 660.786 279.135 653.284 286.637L211.716 728.206C204.214 735.708 200 745.882 200 756.49V889C200 911.091 182.091 929 160 929H40C17.9086 929 0 911.091 0 889V673.648C0 663.039 4.21426 652.865 11.7157 645.363L453.284 203.794C460.786 196.292 465 186.118 465 175.51V40C465 17.9086 482.909 0 505 0H625Z"/><rect width="300" height="200" rx="40"/><rect x="365" y="729" width="300" height="200" rx="40"/></svg>
+              <span style="font-weight:600; font-size:14px; color:var(--zds-ink-950);">Z · Inference</span>
+            </div>
+            <div style="display:grid; gap:4px; align-content:start;">
+              <a style="display:flex; align-items:center; gap:10px; padding:10px 14px; border-radius:var(--zds-radius-md); font-size:14px; font-weight:500; color:var(--zds-on-fill-strong); background:var(--zds-fill-strong);" aria-current="page">Home</a>
+              <a style="display:flex; align-items:center; gap:10px; padding:10px 14px; border-radius:var(--zds-radius-md); font-size:14px; font-weight:500; color:var(--zds-text-secondary);">Inference</a>
+              <a style="display:flex; align-items:center; gap:10px; padding:10px 14px; border-radius:var(--zds-radius-md); font-size:14px; font-weight:500; color:var(--zds-text-secondary);">Billing</a>
+            </div>
+            <div style="min-height:0; overflow-y:auto; margin-top:8px; padding-top:8px; border-top:1px solid var(--zds-line);">
+              <p class="caption" style="margin:0 0 6px; padding:0 6px;">Recents</p>
+              <a style="display:block; padding:8px 14px; border-radius:var(--zds-radius-md); font-size:13px; color:var(--zds-text-secondary);">Draft: launch email</a>
+              <a style="display:block; padding:8px 14px; border-radius:var(--zds-radius-md); font-size:13px; color:var(--zds-text-secondary);">Q3 forecast</a>
+              <a style="display:block; padding:8px 14px; border-radius:var(--zds-radius-md); font-size:13px; color:var(--zds-text-secondary);">Contract review</a>
+            </div>
+            <div style="padding-top:12px; margin-top:4px; border-top:1px solid var(--zds-line); display:flex; align-items:center; gap:10px;">
+              <span style="width:28px; height:28px; border-radius:50%; background:var(--zds-mint-300);"></span>
+              <div style="display:grid;">
+                <span style="font-size:13px; font-weight:500; color:var(--zds-ink-900);">Mathieu</span>
+                <span style="font-size:11px; color:var(--zds-text-tertiary);">Pro plan</span>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 8c · FLOWS / USE CASES                                         -->
+  <!-- ============================================================ -->
+  <section id="flows">
+    <div class="section-head">
+      <div>
+        <p class="caption">08c · Flows / use cases</p>
+        <h2>Composed mockups — built only from @zds/ui</h2>
+      </div>
+      <p>Static reference compositions showing how the primitives assemble into product moments. No app data — every part is a design-system component.</p>
+    </div>
+
+    <!-- Flow 1: Onboarding tour -->
+    <div class="group">
+      <div class="group__title"><h3>Onboarding tour</h3><code>Coachmark anchored to a target</code></div>
+      <div class="demo demo--mist" style="position:relative; min-height:220px;">
+        <div style="display:flex; gap:12px; align-items:center;">
+          <button class="ds-btn ds-btn--ghost" style="outline:2px solid var(--zds-mint-500); outline-offset:3px;">Model: Opus</button>
+          <button class="ds-btn ds-btn--ghost">Attach</button>
+          <button class="ds-btn ds-btn--primary" style="margin-left:auto;">Send ↑</button>
+        </div>
+        <div style="position:relative; width:300px; max-width:100%; margin-top:18px; background:var(--zds-paper); border:1px solid var(--zds-line); border-radius:var(--zds-radius-lg); box-shadow:var(--zds-shadow-pop); padding:18px; display:grid; gap:12px;">
+          <span aria-hidden="true" style="position:absolute; top:-7px; left:40px; width:12px; height:12px; background:var(--zds-paper); border:1px solid var(--zds-line); border-bottom:none; border-right:none; transform:rotate(45deg);"></span>
+          <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:10px;">
+            <strong style="font-family:var(--zds-font-display); font-size:18px; font-weight:500; letter-spacing:-0.02em; color:var(--zds-ink-950);">Choose your model</strong>
+            <button class="btn-icon" aria-label="Close" style="width:28px; height:28px; background:transparent; border:1px solid transparent; box-shadow:none;">✕</button>
+          </div>
+          <p style="margin:0; font-size:14px; line-height:1.5; color:var(--zds-text-secondary);">Opus is the most capable. Switch to a lighter model to stretch your credits.</p>
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+            <span style="font-size:12px; font-family:var(--zds-font-mono); color:var(--zds-text-tertiary);">1 of 3</span>
+            <div style="display:flex; gap:8px;">
+              <button class="ds-btn ds-btn--primary">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flow 2: Tier-consequence + Tier-4 confirm -->
+    <div class="group">
+      <div class="group__title"><h3>Tier-consequence ladder + Tier-4 confirm</h3><code>InlineNotice tones → ModalCard confirm</code></div>
+      <div class="grid g-2">
+        <div class="demo" style="display:grid; gap:10px;">
+          <p class="demo__cap">Consequence by tier</p>
+          <div style="display:flex; gap:10px; align-items:flex-start; padding:12px 16px; background:var(--zds-mist); border:1px solid var(--zds-line); border-radius:var(--zds-radius-md); font-size:14px; color:var(--zds-ink-800);"><span style="color:var(--zds-ink-700);">●</span> Tier 1 · Reversible — auto-saved draft.</div>
+          <div style="display:flex; gap:10px; align-items:flex-start; padding:12px 16px; background:rgba(244,183,49,0.12); border:1px solid rgba(244,183,49,0.28); border-radius:var(--zds-radius-md); font-size:14px; color:var(--zds-ink-800);"><span style="color:var(--zds-zcash-500);">▲</span> Tier 3 · Spends credits — 240 will be used.</div>
+          <div style="display:flex; gap:10px; align-items:flex-start; padding:12px 16px; background:var(--zds-negative-wash); border:1px solid rgba(215,122,110,0.28); border-radius:var(--zds-radius-md); font-size:14px; color:var(--zds-ink-800);"><span style="color:var(--zds-negative);">⬤</span> Tier 4 · Irreversible — publishes to mainnet.</div>
+        </div>
+        <div class="demo demo--mist" style="display:grid; place-items:center; min-height:240px;">
+          <div style="width:360px; max-width:100%; background:var(--zds-paper); border:1px solid var(--zds-line); border-radius:var(--zds-radius-xl); box-shadow:var(--zds-shadow-pop); padding:24px; display:grid; gap:16px;">
+            <div style="display:flex; align-items:flex-start; justify-content:space-between;">
+              <div>
+                <p class="caption" style="margin:0 0 6px;">Tier 4 · Confirm</p>
+                <h3 style="margin:0; font-family:var(--zds-font-display); font-size:24px; letter-spacing:-0.03em; font-weight:500; color:var(--zds-ink-950);">Publish to mainnet?</h3>
+              </div>
+              <button class="btn-icon" aria-label="Close" style="width:32px; height:32px; background:var(--zds-paper); border:1px solid var(--zds-line);">✕</button>
+            </div>
+            <div style="display:flex; gap:10px; align-items:flex-start; padding:12px 16px; background:var(--zds-negative-wash); border:1px solid rgba(215,122,110,0.28); border-radius:var(--zds-radius-md); font-size:14px; color:var(--zds-ink-800);">
+              <span style="color:var(--zds-negative); flex:0 0 auto;">⬤</span> This action is irreversible and visible publicly. Type to confirm in the real flow.
+            </div>
+            <div style="display:flex; gap:12px; justify-content:flex-end;">
+              <button class="ds-btn ds-btn--ghost">Cancel</button>
+              <button class="ds-btn" style="background:var(--zds-negative); color:#fff;">Publish</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flow 3: Usage-overage ladder -->
+    <div class="group">
+      <div class="group__title"><h3>Usage-overage ladder</h3><code>UsageMeter ok → warn → over + RecoveryNotice</code></div>
+      <div class="demo" style="display:grid; gap:18px; max-width:560px;">
+        <div style="display:grid; gap:8px;">
+          <div style="display:flex; justify-content:space-between; align-items:baseline;"><span style="font-size:14px; font-weight:500; color:var(--zds-ink-900);">Day 8</span><span style="font-size:13px; font-family:var(--zds-font-mono); color:var(--zds-text-secondary);">420 / 1,000</span></div>
+          <div style="position:relative; height:8px; border-radius:var(--zds-radius-pill); background:var(--zds-mist); border:1px solid var(--zds-line); overflow:hidden;"><span style="position:absolute; inset-block:0; left:0; width:42%; background:var(--zds-mint-500);"></span></div>
+        </div>
+        <div style="display:grid; gap:8px;">
+          <div style="display:flex; justify-content:space-between; align-items:baseline;"><span style="font-size:14px; font-weight:500; color:var(--zds-ink-900);">Day 24</span><span style="font-size:13px; font-family:var(--zds-font-mono); color:var(--zds-text-secondary);">880 / 1,000</span></div>
+          <div style="position:relative; height:8px; border-radius:var(--zds-radius-pill); background:var(--zds-mist); border:1px solid var(--zds-line); overflow:hidden;"><span style="position:absolute; inset-block:0; left:0; width:88%; background:var(--zds-zcash-500);"></span></div>
+        </div>
+        <div style="display:grid; gap:8px;">
+          <div style="display:flex; justify-content:space-between; align-items:baseline;"><span style="font-size:14px; font-weight:500; color:var(--zds-ink-900);">Day 30</span><span style="font-size:13px; font-family:var(--zds-font-mono); color:var(--zds-negative); font-weight:500;">1,120 / 1,000</span></div>
+          <div style="position:relative; height:8px; border-radius:var(--zds-radius-pill); background:var(--zds-mist); border:1px solid var(--zds-line); overflow:hidden;"><span style="position:absolute; inset-block:0; left:0; width:100%; background:var(--zds-negative);"></span></div>
+          <span style="font-size:12px; color:var(--zds-text-tertiary);">+150 banked · then top-up required</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flow 4: Billing failure -->
+    <div class="group">
+      <div class="group__title"><h3>Billing failure → recovery</h3><code>RecoveryNotice (error) + retry</code></div>
+      <div class="demo" style="max-width:560px; display:grid; grid-template-columns:auto 1fr; gap:14px; border-color:rgba(215,122,110,0.30);">
+        <span style="width:38px; height:38px; border-radius:50%; display:grid; place-items:center; background:var(--zds-negative-wash); color:var(--zds-negative);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16v.01"/></svg>
+        </span>
+        <div style="display:grid; gap:10px;">
+          <div style="display:grid; gap:4px;">
+            <strong style="font-size:15px; font-weight:600; color:var(--zds-ink-950);">We couldn't renew your plan</strong>
+            <p style="margin:0; font-size:14px; line-height:1.5; color:var(--zds-text-secondary);">The charge for your Pro plan was declined. Sending is paused until billing is fixed.</p>
+          </div>
+          <details style="font-size:13px;">
+            <summary style="cursor:pointer; color:var(--zds-text-secondary); font-weight:500; width:fit-content;">Show details</summary>
+            <div style="margin-top:8px; padding:10px 12px; border-radius:var(--zds-radius-sm); background:var(--zds-mist); border:1px solid var(--zds-line); color:var(--zds-text-secondary); font-family:var(--zds-font-mono); font-size:12px;">invoice INV-2031 · card_declined · retry 3/5</div>
+          </details>
+          <div style="display:flex; gap:14px; align-items:center; flex-wrap:wrap;">
+            <button class="ds-btn ds-btn--primary">Update payment</button>
+            <a class="ds-btn ds-btn--link">Retry charge</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flow 5: Pre-send cost preview -->
+    <div class="group">
+      <div class="group__title"><h3>Pre-send cost preview</h3><code>KeyValueGrid + UsageMeter + PrimaryActionBar</code></div>
+      <div class="demo" style="max-width:460px; display:grid; gap:16px;">
+        <p class="demo__cap">Before you send</p>
+        <div style="display:grid; gap:10px;">
+          <div style="display:flex; justify-content:space-between; font-size:14px;"><span style="color:var(--zds-text-secondary);">Model</span><span style="color:var(--zds-ink-900); font-family:var(--zds-font-mono);">Opus 4.8</span></div>
+          <div style="display:flex; justify-content:space-between; font-size:14px;"><span style="color:var(--zds-text-secondary);">Est. tokens</span><span style="color:var(--zds-ink-900); font-family:var(--zds-font-mono);">~18,400</span></div>
+          <div style="display:flex; justify-content:space-between; font-size:14px;"><span style="color:var(--zds-text-secondary);">Est. cost</span><span style="color:var(--zds-ink-900); font-family:var(--zds-font-mono); font-weight:500;">≈ 240 credits</span></div>
+        </div>
+        <div style="display:grid; gap:8px;">
+          <div style="display:flex; justify-content:space-between; align-items:baseline;"><span style="font-size:13px; color:var(--zds-text-secondary);">After this send</span><span style="font-size:13px; font-family:var(--zds-font-mono); color:var(--zds-text-secondary);">660 / 1,000</span></div>
+          <div style="position:relative; height:8px; border-radius:var(--zds-radius-pill); background:var(--zds-mist); border:1px solid var(--zds-line); overflow:hidden;">
+            <span style="position:absolute; inset-block:0; left:0; width:42%; background:var(--zds-mint-500);"></span>
+            <span style="position:absolute; inset-block:0; left:42%; width:24%; background:color-mix(in srgb, var(--zds-zcash-500) 55%, transparent);"></span>
+          </div>
+          <span style="font-size:12px; color:var(--zds-text-tertiary);">Mint = used today · amber = this send</span>
+        </div>
+        <div style="display:flex; gap:12px; align-items:center; padding-top:4px;">
+          <button class="ds-btn ds-btn--primary" style="flex:1; justify-content:center; height:44px;">Send · 240 credits</button>
+          <button class="ds-btn ds-btn--ghost" style="height:44px;">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
   <!-- 9 · ACCEPTANCE TEST                                           -->
   <!-- ============================================================ -->
   <section id="acceptance">
@@ -1194,6 +1579,23 @@
   </footer>
 
 </div>
+
+<script>
+  (function () {
+    var btn = document.getElementById('themeToggle');
+    var label = document.getElementById('themeToggleLabel');
+    function apply(dark) {
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+      btn.setAttribute('aria-pressed', String(dark));
+      label.textContent = dark ? 'Dark' : 'Light';
+    }
+    btn.addEventListener('click', function () {
+      apply(document.documentElement.getAttribute('data-theme') !== 'dark');
+    });
+    // honour the OS preference on first load
+    apply(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  })();
+</script>
 
 </body>
 </html>
