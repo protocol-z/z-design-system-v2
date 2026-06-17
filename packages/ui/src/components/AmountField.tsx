@@ -34,6 +34,7 @@ export function AmountField({
         </span>
       )}
       <span
+        className="zds-field-wrap"
         style={{
           display: "grid",
           gridTemplateColumns: "1fr auto",

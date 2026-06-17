@@ -14,6 +14,7 @@ export function TextField({ label, hint, pill = false, style, ...props }: TextFi
   const input = (
     <input
       {...props}
+      className={["zds-field", props.className].filter(Boolean).join(" ")}
       style={{
         height: 48,
         borderRadius: pill ? "var(--zds-radius-pill)" : "var(--zds-radius-md)",

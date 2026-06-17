@@ -261,6 +261,31 @@ These are not fully modeled in the static preview yet, but they are needed based
 ### `EventEmptyState`
 - Purpose: empty state for events or activity lists
 
+## Feedback & Guidance (v2.1 — June 2026)
+
+New reusable, app-data-decoupled components. Themed via tokens, light + dark, exported from `packages/ui/src/index.ts`.
+
+### `UsageMeter`
+- Purpose: labeled allowance bar — used/total with optional banked segment, reset hint, and ok/warn/over tones (auto-derived from ratio)
+- Status: shipped in React June 2026
+
+### `ProcessSteps`
+- Purpose: compact live run-list (done/active/todo) with spinner on the active step and an optional inline action ("AI is thinking…")
+- Status: shipped in React June 2026
+- Note: distinct from `TransactionStepper` (editorial, large-title signing flow); use `ProcessSteps` for tight status lists
+
+### `RecoveryNotice`
+- Purpose: actionable error/warning card — title, message, primary action, secondary link, and optional collapsible technical detail (`<details>`)
+- Status: shipped in React June 2026
+
+### `Coachmark`
+- Purpose: anchored product-tour bubble (badge, title, body, step counter, back/next/close) positioned beside a target rect; no full-screen overlay
+- Status: shipped in React June 2026
+
+### `SideNav` (upgraded)
+- Purpose: first-class sidebar rail — brand slot, primary nav items (active w/ `aria-current`), scrollable middle (recents/lists), pinned account slot
+- Status: extended additively June 2026 (original `items`/`linkProps` API unchanged)
+
 ## Proposed Future React Exports
 When this moves into code, a clean export surface would look like:
 

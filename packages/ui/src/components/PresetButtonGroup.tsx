@@ -52,8 +52,8 @@ export function PresetButtonGroup({
               padding: option.helper ? "8px 13px" : "0 13px",
               borderRadius: "var(--zds-radius-pill)",
               border: `1px solid ${selected ? "var(--zds-line-strong)" : "var(--zds-line)"}`,
-              background: selected ? "var(--zds-ink-950)" : "var(--zds-paper)",
-              color: selected ? "var(--zds-paper)" : "var(--zds-ink-900)",
+              background: selected ? "var(--zds-fill-strong)" : "var(--zds-paper)",
+              color: selected ? "var(--zds-on-fill-strong)" : "var(--zds-ink-900)",
               boxShadow: selected ? "none" : "var(--zds-shadow-plate)",
               font: "inherit",
               fontSize: 13,
@@ -65,7 +65,7 @@ export function PresetButtonGroup({
             {option.helper && (
               <span
                 style={{
-                  color: selected ? "rgba(255,255,255,0.68)" : "var(--zds-text-tertiary)",
+                  color: selected ? "color-mix(in srgb, var(--zds-on-fill-strong) 68%, transparent)" : "var(--zds-text-tertiary)",
                   fontSize: 11,
                   fontWeight: 400
                 }}

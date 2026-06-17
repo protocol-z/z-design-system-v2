@@ -17,6 +17,7 @@ export function SelectField({ label, hint, options, children, style, ...props }:
     <span style={{ position: "relative", display: "block" }}>
       <select
         {...props}
+        className={["zds-field", props.className].filter(Boolean).join(" ")}
         style={{
           height: 48,
           width: "100%",

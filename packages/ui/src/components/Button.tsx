@@ -61,8 +61,8 @@ export function Button({
       WebkitBackdropFilter: "blur(14px)"
     },
     dark: {
-      background: "#0B0B0D",
-      color: "#fff"
+      background: "var(--zds-fill-strong)",
+      color: "var(--zds-on-fill-strong)"
     },
     link: {
       height: "auto",

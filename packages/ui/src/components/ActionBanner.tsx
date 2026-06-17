@@ -27,9 +27,9 @@ const accents: Record<ActionTone, string> = {
   default:  "var(--zds-ink-700)",
   private:  "var(--zds-mint-500)",
   unshield: "var(--zds-moss-400)",
-  infra:    "var(--zds-stone-600)",
+  infra:    "var(--zds-slate-500)",
   payment:  "var(--zds-zcash-500)",
-  agent:    "var(--zds-stone-600)" // TODO: --zds-iris-500
+  agent:    "var(--zds-iris-500)"
 };
 
 export function ActionBanner({

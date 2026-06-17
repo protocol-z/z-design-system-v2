@@ -262,6 +262,89 @@
 </article>
 ```
 
+## Feedback & Guidance components (React, v2.1)
+
+These ship as React-only components (no static class equivalent). Import from `@zds/ui`.
+
+### UsageMeter
+
+```tsx
+<UsageMeter
+  label="Inference credits"
+  used={820}
+  total={1000}
+  unit="credits"
+  banked={150}
+  resetLabel="Resets in 12 days"
+/>
+// tone auto-derives: <80% ok · ≥80% warn · ≥100% over — or force tone="over"
+```
+
+### ProcessSteps
+
+```tsx
+<ProcessSteps
+  steps={[
+    { label: "Read your prompt", state: "done" },
+    { label: "Searching docs", state: "active", action: <>AI is thinking…</> },
+    { label: "Draft answer", state: "todo" },
+  ]}
+/>
+```
+
+### RecoveryNotice
+
+```tsx
+<RecoveryNotice
+  tone="error"
+  title="Payment failed"
+  message="Your card was declined. Update your payment method to keep sending."
+  primaryAction={<Button variant="primary" size="sm">Update card</Button>}
+  secondaryLink={<Button variant="link">Contact support</Button>}
+  detail={"gateway: card_declined\nreason: insufficient_funds"}
+/>
+```
+
+### Coachmark
+
+```tsx
+// Anchored to a target element (no full-screen overlay):
+const rect = targetEl.getBoundingClientRect();
+
+<Coachmark
+  badge="New"
+  title="Pick a model"
+  body="Choose the engine that fits your budget. You can switch any time."
+  step={2}
+  total={4}
+  placement="bottom"
+  anchorRect={rect}
+  onBack={prev}
+  onNext={next}
+  onClose={dismiss}
+/>
+// Omit anchorRect to render the bubble in-flow (docs / galleries).
+```
+
+### SideNav (first-class rail)
+
+```tsx
+<SideNav
+  brand={<LogoMark />}
+  items={[
+    { label: "Home", href: "/", icon: <HomeIcon />, active: true },
+    { label: "Inference", href: "/inference", icon: <BoltIcon /> },
+    { label: "Billing", href: "/billing", icon: <CardIcon /> },
+  ]}
+  account={<WalletState address="0x7A…91B4" network="Mainnet" status="Connected" />}
+>
+  {/* scrollable middle — recents / saved lists */}
+  <SectionLabel>Recents</SectionLabel>
+  <a href="/r/1">Draft: launch email</a>
+  <a href="/r/2">Q3 forecast</a>
+</SideNav>
+```
+
 ## React Naming Reference
 
 ```ts
@@ -282,4 +365,8 @@ Toast
 ModalCard
 AccountRail
 DisconnectedState
+UsageMeter
+ProcessSteps
+RecoveryNotice
+Coachmark
 ```

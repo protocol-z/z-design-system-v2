@@ -127,3 +127,13 @@ export { ResultCard } from "./components/ResultCard";
 export type { ResultCardProps } from "./components/ResultCard";
 export { ModalCard } from "./components/ModalCard";
 export type { ModalCardProps } from "./components/ModalCard";
+
+// Feedback + guidance (v2.1)
+export { UsageMeter } from "./components/UsageMeter";
+export type { UsageMeterProps, UsageTone } from "./components/UsageMeter";
+export { ProcessSteps } from "./components/ProcessSteps";
+export type { ProcessStepsProps, ProcessStep, ProcessStepState } from "./components/ProcessSteps";
+export { RecoveryNotice } from "./components/RecoveryNotice";
+export type { RecoveryNoticeProps, RecoveryTone } from "./components/RecoveryNotice";
+export { Coachmark } from "./components/Coachmark";
+export type { CoachmarkProps, CoachmarkPlacement } from "./components/Coachmark";
