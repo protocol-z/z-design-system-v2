@@ -17,6 +17,7 @@
 | **Tokens** | [`packages/ui/src/styles/tokens.css`](./packages/ui/src/styles/tokens.css) | Source of truth — every color, radius, shadow, type token |
 | **Components** | [`packages/ui/src/components/`](./packages/ui/src/components/) | 47 React components on v2 tokens (`@zds/ui`) |
 | **Visual reference** | [`apps/preview/v2.html`](./apps/preview/v2.html) | One file demonstrating every primitive — send for design review |
+| **Enterprise extension** | [`docs/ENTERPRISE.md`](./docs/ENTERPRISE.md) | Code-first operational roles, components, preview, and consumer sync contract |
 | **Brand spec** | [`docs/BRAND.md`](./docs/BRAND.md) | What the brand stands for, the five values, anti-patterns |
 | **Voice spec** | [`docs/VOICE.md`](./docs/VOICE.md) | Writing system — tone, cadence, copy patterns |
 | **Aesthetic spec** | [`docs/AESTHETIC.md`](./docs/AESTHETIC.md) | Visual language — typography, photography, motion |
@@ -45,6 +46,13 @@ export default function Page() {
 }
 ```
 
+Operational admin products can additionally import the experimental Enterprise extension:
+
+```tsx
+import "@zds/ui/styles/enterprise.css";
+import { EnterpriseRoot, StateLabel } from "@zds/ui/enterprise";
+```
+
 If your app is built on Next.js App Router, add `"@zds/ui"` to `transpilePackages` in `next.config.js`. The package ships TSX source — Next compiles it through SWC.
 
 ## Local development
@@ -70,6 +78,7 @@ npm run scan:dev
 z-design-system-v2/
 ├── packages/ui/             # The published package — @zds/ui
 │   ├── src/components/      # React components on v2 tokens
+│   ├── src/enterprise/      # Experimental operational foundation
 │   ├── src/styles/          # tokens.css (the source of truth)
 │   └── src/index.ts         # Barrel export
 ├── apps/
@@ -101,6 +110,7 @@ The v1 brand language (privacy/obfuscation, dark dominance, pixel masks) has bee
 | Tokens (v2) | **Shipped** |
 | React components | **47 shipped** — see [`INVENTORY.md`](./INVENTORY.md) for the full table |
 | Visual reference | **Shipped** at `apps/preview/v2.html` |
+| Enterprise extension | **Experimental** at `apps/preview/enterprise.html` |
 | Z Scan demo | **In dev** — runs at `apps/scan/` |
 | Type system | TypeScript strict, 0 errors |
 | Coverage | Marketing surfaces + most product primitives. Missing: command palette, drawer, toast — tracked in `INVENTORY.md` |

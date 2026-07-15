@@ -107,6 +107,12 @@ Compose components into pages without redefining core spacing, card chrome, or t
 - Any new route in the product app should state which shared components it uses.
 - If a screen requires custom exceptions, document why.
 
+## Enterprise product surfaces
+
+Use `@zds/ui/enterprise` as an additive operational layer, not a fork. The code-first reference is `apps/preview/enterprise.html`; Figma parity is optional. Promote product patterns only after they repeat across two destinations and pass the theme, enlarged-text, narrow-width, focus, disabled, loading, empty, and error-state gate in `docs/ENTERPRISE.md`.
+
+Nito currently consumes a vendored source tree. Sync only the manifest-owned Enterprise subpath with `scripts/sync-enterprise-foundations.mjs`; never use that script to overwrite the divergent core component tree.
+
 ## Design Intent Summary
 The system should feel:
 - privacy-native

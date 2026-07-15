@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Z Design System — Enterprise foundation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../packages/ui/src/styles/tokens.css" />
+  <link rel="stylesheet" href="../../packages/ui/src/styles/enterprise.css" />
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: var(--zds-bg); }
+    body { color: var(--zds-text); }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    .preview-shell { min-height: 100vh; background: var(--zds-bg); }
+    .preview-topbar {
+      min-height: 66px;
+      display: flex;
+      align-items: center;
+      gap: var(--zds-space-3);
+      padding: var(--zds-space-3) var(--zds-space-5);
+      border-bottom: 1px solid var(--zds-line);
+      background: var(--zds-paper);
+    }
+    .preview-title { min-width: 0; display: grid; gap: 2px; }
+    .preview-title strong { font-size: var(--zds-enterprise-type-body); font-weight: 600; }
+    .preview-title span { color: var(--zds-text-tertiary); font-size: var(--zds-enterprise-type-caption); }
+    .preview-controls { margin-left: auto; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--zds-space-2); }
+    .preview-button {
+      min-height: var(--zds-enterprise-control-height);
+      padding: 0 var(--zds-space-3);
+      border: 1px solid var(--zds-line);
+      border-radius: var(--zds-radius-sm);
+      background: var(--zds-enterprise-control-bg);
+      color: var(--zds-text);
+      font-size: var(--zds-enterprise-type-control);
+      font-weight: 600;
+    }
+    .preview-button:hover { background: var(--zds-enterprise-control-hover); }
+    .preview-button[aria-pressed="true"] {
+      border-color: var(--zds-enterprise-action-border);
+      background: var(--zds-enterprise-action-bg);
+      color: var(--zds-enterprise-action-fg);
+    }
+    .preview-main {
+      width: min(1180px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: var(--zds-space-5) 0 var(--zds-space-7);
+    }
+    .preview-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--zds-space-5); margin-bottom: var(--zds-space-5); }
+    .preview-heading h1 { margin: 0; font-size: clamp(1.6875rem, 2.2vw, 1.875rem); line-height: 1.2; letter-spacing: -0.022em; font-weight: 600; }
+    .preview-heading p { margin: var(--zds-space-2) 0 0; color: var(--zds-text-secondary); font-size: var(--zds-enterprise-type-body); line-height: 1.5; }
+    .preview-stack { display: grid; gap: var(--zds-space-4); }
+    .preview-surface { border: 1px solid var(--zds-line); border-radius: var(--zds-radius-sm); background: var(--zds-paper); box-shadow: var(--zds-shadow-plate); overflow: hidden; }
+    .preview-surface-header { min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: var(--zds-space-4); padding: 0 var(--zds-space-4); border-bottom: 1px solid var(--zds-line); }
+    .preview-surface-header h2 { margin: 0; font-size: var(--zds-enterprise-type-section); line-height: 1.35; font-weight: 600; }
+    .preview-surface-header span { color: var(--zds-text-tertiary); font-size: var(--zds-enterprise-type-caption); }
+    .preview-body { padding: var(--zds-space-4); }
+    .type-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--zds-space-4); }
+    .type-sample { min-width: 0; display: grid; align-content: start; gap: var(--zds-space-2); }
+    .type-sample code { color: var(--zds-text-tertiary); font-family: var(--zds-font-mono); font-size: var(--zds-enterprise-type-micro); overflow-wrap: anywhere; }
+    .type-section { font-size: var(--zds-enterprise-type-section); font-weight: 600; }
+    .type-body { font-size: var(--zds-enterprise-type-body); }
+    .type-control { font-size: var(--zds-enterprise-type-control); font-weight: 600; }
+    .type-caption { color: var(--zds-text-secondary); font-size: var(--zds-enterprise-type-caption); }
+    .type-micro { color: var(--zds-text-tertiary); font-family: var(--zds-font-mono); font-size: var(--zds-enterprise-type-micro); }
+    .control-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--zds-space-5); }
+    .control-column { min-width: 0; display: grid; align-content: start; gap: var(--zds-space-3); }
+    .control-column > strong { font-size: var(--zds-enterprise-type-body); }
+    .action-row { display: flex; flex-wrap: wrap; gap: var(--zds-space-2); }
+    .action {
+      min-height: var(--zds-enterprise-control-height);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 var(--zds-space-4);
+      border-radius: var(--zds-radius-sm);
+      font-size: var(--zds-enterprise-type-control);
+      font-weight: 600;
+    }
+    .action-primary { border: 1px solid var(--zds-enterprise-action-border); background: var(--zds-enterprise-action-bg); color: var(--zds-enterprise-action-fg); }
+    .action-secondary { border: 1px solid var(--zds-line); background: var(--zds-enterprise-control-bg); color: var(--zds-text); }
+    .action:disabled { cursor: not-allowed; border-color: var(--zds-line); background: var(--zds-mist); color: var(--zds-text-tertiary); }
+    .field-label { display: grid; gap: var(--zds-space-2); color: var(--zds-text-secondary); font-size: var(--zds-enterprise-type-caption); font-weight: 600; }
+    .field-label input, .field-label select {
+      width: 100%;
+      min-height: var(--zds-enterprise-field-height);
+      padding: 0 var(--zds-space-3);
+      border: 1px solid var(--zds-line-strong);
+      border-radius: var(--zds-radius-sm);
+      background: var(--zds-enterprise-field-bg);
+      color: var(--zds-text);
+      font-size: var(--zds-enterprise-type-body);
+    }
+    .field-label small { color: var(--zds-text-tertiary); font-size: var(--zds-enterprise-type-caption); font-weight: 400; line-height: 1.45; }
+    .state-row { display: flex; flex-wrap: wrap; gap: var(--zds-space-2); }
+    .portfolio { display: grid; }
+    .portfolio-row {
+      min-height: var(--zds-enterprise-row-height);
+      display: grid;
+      grid-template-columns: minmax(160px, 1.1fr) minmax(150px, 0.85fr) minmax(240px, 1.5fr) minmax(110px, 0.6fr);
+      align-items: center;
+      gap: var(--zds-space-4);
+      padding: var(--zds-space-3) var(--zds-space-4);
+      border-top: 1px solid var(--zds-line);
+    }
+    .portfolio-row:first-child { border-top: 0; }
+    .portfolio-cell { min-width: 0; display: grid; gap: 3px; font-size: var(--zds-enterprise-type-caption); overflow-wrap: anywhere; }
+    .portfolio-cell strong { font-size: var(--zds-enterprise-type-control); font-weight: 600; }
+    .portfolio-cell span, .portfolio-cell code { color: var(--zds-text-tertiary); font-size: var(--zds-enterprise-type-micro); }
+    .portfolio-cell code { font-family: var(--zds-font-mono); }
+    .row-action { min-height: var(--zds-enterprise-compact-action-height); padding: 0 var(--zds-space-3); border: 1px solid var(--zds-line-strong); border-radius: var(--zds-radius-sm); background: var(--zds-enterprise-control-bg); color: var(--zds-text); font-size: var(--zds-enterprise-type-control); }
+    @media (max-width: 900px) {
+      .type-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .control-grid { grid-template-columns: 1fr; }
+      .portfolio-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
+    }
+    @media (max-width: 620px) {
+      .preview-topbar, .preview-heading { align-items: stretch; flex-direction: column; }
+      .preview-controls { margin-left: 0; justify-content: flex-start; }
+      .preview-main { width: min(calc(100% - 28px), 1180px); padding-top: var(--zds-space-4); }
+      .type-grid, .portfolio-row { grid-template-columns: 1fr; }
+      .portfolio-row { gap: var(--zds-space-3); }
+    }
+  </style>
+</head>
+<body>
+  <div class="zds-enterprise-root preview-shell" data-enterprise-text-scale="default" data-enterprise-density="compact">
+    <header class="preview-topbar">
+      <div class="preview-title">
+        <strong>Enterprise foundation</strong>
+        <span>Code-first extension · experimental</span>
+      </div>
+      <div class="preview-controls" aria-label="Preview controls">
+        <button class="preview-button" type="button" data-scale="default" aria-pressed="true">Default text</button>
+        <button class="preview-button" type="button" data-scale="large" aria-pressed="false">Large text</button>
+        <button class="preview-button" type="button" id="theme-toggle" aria-pressed="true">Dark theme</button>
+      </div>
+    </header>
+
+    <main class="preview-main">
+      <div class="preview-heading">
+        <div>
+          <h1>Operational UI foundation</h1>
+          <p>Shared Nito language with the density, hierarchy, and accessibility behavior needed by administrative workflows.</p>
+        </div>
+        <span class="zds-enterprise-state-label" data-tone="info" data-size="md"><span class="zds-enterprise-state-label__dot" aria-hidden="true"></span><span>Prototype proven</span></span>
+      </div>
+
+      <div class="preview-stack">
+        <section class="preview-surface">
+          <header class="preview-surface-header">
+            <h2>Typography roles</h2>
+            <span>11px minimum</span>
+          </header>
+          <div class="preview-body type-grid">
+            <div class="type-sample"><span class="type-section">Section title</span><code>section · 16/22</code></div>
+            <div class="type-sample"><span class="type-body">Policy explanation</span><code>body · 14/21</code></div>
+            <div class="type-sample"><span class="type-control">Run preflight</span><code>control · 12.5/18</code></div>
+            <div class="type-sample"><span class="type-caption">Inherited from organization</span><code>caption · 12/17</code></div>
+            <div class="type-sample"><span class="type-micro">proj_supp_01</span><code>micro · 11/16</code></div>
+          </div>
+        </section>
+
+        <section class="preview-surface">
+          <header class="preview-surface-header">
+            <h2>Controls and fields</h2>
+            <span>Shared semantics, operational geometry</span>
+          </header>
+          <div class="preview-body control-grid">
+            <div class="control-column">
+              <strong>Actions</strong>
+              <div class="action-row">
+                <button class="action action-primary" type="button">Publish policy</button>
+                <button class="action action-secondary" type="button">Save draft</button>
+                <button class="action" type="button" disabled>Run preflight</button>
+              </div>
+            </div>
+            <div class="control-column">
+              <label class="field-label">Policy name<input value="Private Production Baseline v4" aria-label="Policy name" /></label>
+              <label class="field-label">Residency<select aria-label="Residency"><option>us-east-1</option><option>eu-west-1</option></select><small>Selection remains readable at browser zoom and the large-text acceptance state.</small></label>
+            </div>
+          </div>
+        </section>
+
+        <section class="preview-surface">
+          <header class="preview-surface-header">
+            <h2>Operational states</h2>
+            <span>Sentence case, never color alone</span>
+          </header>
+          <div class="preview-body state-row">
+            <span class="zds-enterprise-state-label" data-tone="positive" data-size="md"><span class="zds-enterprise-state-label__dot" aria-hidden="true"></span><span>Active</span></span>
+            <span class="zds-enterprise-state-label" data-tone="attention" data-size="md"><span class="zds-enterprise-state-label__dot" aria-hidden="true"></span><span>Preflight required</span></span>
+            <span class="zds-enterprise-state-label" data-tone="negative" data-size="md"><span class="zds-enterprise-state-label__dot" aria-hidden="true"></span><span>Denied</span></span>
+            <span class="zds-enterprise-state-label" data-tone="info" data-size="md"><span class="zds-enterprise-state-label__dot" aria-hidden="true"></span><span>Inherited</span></span>
+            <span class="zds-enterprise-state-label" data-tone="neutral" data-size="md"><span class="zds-enterprise-state-label__dot" aria-hidden="true"></span><span>Not configured</span></span>
+          </div>
+        </section>
+
+        <section class="preview-surface">
+          <header class="preview-surface-header">
+            <h2>Responsive operational rows</h2>
+            <span>Reflow instead of horizontal scrolling</span>
+          </header>
+          <div class="portfolio">
+            <article class="portfolio-row">
+              <div class="portfolio-cell"><strong>Support Production</strong><code>proj_supp_01</code></div>
+              <div class="portfolio-cell"><strong>Production</strong><span>Support Platform</span></div>
+              <div class="portfolio-cell"><span class="zds-enterprise-state-label" data-tone="attention"><span class="zds-enterprise-state-label__dot" aria-hidden="true"></span><span>Preflight required</span></span><span>Private Production Baseline v4</span></div>
+              <button class="row-action" type="button">Run preflight</button>
+            </article>
+            <article class="portfolio-row">
+              <div class="portfolio-cell"><strong>Research Sandbox</strong><code>proj_rs_02</code></div>
+              <div class="portfolio-cell"><strong>Sandbox</strong><span>Applied Research</span></div>
+              <div class="portfolio-cell"><span class="zds-enterprise-state-label" data-tone="positive"><span class="zds-enterprise-state-label__dot" aria-hidden="true"></span><span>Active</span></span><span>Research Sandbox v2</span></div>
+              <button class="row-action" type="button">View project</button>
+            </article>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script>
+    const root = document.querySelector(".zds-enterprise-root");
+    const scaleButtons = document.querySelectorAll("[data-scale]");
+    scaleButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        root.dataset.enterpriseTextScale = button.dataset.scale;
+        scaleButtons.forEach((candidate) => candidate.setAttribute("aria-pressed", String(candidate === button)));
+      });
+    });
+    const themeButton = document.querySelector("#theme-toggle");
+    themeButton.addEventListener("click", () => {
+      const dark = document.documentElement.dataset.theme === "dark";
+      document.documentElement.dataset.theme = dark ? "light" : "dark";
+      themeButton.setAttribute("aria-pressed", String(!dark));
+    });
+  </script>
+</body>
+</html>

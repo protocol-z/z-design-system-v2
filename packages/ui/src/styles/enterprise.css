@@ -1,0 +1,141 @@
+/* =================================================================
+   Z Design System — Enterprise extension
+
+   Import after tokens.css. This file contains only the semantic roles that
+   have been proven across the Nito Enterprise overview, project, and policy
+   workflows. Product compositions stay in the product until they repeat.
+   ================================================================= */
+
+.zds-enterprise-root {
+  --zds-enterprise-text-scale: 1;
+  --zds-enterprise-type-micro: calc(0.6875rem * var(--zds-enterprise-text-scale));
+  --zds-enterprise-type-caption: calc(0.75rem * var(--zds-enterprise-text-scale));
+  --zds-enterprise-type-control: calc(0.78125rem * var(--zds-enterprise-text-scale));
+  --zds-enterprise-type-body: calc(0.875rem * var(--zds-enterprise-text-scale));
+  --zds-enterprise-type-section: calc(1rem * var(--zds-enterprise-text-scale));
+
+  --zds-enterprise-control-height: calc(2.375rem * var(--zds-enterprise-text-scale));
+  --zds-enterprise-compact-action-height: calc(1.875rem * var(--zds-enterprise-text-scale));
+  --zds-enterprise-field-height: calc(2.625rem * var(--zds-enterprise-text-scale));
+  --zds-enterprise-row-height: calc(4.625rem * var(--zds-enterprise-text-scale));
+
+  --zds-enterprise-action-bg: var(--zds-fill-strong);
+  --zds-enterprise-action-fg: var(--zds-on-fill-strong);
+  --zds-enterprise-action-border: var(--zds-fill-strong);
+  --zds-enterprise-action-hover: color-mix(in srgb, var(--zds-fill-strong) 86%, transparent);
+  --zds-enterprise-control-bg: var(--zds-paper);
+  --zds-enterprise-control-hover: var(--zds-mist);
+  --zds-enterprise-field-bg: var(--zds-bg);
+
+  color: var(--zds-text);
+  font-family: var(--zds-font-body);
+}
+
+.zds-enterprise-root[data-enterprise-text-scale="large"] {
+  --zds-enterprise-text-scale: 1.125;
+}
+
+.zds-enterprise-root[data-enterprise-density="comfortable"] {
+  --zds-enterprise-control-height: calc(2.75rem * var(--zds-enterprise-text-scale));
+  --zds-enterprise-compact-action-height: calc(2.25rem * var(--zds-enterprise-text-scale));
+  --zds-enterprise-field-height: calc(3rem * var(--zds-enterprise-text-scale));
+  --zds-enterprise-row-height: calc(5rem * var(--zds-enterprise-text-scale));
+}
+
+[data-theme="dark"] .zds-enterprise-root {
+  --zds-enterprise-action-bg: var(--zds-cream);
+  --zds-enterprise-action-fg: var(--zds-text);
+  --zds-enterprise-action-border: var(--zds-line-strong);
+  --zds-enterprise-action-hover: color-mix(in srgb, var(--zds-cream) 84%, white);
+  --zds-enterprise-control-bg: var(--zds-paper);
+  --zds-enterprise-control-hover: var(--zds-cream);
+  color-scheme: dark;
+}
+
+.zds-enterprise-root :where(button, input, select, textarea) {
+  font-family: inherit;
+}
+
+.zds-enterprise-root :where(button, a, input, select, textarea):focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--zds-line-focus);
+}
+
+.zds-enterprise-state-label {
+  min-height: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0 0.5rem;
+  border: 1px solid var(--zds-line);
+  border-radius: var(--zds-radius-pill);
+  background: var(--zds-enterprise-control-bg);
+  color: var(--zds-text-secondary);
+  font-size: var(--zds-enterprise-type-micro);
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.zds-enterprise-state-label[data-size="md"] {
+  min-height: 1.75rem;
+  padding: 0 0.625rem;
+  font-size: var(--zds-enterprise-type-caption);
+}
+
+.zds-enterprise-state-label__dot {
+  width: 0.375rem;
+  height: 0.375rem;
+  flex: 0 0 auto;
+  border-radius: var(--zds-radius-pill);
+  background: var(--zds-pending);
+}
+
+.zds-enterprise-state-label[data-tone="positive"] {
+  border-color: color-mix(in srgb, var(--zds-positive) 28%, var(--zds-line));
+  background: var(--zds-positive-wash);
+  color: var(--zds-text);
+}
+
+.zds-enterprise-state-label[data-tone="positive"] .zds-enterprise-state-label__dot {
+  background: var(--zds-positive);
+}
+
+.zds-enterprise-state-label[data-tone="attention"] {
+  border-color: color-mix(in srgb, var(--zds-zcash-500) 38%, var(--zds-line));
+  background: color-mix(in srgb, var(--zds-zcash-500) 12%, var(--zds-enterprise-control-bg));
+  color: var(--zds-text);
+}
+
+.zds-enterprise-state-label[data-tone="attention"] .zds-enterprise-state-label__dot {
+  background: var(--zds-zcash-500);
+}
+
+.zds-enterprise-state-label[data-tone="negative"] {
+  border-color: color-mix(in srgb, var(--zds-negative) 34%, var(--zds-line));
+  background: var(--zds-negative-wash);
+  color: var(--zds-text);
+}
+
+.zds-enterprise-state-label[data-tone="negative"] .zds-enterprise-state-label__dot {
+  background: var(--zds-negative);
+}
+
+.zds-enterprise-state-label[data-tone="info"] {
+  border-color: color-mix(in srgb, var(--zds-ink-500) 28%, var(--zds-line));
+  background: color-mix(in srgb, var(--zds-ink-500) 10%, var(--zds-enterprise-control-bg));
+  color: var(--zds-text);
+}
+
+.zds-enterprise-state-label[data-tone="info"] .zds-enterprise-state-label__dot {
+  background: var(--zds-ink-500);
+}
+
+@media (forced-colors: active) {
+  .zds-enterprise-state-label {
+    forced-color-adjust: auto;
+  }
+}

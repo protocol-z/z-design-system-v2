@@ -14,6 +14,15 @@ import "@zds/ui/styles/tokens.css";
 import { Button, DataTable, ChainSwitcher } from "@zds/ui";
 ```
 
+For operational admin surfaces:
+
+```tsx
+import "@zds/ui/styles/enterprise.css";
+import { EnterpriseRoot, StateLabel } from "@zds/ui/enterprise";
+```
+
+The Enterprise subpath is experimental and additive. It shares the core token and component language rather than defining a separate design system. See [`docs/ENTERPRISE.md`](../../docs/ENTERPRISE.md).
+
 In Next.js App Router projects, add `"@zds/ui"` to `transpilePackages` in
 `next.config.js` — the package ships TSX source, so Next compiles it
 through SWC.

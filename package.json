@@ -13,7 +13,9 @@
   ],
   "scripts": {
     "preview": "python3 -m http.server 4173",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "sync:enterprise": "node scripts/sync-enterprise-foundations.mjs --write",
+    "check:enterprise-sync": "node scripts/sync-enterprise-foundations.mjs --check"
   },
   "devDependencies": {
     "@types/react": "^19.2.2",

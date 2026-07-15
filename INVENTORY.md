@@ -42,6 +42,18 @@ This file is the quickest way to understand the current state of the Z Design Sy
 | `Space Grotesk` | Heading and structural emphasis | titles, high-signal values, key labels |
 | `Instrument Sans` | UI and support text | body copy, controls, helper copy |
 
+## Enterprise extension (July 2026)
+
+Status: experimental and code-first. The shared operational foundation is documented in `docs/ENTERPRISE.md` and demonstrated in `apps/preview/enterprise.html`.
+
+| Export | Status | Notes |
+| --- | --- | --- |
+| `styles/enterprise.css` | Experimental | Semantic 11–16px type roles, 1.125x large-text acceptance state, density roles, and theme-aware operational aliases. |
+| `EnterpriseRoot` | Experimental | Scopes text scale, density, and Enterprise semantic aliases without creating a second theme. |
+| `StateLabel` | Experimental | Sentence-case operational status; distinct from categorical `StatusBadge`. |
+
+Policy editors, activation ledgers, responsive project portfolios, metadata drawers, and activity logs remain product compositions until a second destination proves their reusable contract.
+
 ## Component Status (May 2026, post-Inference/Stake expansion)
 
 Legend:
