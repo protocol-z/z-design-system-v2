@@ -286,6 +286,20 @@ New reusable, app-data-decoupled components. Themed via tokens, light + dark, ex
 - Purpose: first-class sidebar rail — brand slot, primary nav items (active w/ `aria-current`), scrollable middle (recents/lists), pinned account slot
 - Status: extended additively June 2026 (original `items`/`linkProps` API unchanged)
 
+## Enterprise extension (experimental — July 2026)
+
+The Enterprise extension is exported through `@zds/ui/enterprise` and requires `@zds/ui/styles/enterprise.css`. It inherits the core system and is not an independent theme or package.
+
+### `EnterpriseRoot`
+- Purpose: scopes operational typography, density, control aliases, and the large-text acceptance state
+- Props: `textScale` (`default` / `large`), `density` (`compact` / `comfortable`), standard `div` attributes
+- Status: experimental; proven across Enterprise overview, project, and policy prototype destinations
+
+### `StateLabel`
+- Purpose: compact sentence-case state for policy, request, key, budget, and evidence workflows
+- Props: `tone` (`neutral` / `positive` / `attention` / `negative` / `info`), `size` (`sm` / `md`), `showDot`
+- Status: experimental; distinct from the categorical/all-caps `StatusBadge`
+
 ## Proposed Future React Exports
 When this moves into code, a clean export surface would look like:
 

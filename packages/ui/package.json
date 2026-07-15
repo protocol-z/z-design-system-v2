@@ -19,7 +19,12 @@
       "types": "./src/index.ts",
       "default": "./src/index.ts"
     },
-    "./styles/tokens.css": "./src/styles/tokens.css"
+    "./enterprise": {
+      "types": "./src/enterprise/index.ts",
+      "default": "./src/enterprise/index.ts"
+    },
+    "./styles/tokens.css": "./src/styles/tokens.css",
+    "./styles/enterprise.css": "./src/styles/enterprise.css"
   },
   "files": [
     "src",
